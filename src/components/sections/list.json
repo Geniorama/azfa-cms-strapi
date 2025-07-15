@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_lists",
+  "info": {
+    "displayName": "List",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "headingList": {
+      "type": "component",
+      "component": "components.heading-list",
+      "repeatable": false
+    },
+    "items": {
+      "type": "component",
+      "component": "components.item-list",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

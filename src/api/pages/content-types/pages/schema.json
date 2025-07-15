@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "page",
+  "info": {
+    "singularName": "pages",
+    "pluralName": "page",
+    "displayName": "Páginas General"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "heading": {
+      "type": "component",
+      "component": "sections.heading",
+      "repeatable": false
+    },
+    "SEO": {
+      "type": "component",
+      "component": "sections.seo",
+      "repeatable": true
+    },
+    "Sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.list",
+        "sections.heading",
+        "sections.call-to-action"
+      ]
+    }
+  }
+}

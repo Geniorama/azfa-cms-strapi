@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_components_item_lists",
+  "info": {
+    "displayName": "ItemList",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

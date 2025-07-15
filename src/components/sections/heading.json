@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_sections_headings",
+  "info": {
+    "displayName": "Heading",
+    "icon": "pin"
+  },
+  "options": {},
+  "attributes": {
+    "smallTitle": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "button": {
+      "type": "component",
+      "component": "components.button",
+      "repeatable": false
+    },
+    "backgroundImg": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "alignment": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
