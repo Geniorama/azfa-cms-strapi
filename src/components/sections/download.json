@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_sections_downloads",
+  "info": {
+    "displayName": "Download",
+    "icon": "filePdf"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "cover": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "document": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "textButton": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

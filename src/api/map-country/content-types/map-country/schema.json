@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "map_countries",
+  "info": {
+    "singularName": "map-country",
+    "pluralName": "map-countries",
+    "displayName": "Map Country"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "country": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "colombia",
+        "argentina",
+        "chile",
+        "brasil"
+      ]
+    },
+    "document": {
+      "type": "component",
+      "component": "sections.download",
+      "repeatable": false
+    },
+    "items": {
+      "type": "component",
+      "component": "sections.list",
+      "repeatable": false
+    }
+  }
+}

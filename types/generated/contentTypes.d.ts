@@ -373,63 +373,102 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiNormativaPaisesNormativaPaises
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'normativa_pais';
+export interface ApiContentContent extends Struct.CollectionTypeSchema {
+  collectionName: 'contents';
   info: {
-    displayName: 'Normativa Pa\u00EDses';
-    pluralName: 'normativa-pais';
-    singularName: 'normativa-paises';
+    displayName: 'Content';
+    pluralName: 'contents';
+    singularName: 'content';
   };
   options: {
     draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    guiaLegal: Schema.Attribute.Media<'files'>;
-    items: Schema.Attribute.Component<'sections.list', true>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    heading: Schema.Attribute.Component<'sections.heading', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::normativa-paises.normativa-paises'
-    > &
-      Schema.Attribute.Private;
-    nombrePais: Schema.Attribute.String;
+      'api::content.content'
+    >;
     publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'sections.seo',
+        'sections.list',
+        'sections.heading',
+        'sections.download',
+        'sections.call-to-action',
+      ]
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    valor: Schema.Attribute.UID<'nombrePais'>;
   };
 }
 
-export interface ApiPagesPages extends Struct.CollectionTypeSchema {
-  collectionName: 'page';
+export interface ApiMapCountryMapCountry extends Struct.CollectionTypeSchema {
+  collectionName: 'map_countries';
   info: {
-    displayName: 'P\u00E1ginas General';
-    pluralName: 'page';
-    singularName: 'pages';
+    displayName: 'Map Country';
+    pluralName: 'map-countries';
+    singularName: 'map-country';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
+    country: Schema.Attribute.Enumeration<
+      ['colombia', 'argentina', 'chile', 'brasil']
+    > &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    heading: Schema.Attribute.Component<'sections.heading', false>;
+    document: Schema.Attribute.Component<'sections.download', false>;
+    items: Schema.Attribute.Component<'sections.list', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::pages.pages'> &
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::map-country.map-country'
+    > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    Sections: Schema.Attribute.DynamicZone<
-      ['sections.list', 'sections.heading', 'sections.call-to-action']
-    >;
-    SEO: Schema.Attribute.Component<'sections.seo', true>;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -945,8 +984,8 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::normativa-paises.normativa-paises': ApiNormativaPaisesNormativaPaises;
-      'api::pages.pages': ApiPagesPages;
+      'api::content.content': ApiContentContent;
+      'api::map-country.map-country': ApiMapCountryMapCountry;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

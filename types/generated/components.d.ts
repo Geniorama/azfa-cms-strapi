@@ -47,6 +47,21 @@ export interface SectionsCallToAction extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsDownload extends Struct.ComponentSchema {
+  collectionName: 'components_sections_downloads';
+  info: {
+    displayName: 'Download';
+    icon: 'filePdf';
+  };
+  attributes: {
+    cover: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    document: Schema.Attribute.Media<'files'> & Schema.Attribute.Required;
+    target: Schema.Attribute.String;
+    textButton: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsHeading extends Struct.ComponentSchema {
   collectionName: 'components_sections_headings';
   info: {
@@ -96,6 +111,7 @@ declare module '@strapi/strapi' {
       'components.heading-list': ComponentsHeadingList;
       'components.item-list': ComponentsItemList;
       'sections.call-to-action': SectionsCallToAction;
+      'sections.download': SectionsDownload;
       'sections.heading': SectionsHeading;
       'sections.list': SectionsList;
       'sections.seo': SectionsSeo;
