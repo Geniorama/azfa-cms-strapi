@@ -18,7 +18,19 @@
         "colombia",
         "argentina",
         "chile",
-        "brasil"
+        "brasil",
+        "espana",
+        "venezuela"
+      ]
+    },
+    "countryImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
       ]
     },
     "document": {
@@ -29,7 +41,7 @@
     "items": {
       "type": "component",
       "component": "sections.list",
-      "repeatable": false
+      "repeatable": true
     }
   }
 }

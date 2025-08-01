@@ -454,14 +454,17 @@ export interface ApiMapCountryMapCountry extends Struct.CollectionTypeSchema {
   };
   attributes: {
     country: Schema.Attribute.Enumeration<
-      ['colombia', 'argentina', 'chile', 'brasil']
+      ['colombia', 'argentina', 'chile', 'brasil', 'espana', 'venezuela']
     > &
       Schema.Attribute.Required;
+    countryImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     document: Schema.Attribute.Component<'sections.download', false>;
-    items: Schema.Attribute.Component<'sections.list', false>;
+    items: Schema.Attribute.Component<'sections.list', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
