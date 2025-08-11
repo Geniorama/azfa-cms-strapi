@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "real_state_offers",
+  "info": {
+    "singularName": "real-state-offer",
+    "pluralName": "real-state-offers",
+    "displayName": "Real State Offer"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "propertyType": {
+      "type": "enumeration",
+      "enum": [
+        "Casa",
+        "Apartamento",
+        "Bodega"
+      ]
+    },
+    "offerType": {
+      "type": "enumeration",
+      "enum": [
+        "Venta",
+        "Alquiler"
+      ]
+    },
+    "propertyUse": {
+      "type": "enumeration",
+      "enum": [
+        "Terreno",
+        "Industria",
+        "Comercial"
+      ]
+    },
+    "area": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "region": {
+      "type": "string"
+    },
+    "imgGallery": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "platinum": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

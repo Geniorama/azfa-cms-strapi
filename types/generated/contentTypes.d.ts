@@ -478,6 +478,49 @@ export interface ApiMapCountryMapCountry extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiRealStateOfferRealStateOffer
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'real_state_offers';
+  info: {
+    displayName: 'Real State Offer';
+    pluralName: 'real-state-offers';
+    singularName: 'real-state-offer';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    area: Schema.Attribute.String;
+    city: Schema.Attribute.String;
+    country: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    imgGallery: Schema.Attribute.Media<'images', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::real-state-offer.real-state-offer'
+    > &
+      Schema.Attribute.Private;
+    offerType: Schema.Attribute.Enumeration<['Venta', 'Alquiler']>;
+    platinum: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    propertyType: Schema.Attribute.Enumeration<
+      ['Casa', 'Apartamento', 'Bodega']
+    >;
+    propertyUse: Schema.Attribute.Enumeration<
+      ['Terreno', 'Industria', 'Comercial']
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    region: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -989,6 +1032,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::content.content': ApiContentContent;
       'api::map-country.map-country': ApiMapCountryMapCountry;
+      'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
