@@ -63,6 +63,21 @@
     "platinum": {
       "type": "boolean",
       "default": false
+    },
+    "certifications": {
+      "type": "blocks"
+    },
+    "propertyStatus": {
+      "type": "enumeration",
+      "enum": [
+        "Nuevo",
+        "Usado"
+      ]
+    },
+    "ctaButton": {
+      "type": "component",
+      "component": "components.button",
+      "repeatable": false
     }
   }
 }

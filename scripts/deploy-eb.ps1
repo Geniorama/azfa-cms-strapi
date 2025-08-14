@@ -126,3 +126,5 @@ Write-Host ""
 Write-Host "🔍 Información del entorno:" -ForegroundColor Cyan
 & eb status $EnvironmentName
 
+
+

@@ -90,3 +90,5 @@ if ($LASTEXITCODE -eq 0) {
 Write-Host ""
 Write-Host "🎉 Prueba de conectividad completada" -ForegroundColor Green
 
+
+

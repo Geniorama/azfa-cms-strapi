@@ -491,11 +491,13 @@ export interface ApiRealStateOfferRealStateOffer
   };
   attributes: {
     area: Schema.Attribute.String;
+    certifications: Schema.Attribute.Blocks;
     city: Schema.Attribute.String;
     country: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    ctaButton: Schema.Attribute.Component<'components.button', false>;
     imgGallery: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -505,6 +507,7 @@ export interface ApiRealStateOfferRealStateOffer
       Schema.Attribute.Private;
     offerType: Schema.Attribute.Enumeration<['Venta', 'Alquiler']>;
     platinum: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    propertyStatus: Schema.Attribute.Enumeration<['Nuevo', 'Usado']>;
     propertyType: Schema.Attribute.Enumeration<
       ['Casa', 'Apartamento', 'Bodega']
     >;

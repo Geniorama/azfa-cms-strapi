@@ -60,3 +60,5 @@ if ($continuar -eq "s" -or $continuar -eq "S") {
     Write-Host "   Get-ChildItem Env: | Where-Object { `$_.Name -like '*DATABASE*' -or `$_.Name -like '*RDS*' }" -ForegroundColor White
 }
 
+
+
