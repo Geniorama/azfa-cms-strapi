@@ -1,0 +1,53 @@
+{
+  "name": "cms-strapi-azfa",
+  "description": "CMS Strapi para AZFA",
+  "repository": "https://github.com/tu-usuario/cms-strapi-azfa",
+  "logo": "https://node-js-sample.herokuapp.com/node.png",
+  "keywords": ["node", "strapi", "cms", "postgresql"],
+  "env": {
+    "NODE_ENV": {
+      "description": "Environment for the application",
+      "value": "production"
+    },
+    "NODE_OPTIONS": {
+      "description": "Node.js options to limit memory usage",
+      "value": "--max-old-space-size=512"
+    },
+    "UV_THREADPOOL_SIZE": {
+      "description": "Thread pool size for better performance",
+      "value": "4"
+    },
+    "DATABASE_POOL_MIN": {
+      "description": "Minimum database connections",
+      "value": "1"
+    },
+    "DATABASE_POOL_MAX": {
+      "description": "Maximum database connections",
+      "value": "3"
+    },
+    "CRON_ENABLED": {
+      "description": "Disable cron jobs to save memory",
+      "value": "false"
+    },
+    "LOG_LEVEL": {
+      "description": "Log level for production",
+      "value": "error"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

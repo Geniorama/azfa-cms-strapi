@@ -9,7 +9,8 @@
     "deploy": "strapi deploy",
     "dev": "strapi develop",
     "develop": "strapi develop",
-    "start": "NODE_ENV=production npm run build && node server.js",
+    "start": "node server.js",
+    "heroku-postbuild": "NODE_ENV=production npm run build",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
