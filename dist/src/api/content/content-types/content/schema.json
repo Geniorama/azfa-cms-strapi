@@ -1,0 +1,71 @@
+{
+    "kind": "collectionType",
+    "collectionName": "contents",
+    "info": {
+        "singularName": "content",
+        "pluralName": "contents",
+        "displayName": "Content"
+    },
+    "options": {
+        "draftAndPublish": true
+    },
+    "pluginOptions": {
+        "i18n": {
+            "localized": true
+        }
+    },
+    "attributes": {
+        "title": {
+            "type": "string",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            }
+        },
+        "slug": {
+            "type": "uid",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "targetField": "title"
+        },
+        "heading": {
+            "type": "component",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "component": "sections.heading",
+            "repeatable": false
+        },
+        "SEO": {
+            "type": "component",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "component": "sections.seo",
+            "repeatable": false
+        },
+        "sections": {
+            "type": "dynamiczone",
+            "pluginOptions": {
+                "i18n": {
+                    "localized": true
+                }
+            },
+            "components": [
+                "sections.seo",
+                "sections.list",
+                "sections.heading",
+                "sections.download",
+                "sections.call-to-action"
+            ]
+        }
+    }
+}
