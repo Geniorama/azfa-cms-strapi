@@ -9,5 +9,8 @@
 
 const strapi = require('@strapi/strapi');
 
-// Start Strapi
-strapi().start();
+// Start Strapi with proper configuration
+strapi({
+  appPath: __dirname,
+  distPath: __dirname,
+}).start();
