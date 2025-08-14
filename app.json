@@ -32,6 +32,14 @@
     "LOG_LEVEL": {
       "description": "Log level for production",
       "value": "error"
+    },
+    "NPM_CONFIG_PRODUCTION": {
+      "description": "Skip dev dependencies during build",
+      "value": "true"
+    },
+    "NPM_CONFIG_CACHE": {
+      "description": "Use npm cache during build",
+      "value": "/tmp/npm-cache"
     }
   },
   "formation": {
