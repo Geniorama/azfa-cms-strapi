@@ -60,6 +60,16 @@ jobs:
             echo "🔨 Construyendo aplicación..."
             NODE_OPTIONS="--max-old-space-size=4096" npm run build
             
+            # Verificar configuración del .env
+            echo "🔍 Verificando configuración..."
+            if [ -f .env ]; then
+              echo "✅ Archivo .env encontrado"
+              echo "📋 Contenido del .env:"
+              cat .env
+            else
+              echo "❌ Archivo .env no encontrado"
+            fi
+            
             # Buscar PM2 dinámicamente (más confiable)
             echo "🔍 Buscando PM2..."
             PM2_PATH=""
@@ -103,7 +113,8 @@ jobs:
               "$PM2_PATH" restart strapi
             else
               echo "🆕 Iniciando nueva aplicación..."
-              "$PM2_PATH" start npm --name "strapi" -- run start
+              # Configurar para escuchar en todas las interfaces (0.0.0.0)
+              "$PM2_PATH" start npm --name "strapi" -- run start -- --host 0.0.0.0 --port 1337
             fi
             
             # Guardar configuración de PM2
