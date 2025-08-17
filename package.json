@@ -9,7 +9,7 @@
     "deploy": "strapi deploy",
     "dev": "strapi develop",
     "develop": "strapi develop",
-    "start": "node server.js",
+    "start": "strapi start",
     "heroku-postbuild": "echo 'Build local - saltando build en Heroku'",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
