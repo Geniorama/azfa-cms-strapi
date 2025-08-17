@@ -35,16 +35,12 @@ jobs:
           timeout: 300s
           command_timeout: 300s
           script: |
-            set -e  # Detener en caso de error
+            set -e
             
             echo "🚀 Iniciando deployment..."
             
             # Navegar al directorio del proyecto
             cd ~/azfa-cms-strapi
-            
-            # Verificar el estado del repositorio
-            echo "📝 Verificando estado de Git..."
-            git status
             
             # Hacer stash de cambios locales si existen
             if ! git diff-index --quiet HEAD --; then
@@ -57,45 +53,36 @@ jobs:
             git fetch origin
             git reset --hard origin/main
             
-            # Verificar e instalar Node.js si es necesario
-            if ! command -v node &> /dev/null; then
-              echo "❌ Node.js no encontrado"
-              exit 1
-            fi
-            
             echo "📦 Instalando dependencias..."
             npm ci --production --silent
-            
-            # Verificar e instalar PM2 globalmente si no existe
-            if ! command -v pm2 &> /dev/null; then
-              echo "🔧 Instalando PM2..."
-              npm install -g pm2@latest
-            fi
-            
-            # Verificar PM2
-            echo "🔍 Verificando PM2..."
-            pm2 --version
             
             # Build con límite de memoria
             echo "🔨 Construyendo aplicación..."
             NODE_OPTIONS="--max-old-space-size=4096" npm run build
             
+            # Usar la ruta completa de PM2
+            PM2_PATH="/usr/local/bin/pm2"
+            
+            # Verificar que PM2 funcione
+            echo "🔧 Verificando PM2..."
+            "$PM2_PATH" --version
+            
             # Manejar PM2 - reiniciar o iniciar
             echo "🔄 Gestionando proceso PM2..."
-            if pm2 describe strapi > /dev/null 2>&1; then
+            if "$PM2_PATH" describe strapi > /dev/null 2>&1; then
               echo "♻️  Reiniciando aplicación existente..."
-              pm2 restart strapi
+              "$PM2_PATH" restart strapi
             else
               echo "🆕 Iniciando nueva aplicación..."
-              pm2 start npm --name "strapi" -- run start
+              "$PM2_PATH" start npm --name "strapi" -- run start
             fi
             
             # Guardar configuración de PM2
-            pm2 save
+            "$PM2_PATH" save
             
             # Verificar estado
             echo "✅ Estado final de PM2:"
-            pm2 list
+            "$PM2_PATH" list
             
             echo "🎉 Deployment completado exitosamente!"
 
@@ -108,10 +95,19 @@ jobs:
           script: |
             echo "🔍 Verificando que la aplicación esté corriendo..."
             sleep 10
-            pm2 show strapi
+            
+            PM2_PATH="/usr/local/bin/pm2"
+            
+            cd ~/azfa-cms-strapi
+            "$PM2_PATH" show strapi
+            
+            # Verificar logs recientes
+            echo "📋 Últimos logs:"
+            "$PM2_PATH" logs strapi --lines 10 --nostream || true
             
             # Opcional: verificar que el puerto responda
             if command -v curl &> /dev/null; then
               echo "🌐 Verificando respuesta HTTP..."
-              curl -f http://localhost:1337/admin || echo "⚠️  La aplicación puede estar iniciando..."
+              sleep 5
+              curl -f http://localhost:1337/admin -I || echo "⚠️  La aplicación puede estar iniciando..."
             fi
