@@ -12,28 +12,106 @@ jobs:
 
     steps:
       - name: Checkout código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configurar Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'npm'
 
       - name: Instalar dependencias
-        run: npm install
+        run: npm ci
 
       - name: Build de Strapi
         run: npm run build
 
       - name: Deploy via SSH
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          timeout: 300s
+          command_timeout: 300s
+          script: |
+            set -e  # Detener en caso de error
+            
+            echo "🚀 Iniciando deployment..."
+            
+            # Navegar al directorio del proyecto
+            cd ~/azfa-cms-strapi
+            
+            # Verificar el estado del repositorio
+            echo "📝 Verificando estado de Git..."
+            git status
+            
+            # Hacer stash de cambios locales si existen
+            if ! git diff-index --quiet HEAD --; then
+              echo "⚠️  Cambios locales detectados, haciendo stash..."
+              git stash push -m "Auto-stash before deployment $(date)"
+            fi
+            
+            # Actualizar código
+            echo "📥 Actualizando código desde repositorio..."
+            git fetch origin
+            git reset --hard origin/main
+            
+            # Verificar e instalar Node.js si es necesario
+            if ! command -v node &> /dev/null; then
+              echo "❌ Node.js no encontrado"
+              exit 1
+            fi
+            
+            echo "📦 Instalando dependencias..."
+            npm ci --production --silent
+            
+            # Verificar e instalar PM2 globalmente si no existe
+            if ! command -v pm2 &> /dev/null; then
+              echo "🔧 Instalando PM2..."
+              npm install -g pm2@latest
+            fi
+            
+            # Verificar PM2
+            echo "🔍 Verificando PM2..."
+            pm2 --version
+            
+            # Build con límite de memoria
+            echo "🔨 Construyendo aplicación..."
+            NODE_OPTIONS="--max-old-space-size=4096" npm run build
+            
+            # Manejar PM2 - reiniciar o iniciar
+            echo "🔄 Gestionando proceso PM2..."
+            if pm2 describe strapi > /dev/null 2>&1; then
+              echo "♻️  Reiniciando aplicación existente..."
+              pm2 restart strapi
+            else
+              echo "🆕 Iniciando nueva aplicación..."
+              pm2 start npm --name "strapi" -- run start
+            fi
+            
+            # Guardar configuración de PM2
+            pm2 save
+            
+            # Verificar estado
+            echo "✅ Estado final de PM2:"
+            pm2 list
+            
+            echo "🎉 Deployment completado exitosamente!"
+
+      - name: Verificar deployment
+        uses: appleboy/ssh-action@v0.1.8
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            cd ~/azfa-cms-strapi
-            git pull origin main
-            npm install --production
-            NODE_OPTIONS="--max-old-space-size=4096" npm run build
-            pm2 restart strapi || pm2 start npm --name "strapi" -- run start
+            echo "🔍 Verificando que la aplicación esté corriendo..."
+            sleep 10
+            pm2 show strapi
+            
+            # Opcional: verificar que el puerto responda
+            if command -v curl &> /dev/null; then
+              echo "🌐 Verificando respuesta HTTP..."
+              curl -f http://localhost:1337/admin || echo "⚠️  La aplicación puede estar iniciando..."
+            fi
