@@ -60,8 +60,37 @@ jobs:
             echo "🔨 Construyendo aplicación..."
             NODE_OPTIONS="--max-old-space-size=4096" npm run build
             
-            # Usar la ruta completa de PM2
-            PM2_PATH="/usr/local/bin/pm2"
+            # Buscar PM2 dinámicamente (más confiable)
+            echo "🔍 Buscando PM2..."
+            PM2_PATH=""
+            
+            # Intentar múltiples formas de encontrar PM2
+            if command -v pm2 >/dev/null 2>&1; then
+                PM2_PATH="pm2"
+                echo "✅ PM2 encontrado en PATH"
+            elif [ -x "/usr/local/bin/pm2" ]; then
+                PM2_PATH="/usr/local/bin/pm2"
+                echo "✅ PM2 encontrado en /usr/local/bin/pm2"
+            elif [ -x "$HOME/.npm-global/bin/pm2" ]; then
+                PM2_PATH="$HOME/.npm-global/bin/pm2"
+                echo "✅ PM2 encontrado en ~/.npm-global/bin/pm2"
+            else
+                # Buscar en ubicaciones comunes
+                for path in /usr/bin/pm2 /usr/local/lib/node_modules/pm2/bin/pm2 "$HOME/node_modules/.bin/pm2"; do
+                    if [ -x "$path" ]; then
+                        PM2_PATH="$path"
+                        echo "✅ PM2 encontrado en $path"
+                        break
+                    fi
+                done
+            fi
+            
+            # Si no se encuentra, instalar
+            if [ -z "$PM2_PATH" ]; then
+                echo "❌ PM2 no encontrado, instalando..."
+                npm install -g pm2@latest
+                PM2_PATH="pm2"
+            fi
             
             # Verificar que PM2 funcione
             echo "🔧 Verificando PM2..."
@@ -96,14 +125,34 @@ jobs:
             echo "🔍 Verificando que la aplicación esté corriendo..."
             sleep 10
             
-            PM2_PATH="/usr/local/bin/pm2"
+            # Buscar PM2 dinámicamente
+            PM2_PATH=""
+            if command -v pm2 >/dev/null 2>&1; then
+                PM2_PATH="pm2"
+            elif [ -x "/usr/local/bin/pm2" ]; then
+                PM2_PATH="/usr/local/bin/pm2"
+            elif [ -x "$HOME/.npm-global/bin/pm2" ]; then
+                PM2_PATH="$HOME/.npm-global/bin/pm2"
+            else
+                for path in /usr/bin/pm2 /usr/local/lib/node_modules/pm2/bin/pm2 "$HOME/node_modules/.bin/pm2"; do
+                    if [ -x "$path" ]; then
+                        PM2_PATH="$path"
+                        break
+                    fi
+                done
+            fi
             
-            cd ~/azfa-cms-strapi
-            "$PM2_PATH" show strapi
-            
-            # Verificar logs recientes
-            echo "📋 Últimos logs:"
-            "$PM2_PATH" logs strapi --lines 10 --nostream || true
+            if [ -n "$PM2_PATH" ]; then
+                cd ~/azfa-cms-strapi
+                "$PM2_PATH" show strapi
+                
+                # Verificar logs recientes
+                echo "📋 Últimos logs:"
+                "$PM2_PATH" logs strapi --lines 10 --nostream || true
+            else
+                echo "❌ No se pudo encontrar PM2 para verificación"
+                exit 1
+            fi
             
             # Opcional: verificar que el puerto responda
             if command -v curl &> /dev/null; then
