@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: strapi-azfa
 
     steps:
       - name: Checkout código
@@ -34,5 +35,5 @@ jobs:
             cd ~/strapi-app
             git pull origin main
             npm install --production
-            npm run build
-            pm2 restart strapi
+            NODE_OPTIONS="--max-old-space-size=4096" npm run build
+            pm2 restart strapi || pm2 start npm --name "strapi" -- run start
