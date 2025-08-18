@@ -14,6 +14,15 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
+      - name: Crear archivo PEM temporal
+        run: |
+          echo "${{ secrets.SSH_PEM_KEY }}" > azfa-rds.pem
+          chmod 600 azfa-rds.pem
+
+      - name: Copiar llave al servidor
+        run: |
+          ssh -i azfa-rds.pem -o StrictHostKeyChecking=no ubuntu@18.212.160.100 'mkdir -p ~/.ssh && echo "'"$(cat azfa-rds.pem.pub)"'" >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys'
+
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
