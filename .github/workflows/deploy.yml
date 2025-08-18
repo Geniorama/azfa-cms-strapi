@@ -14,18 +14,37 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Generar llave pública desde PEM
-        run: |
-          ssh-keygen -y -f azfa-rds.pem > azfa-rds.pem.pub
-
       - name: Crear archivo PEM temporal
         run: |
           echo "${{ secrets.SSH_PEM_KEY }}" > azfa-rds.pem
           chmod 600 azfa-rds.pem
+          echo "📁 Archivo PEM creado:"
+          ls -la azfa-rds.pem
+          echo "📄 Primeras líneas del archivo PEM:"
+          head -3 azfa-rds.pem
+
+      - name: Generar llave pública desde PEM
+        run: |
+          ssh-keygen -y -f azfa-rds.pem > azfa-rds.pub
+          chmod 644 azfa-rds.pub
+          echo "🔑 Llave pública generada:"
+          ls -la azfa-rds.pub
+          echo "📋 Contenido de la llave pública:"
+          cat azfa-rds.pub
 
       - name: Copiar llave al servidor
         run: |
-          ssh -i azfa-rds.pem -o StrictHostKeyChecking=no ubuntu@18.212.160.100 'mkdir -p ~/.ssh && echo "'"$(cat azfa-rds.pem.pub)"'" >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys'
+          ssh -i azfa-rds.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ubuntu@18.212.160.100 'mkdir -p ~/.ssh && echo "'"$(cat azfa-rds.pub)"'" >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys'
+
+      - name: Limpiar archivos temporales
+        if: always()
+        run: |
+          rm -f azfa-rds.pem azfa-rds.pub
+
+      - name: Verificar conexión SSH
+        run: |
+          echo "🔍 Verificando que la conexión SSH funcione..."
+          ssh -i azfa-rds.pem -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o ConnectTimeout=10 ubuntu@18.212.160.100 'echo "✅ Conexión SSH exitosa"'
 
       - name: Configurar Node.js
         uses: actions/setup-node@v4
