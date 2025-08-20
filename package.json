@@ -22,10 +22,12 @@
     "@strapi/provider-upload-aws-s3": "^5.18.0",
     "@strapi/strapi": "5.18.0",
     "dotenv": "^17.2.1",
+    "esbuild": "^0.21.5",
     "pg": "8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
+    "strapi-plugin-country-select": "^2.1.0",
     "styled-components": "^6.0.0"
   },
   "devDependencies": {

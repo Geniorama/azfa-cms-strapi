@@ -12,16 +12,8 @@
   "pluginOptions": {},
   "attributes": {
     "country": {
-      "type": "enumeration",
-      "required": true,
-      "enum": [
-        "colombia",
-        "argentina",
-        "chile",
-        "brasil",
-        "espana",
-        "venezuela"
-      ]
+      "type": "customField",
+      "customField": "plugin::country-select.country"
     },
     "countryImage": {
       "type": "media",

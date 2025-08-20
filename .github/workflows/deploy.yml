@@ -113,7 +113,7 @@ jobs:
           cache: 'npm'
 
       - name: Instalar dependencias
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Build de Strapi
         run: npm run build
@@ -146,7 +146,7 @@ jobs:
             git reset --hard origin/main
             
             echo "📦 Instalando dependencias..."
-            npm ci --production --silent
+            npm ci --production --silent --legacy-peer-deps
             
             # Build con límite de memoria
             echo "🔨 Construyendo aplicación..."
@@ -162,59 +162,27 @@ jobs:
               echo "❌ Archivo .env no encontrado"
             fi
             
-            # Buscar PM2 dinámicamente (más confiable)
-            echo "🔍 Buscando PM2..."
-            PM2_PATH=""
-            
-            # Intentar múltiples formas de encontrar PM2
-            if command -v pm2 >/dev/null 2>&1; then
-                PM2_PATH="pm2"
-                echo "✅ PM2 encontrado en PATH"
-            elif [ -x "/usr/local/bin/pm2" ]; then
-                PM2_PATH="/usr/local/bin/pm2"
-                echo "✅ PM2 encontrado en /usr/local/bin/pm2"
-            elif [ -x "$HOME/.npm-global/bin/pm2" ]; then
-                PM2_PATH="$HOME/.npm-global/bin/pm2"
-                echo "✅ PM2 encontrado en ~/.npm-global/bin/pm2"
-            else
-                # Buscar en ubicaciones comunes
-                for path in /usr/bin/pm2 /usr/local/lib/node_modules/pm2/bin/pm2 "$HOME/node_modules/.bin/pm2"; do
-                    if [ -x "$path" ]; then
-                        PM2_PATH="$path"
-                        echo "✅ PM2 encontrado en $path"
-                        break
-                    fi
-                done
-            fi
-            
-            # Si no se encuentra, instalar
-            if [ -z "$PM2_PATH" ]; then
-                echo "❌ PM2 no encontrado, instalando..."
-                npm install -g pm2@latest
-                PM2_PATH="pm2"
-            fi
-            
-            # Verificar que PM2 funcione
+            # Verificar que PM2 esté disponible
             echo "🔧 Verificando PM2..."
-            "$PM2_PATH" --version
+            pm2 --version
             
             # Manejar PM2 - reiniciar o iniciar
             echo "🔄 Gestionando proceso PM2..."
-            if "$PM2_PATH" describe strapi > /dev/null 2>&1; then
+            if pm2 describe strapi > /dev/null 2>&1; then
               echo "♻️  Reiniciando aplicación existente..."
-              "$PM2_PATH" restart strapi
+              pm2 restart strapi
             else
               echo "🆕 Iniciando nueva aplicación..."
               # Configurar para escuchar en todas las interfaces (0.0.0.0)
-              "$PM2_PATH" start npm --name "strapi" -- run start -- --host 0.0.0.0 --port 1337
+              pm2 start npm --name "strapi" -- run start -- --host 0.0.0.0 --port 1337
             fi
             
             # Guardar configuración de PM2
-            "$PM2_PATH" save
+            pm2 save
             
             # Verificar estado
             echo "✅ Estado final de PM2:"
-            "$PM2_PATH" list
+            pm2 list
             
             echo "🎉 Deployment completado exitosamente!"
 
@@ -228,34 +196,12 @@ jobs:
             echo "🔍 Verificando que la aplicación esté corriendo..."
             sleep 10
             
-            # Buscar PM2 dinámicamente
-            PM2_PATH=""
-            if command -v pm2 >/dev/null 2>&1; then
-                PM2_PATH="pm2"
-            elif [ -x "/usr/local/bin/pm2" ]; then
-                PM2_PATH="/usr/local/bin/pm2"
-            elif [ -x "$HOME/.npm-global/bin/pm2" ]; then
-                PM2_PATH="$HOME/.npm-global/bin/pm2"
-            else
-                for path in /usr/bin/pm2 /usr/local/lib/node_modules/pm2/bin/pm2 "$HOME/node_modules/.bin/pm2"; do
-                    if [ -x "$path" ]; then
-                        PM2_PATH="$path"
-                        break
-                    fi
-                done
-            fi
+            cd ~/azfa-cms-strapi
+            pm2 show strapi
             
-            if [ -n "$PM2_PATH" ]; then
-                cd ~/azfa-cms-strapi
-                "$PM2_PATH" show strapi
-                
-                # Verificar logs recientes
-                echo "📋 Últimos logs:"
-                "$PM2_PATH" logs strapi --lines 10 --nostream || true
-            else
-                echo "❌ No se pudo encontrar PM2 para verificación"
-                exit 1
-            fi
+            # Verificar logs recientes
+            echo "📋 Últimos logs:"
+            pm2 logs strapi --lines 10 --nostream || true
             
             # Opcional: verificar que el puerto responda
             if command -v curl &> /dev/null; then

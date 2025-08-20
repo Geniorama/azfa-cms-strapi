@@ -373,28 +373,31 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiCompanyCompany extends Struct.CollectionTypeSchema {
-  collectionName: 'companies';
+export interface ApiAffiliateAffiliate extends Struct.CollectionTypeSchema {
+  collectionName: 'affiliates';
   info: {
-    displayName: 'Company';
-    pluralName: 'companies';
-    singularName: 'company';
+    displayName: 'Affiliate';
+    pluralName: 'affiliates';
+    singularName: 'affiliate';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
+    country: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::country-select.country'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::company.company'
+      'api::affiliate.affiliate'
     > &
       Schema.Attribute.Private;
-    name: Schema.Attribute.String;
+    logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -481,10 +484,8 @@ export interface ApiMapCountryMapCountry extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    country: Schema.Attribute.Enumeration<
-      ['colombia', 'argentina', 'chile', 'brasil', 'espana', 'venezuela']
-    > &
-      Schema.Attribute.Required;
+    country: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::country-select.country'>;
     countryImage: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios'
     >;
@@ -1061,7 +1062,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::company.company': ApiCompanyCompany;
+      'api::affiliate.affiliate': ApiAffiliateAffiliate;
       'api::content.content': ApiContentContent;
       'api::map-country.map-country': ApiMapCountryMapCountry;
       'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
