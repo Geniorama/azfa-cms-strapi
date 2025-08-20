@@ -14,12 +14,10 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
-
-
       - name: Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20.19.4
           cache: 'npm'
 
       - name: Instalar dependencias
@@ -66,8 +64,6 @@ jobs:
             echo "🔍 Verificando configuración..."
             if [ -f .env ]; then
               echo "✅ Archivo .env encontrado"
-              echo "📋 Contenido del .env:"
-              cat .env
             else
               echo "❌ Archivo .env no encontrado"
             fi
