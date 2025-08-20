@@ -1,117 +1,103 @@
-name: Deploy Strapi
+name: Deploy Strapi to EC2
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: strapi-azfa
-
+    
     steps:
-      - name: Checkout código
+      - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Configurar Node.js
+        
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.19.4
+          node-version: '20.19.4'
           cache: 'npm'
-
-      - name: Instalar dependencias
+          
+      - name: Install dependencies
         run: npm ci --legacy-peer-deps
-
-      - name: Build de Strapi
+        
+      - name: Build application
         run: npm run build
-
-      - name: Deploy via SSH
+        
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.8
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          timeout: 300s
-          command_timeout: 300s
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: ${{ secrets.EC2_PORT }}
           script: |
-            set -e
+            echo "🚀 Starting deployment..."
             
-            echo "🚀 Iniciando deployment..."
-            
-            # Navegar al directorio del proyecto
+            # Navigate to project directory
             cd ~/azfa-cms-strapi
             
-            # Hacer stash de cambios locales si existen
+            # Backup current version
+            if [ -d "backup-$(date +%Y%m%d-%H%M%S)" ]; then
+              echo "Backup directory already exists"
+            else
+              echo "Creating backup..."
+              cp -r . "backup-$(date +%Y%m%d-%H%M%S)"
+            fi
+            
+            # Stash any local changes
             if ! git diff-index --quiet HEAD --; then
-              echo "⚠️  Cambios locales detectados, haciendo stash..."
+              echo "Stashing local changes..."
               git stash push -m "Auto-stash before deployment $(date)"
             fi
             
-            # Actualizar código
-            echo "📥 Actualizando código desde repositorio..."
+            # Pull latest code
+            echo "Pulling latest code..."
             git fetch origin
             git reset --hard origin/main
             
-            echo "📦 Instalando dependencias..."
-            npm ci --production --silent --legacy-peer-deps
+            # Install dependencies
+            echo "Installing dependencies..."
+            npm ci --production --legacy-peer-deps
             
-            # Build con límite de memoria
-            echo "🔨 Construyendo aplicación..."
+            # Build application
+            echo "Building application..."
             NODE_OPTIONS="--max-old-space-size=4096" npm run build
             
-            # Verificar configuración del .env
-            echo "🔍 Verificando configuración..."
-            if [ -f .env ]; then
-              echo "✅ Archivo .env encontrado"
-            else
-              echo "❌ Archivo .env no encontrado"
-            fi
-            
-            # Verificar que PM2 esté disponible
-            echo "🔧 Verificando PM2..."
-            pm2 --version
-            
-            # Manejar PM2 - reiniciar o iniciar
-            echo "🔄 Gestionando proceso PM2..."
+            # Restart PM2 process
+            echo "Restarting PM2 process..."
             if pm2 describe strapi > /dev/null 2>&1; then
-              echo "♻️  Reiniciando aplicación existente..."
               pm2 restart strapi
             else
-              echo "🆕 Iniciando nueva aplicación..."
-              # Configurar para escuchar en todas las interfaces (0.0.0.0)
-              pm2 start npm --name "strapi" -- run start -- --host 0.0.0.0 --port 1337
+              pm2 start npm --name "strapi" -- run start
             fi
             
-            # Guardar configuración de PM2
+            # Save PM2 configuration
             pm2 save
             
-            # Verificar estado
-            echo "✅ Estado final de PM2:"
-            pm2 list
+            echo "✅ Deployment completed successfully!"
             
-            echo "🎉 Deployment completado exitosamente!"
-
-      - name: Verificar deployment
+      - name: Verify deployment
         uses: appleboy/ssh-action@v0.1.8
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: ${{ secrets.EC2_PORT }}
           script: |
-            echo "🔍 Verificando que la aplicación esté corriendo..."
-            sleep 10
+            echo "🔍 Verifying deployment..."
+            sleep 5
             
             cd ~/azfa-cms-strapi
-            pm2 show strapi
             
-            # Verificar logs recientes
-            echo "📋 Últimos logs:"
-            pm2 logs strapi --lines 10 --nostream || true
+            # Check PM2 status
+            pm2 list
             
-            # Opcional: verificar que el puerto responda
-            if command -v curl &> /dev/null; then
-              echo "🌐 Verificando respuesta HTTP..."
-              sleep 5
-              curl -f http://localhost:1337/admin -I || echo "⚠️  La aplicación puede estar iniciando..."
+            # Check if app is running
+            if pm2 describe strapi > /dev/null 2>&1; then
+              echo "✅ Strapi is running"
+              pm2 show strapi
+            else
+              echo "❌ Strapi is not running"
+              exit 1
             fi
