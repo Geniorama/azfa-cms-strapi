@@ -18,6 +18,10 @@
       "type": "uid",
       "targetField": "title"
     },
+    "country": {
+      "type": "customField",
+      "customField": "plugin::country-select.country"
+    },
     "propertyType": {
       "type": "enumeration",
       "enum": [
@@ -45,9 +49,6 @@
       "type": "string"
     },
     "city": {
-      "type": "string"
-    },
-    "country": {
       "type": "string"
     },
     "region": {

@@ -522,7 +522,8 @@ export interface ApiRealStateOfferRealStateOffer
     area: Schema.Attribute.String;
     certifications: Schema.Attribute.Blocks;
     city: Schema.Attribute.String;
-    country: Schema.Attribute.String;
+    country: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::country-select.country'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
