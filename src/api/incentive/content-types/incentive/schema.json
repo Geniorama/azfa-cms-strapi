@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "incentives",
+  "info": {
+    "singularName": "incentive",
+    "pluralName": "incentives",
+    "displayName": "Incentive"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "country": {
+      "type": "customField",
+      "customField": "plugin::country-select.country"
+    },
+    "flag": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "freeZones": {
+      "type": "integer"
+    },
+    "companies": {
+      "type": "integer"
+    },
+    "directJobs": {
+      "type": "integer"
+    },
+    "incentivesListItem": {
+      "type": "component",
+      "component": "components.table-list",
+      "repeatable": true
+    },
+    "googleMapsLocation": {
+      "type": "component",
+      "component": "components.gm-location",
+      "repeatable": false
+    }
+  }
+}

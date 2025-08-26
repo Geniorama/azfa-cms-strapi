@@ -27,6 +27,22 @@
     "country": {
       "type": "customField",
       "customField": "plugin::country-select.country"
+    },
+    "city": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "organizacion",
+        "empresa",
+        "zonaFranca"
+      ]
+    },
+    "contactInfo": {
+      "type": "component",
+      "component": "sections.contact",
+      "repeatable": false
     }
   }
 }

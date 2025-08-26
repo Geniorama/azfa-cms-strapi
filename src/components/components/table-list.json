@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_components_table_lists",
+  "info": {
+    "displayName": "tableList",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

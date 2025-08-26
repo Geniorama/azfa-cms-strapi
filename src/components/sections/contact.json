@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_contacts",
+  "info": {
+    "displayName": "Contact",
+    "icon": "earth"
+  },
+  "options": {},
+  "attributes": {
+    "fullName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "position": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

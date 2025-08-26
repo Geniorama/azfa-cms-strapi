@@ -12,6 +12,19 @@ export interface ComponentsButton extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsGmLocation extends Struct.ComponentSchema {
+  collectionName: 'components_components_gm_locations';
+  info: {
+    displayName: 'GM Location';
+    icon: 'pinMap';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    latitude: Schema.Attribute.Float;
+    longitude: Schema.Attribute.Float;
+  };
+}
+
 export interface ComponentsHeadingList extends Struct.ComponentSchema {
   collectionName: 'components_components_heading_lists';
   info: {
@@ -36,6 +49,18 @@ export interface ComponentsItemList extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsTableList extends Struct.ComponentSchema {
+  collectionName: 'components_components_table_lists';
+  info: {
+    displayName: 'tableList';
+    icon: 'bulletList';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    value: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsCallToAction extends Struct.ComponentSchema {
   collectionName: 'components_sections_call_to_actions';
   info: {
@@ -44,6 +69,20 @@ export interface SectionsCallToAction extends Struct.ComponentSchema {
   };
   attributes: {
     title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsContact extends Struct.ComponentSchema {
+  collectionName: 'components_sections_contacts';
+  info: {
+    displayName: 'Contact';
+    icon: 'earth';
+  };
+  attributes: {
+    email: Schema.Attribute.String;
+    fullName: Schema.Attribute.String;
+    position: Schema.Attribute.String;
+    website: Schema.Attribute.String;
   };
 }
 
@@ -108,9 +147,12 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'components.button': ComponentsButton;
+      'components.gm-location': ComponentsGmLocation;
       'components.heading-list': ComponentsHeadingList;
       'components.item-list': ComponentsItemList;
+      'components.table-list': ComponentsTableList;
       'sections.call-to-action': SectionsCallToAction;
+      'sections.contact': SectionsContact;
       'sections.download': SectionsDownload;
       'sections.heading': SectionsHeading;
       'sections.list': SectionsList;

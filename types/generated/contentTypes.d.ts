@@ -384,6 +384,8 @@ export interface ApiAffiliateAffiliate extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    city: Schema.Attribute.String;
+    contactInfo: Schema.Attribute.Component<'sections.contact', false>;
     country: Schema.Attribute.String &
       Schema.Attribute.CustomField<'plugin::country-select.country'>;
     createdAt: Schema.Attribute.DateTime;
@@ -398,6 +400,9 @@ export interface ApiAffiliateAffiliate extends Struct.CollectionTypeSchema {
     logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<
+      ['organizacion', 'empresa', 'zonaFranca']
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -467,6 +472,47 @@ export interface ApiContentContent extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiIncentiveIncentive extends Struct.CollectionTypeSchema {
+  collectionName: 'incentives';
+  info: {
+    displayName: 'Incentive';
+    pluralName: 'incentives';
+    singularName: 'incentive';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    companies: Schema.Attribute.Integer;
+    country: Schema.Attribute.String &
+      Schema.Attribute.CustomField<'plugin::country-select.country'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    directJobs: Schema.Attribute.Integer;
+    flag: Schema.Attribute.Media<'images'>;
+    freeZones: Schema.Attribute.Integer;
+    googleMapsLocation: Schema.Attribute.Component<
+      'components.gm-location',
+      false
+    >;
+    incentivesListItem: Schema.Attribute.Component<
+      'components.table-list',
+      true
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::incentive.incentive'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1009,7 +1055,6 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1023,6 +1068,9 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    firstName: Schema.Attribute.String;
+    isEditor: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1065,6 +1113,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::affiliate.affiliate': ApiAffiliateAffiliate;
       'api::content.content': ApiContentContent;
+      'api::incentive.incentive': ApiIncentiveIncentive;
       'api::map-country.map-country': ApiMapCountryMapCountry;
       'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
       'plugin::content-releases.release': PluginContentReleasesRelease;
