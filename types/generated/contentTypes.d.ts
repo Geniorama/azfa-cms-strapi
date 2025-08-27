@@ -447,6 +447,7 @@ export interface ApiContentContent extends Struct.CollectionTypeSchema {
         'sections.heading',
         'sections.download',
         'sections.call-to-action',
+        'components.gallery',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

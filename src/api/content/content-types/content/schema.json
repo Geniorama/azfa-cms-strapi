@@ -64,7 +64,8 @@
         "sections.list",
         "sections.heading",
         "sections.download",
-        "sections.call-to-action"
+        "sections.call-to-action",
+        "components.gallery"
       ]
     }
   }

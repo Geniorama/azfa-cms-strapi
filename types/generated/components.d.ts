@@ -12,6 +12,18 @@ export interface ComponentsButton extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsGallery extends Struct.ComponentSchema {
+  collectionName: 'components_components_galleries';
+  info: {
+    displayName: 'Gallery';
+    icon: 'apps';
+  };
+  attributes: {
+    images: Schema.Attribute.Media<'images', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface ComponentsGmLocation extends Struct.ComponentSchema {
   collectionName: 'components_components_gm_locations';
   info: {
@@ -147,6 +159,7 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'components.button': ComponentsButton;
+      'components.gallery': ComponentsGallery;
       'components.gm-location': ComponentsGmLocation;
       'components.heading-list': ComponentsHeadingList;
       'components.item-list': ComponentsItemList;
