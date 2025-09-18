@@ -1,7 +1,7 @@
 {
-  "collectionName": "components_components_table_lists",
+  "collectionName": "components_components_options",
   "info": {
-    "displayName": "tableList",
+    "displayName": "Option",
     "icon": "bulletList"
   },
   "options": {},
@@ -10,7 +10,7 @@
       "type": "string"
     },
     "value": {
-      "type": "text"
+      "type": "string"
     }
   },
   "config": {}

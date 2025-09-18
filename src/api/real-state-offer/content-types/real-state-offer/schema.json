@@ -12,37 +12,48 @@
   "pluginOptions": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "slug": {
       "type": "uid",
       "targetField": "title"
     },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
     "country": {
       "type": "customField",
       "customField": "plugin::country-select.country"
     },
-    "propertyType": {
-      "type": "enumeration",
-      "enum": [
-        "Casa",
-        "Apartamento",
-        "Bodega"
-      ]
-    },
     "offerType": {
-      "type": "enumeration",
-      "enum": [
-        "Venta",
-        "Alquiler"
+      "type": "customField",
+      "customField": "plugin::multi-select.multi-select",
+      "default": "[]",
+      "options": [
+        "Venta:venta",
+        "Arriendo:arriendo"
       ]
     },
     "propertyUse": {
-      "type": "enumeration",
-      "enum": [
-        "Terreno",
-        "Industria",
-        "Comercial"
+      "type": "customField",
+      "customField": "plugin::multi-select.multi-select",
+      "default": "[]",
+      "options": [
+        "Terreno:terreno",
+        "Industria:industria",
+        "Comercial:comercial"
+      ]
+    },
+    "propertyType": {
+      "type": "customField",
+      "customField": "plugin::multi-select.multi-select",
+      "default": "[]",
+      "options": [
+        "Casa:casa",
+        "Apartamento:apartamento",
+        "Bodega:bodega"
       ]
     },
     "area": {

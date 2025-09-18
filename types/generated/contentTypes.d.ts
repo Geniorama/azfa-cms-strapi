@@ -575,6 +575,7 @@ export interface ApiRealStateOfferRealStateOffer
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     ctaButton: Schema.Attribute.Component<'components.button', false>;
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
     imgGallery: Schema.Attribute.Media<'images', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -582,19 +583,30 @@ export interface ApiRealStateOfferRealStateOffer
       'api::real-state-offer.real-state-offer'
     > &
       Schema.Attribute.Private;
-    offerType: Schema.Attribute.Enumeration<['Venta', 'Alquiler']>;
+    offerType: Schema.Attribute.JSON &
+      Schema.Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        ['Venta:venta', 'Arriendo:arriendo']
+      > &
+      Schema.Attribute.DefaultTo<'[]'>;
     platinum: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     propertyStatus: Schema.Attribute.Enumeration<['Nuevo', 'Usado']>;
-    propertyType: Schema.Attribute.Enumeration<
-      ['Casa', 'Apartamento', 'Bodega']
-    >;
-    propertyUse: Schema.Attribute.Enumeration<
-      ['Terreno', 'Industria', 'Comercial']
-    >;
+    propertyType: Schema.Attribute.JSON &
+      Schema.Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        ['Casa:casa', 'Apartamento:apartamento', 'Bodega:bodega']
+      > &
+      Schema.Attribute.DefaultTo<'[]'>;
+    propertyUse: Schema.Attribute.JSON &
+      Schema.Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        ['Terreno:terreno', 'Industria:industria', 'Comercial:comercial']
+      > &
+      Schema.Attribute.DefaultTo<'[]'>;
     publishedAt: Schema.Attribute.DateTime;
     region: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

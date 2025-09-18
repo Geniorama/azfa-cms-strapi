@@ -61,6 +61,18 @@ export interface ComponentsItemList extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsOption extends Struct.ComponentSchema {
+  collectionName: 'components_components_options';
+  info: {
+    displayName: 'Option';
+    icon: 'bulletList';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    value: Schema.Attribute.String;
+  };
+}
+
 export interface ComponentsTableList extends Struct.ComponentSchema {
   collectionName: 'components_components_table_lists';
   info: {
@@ -69,7 +81,7 @@ export interface ComponentsTableList extends Struct.ComponentSchema {
   };
   attributes: {
     label: Schema.Attribute.String;
-    value: Schema.Attribute.String;
+    value: Schema.Attribute.Text;
   };
 }
 
@@ -163,6 +175,7 @@ declare module '@strapi/strapi' {
       'components.gm-location': ComponentsGmLocation;
       'components.heading-list': ComponentsHeadingList;
       'components.item-list': ComponentsItemList;
+      'components.option': ComponentsOption;
       'components.table-list': ComponentsTableList;
       'sections.call-to-action': SectionsCallToAction;
       'sections.contact': SectionsContact;
