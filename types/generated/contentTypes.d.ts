@@ -465,6 +465,7 @@ export interface ApiContentContent extends Struct.CollectionTypeSchema {
         'sections.news-grid',
         'sections.events-grid',
         'sections.counters',
+        'sections.slider',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

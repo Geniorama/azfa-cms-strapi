@@ -82,7 +82,8 @@
         "sections.services-grid",
         "sections.news-grid",
         "sections.events-grid",
-        "sections.counters"
+        "sections.counters",
+        "sections.slider"
       ]
     }
   }

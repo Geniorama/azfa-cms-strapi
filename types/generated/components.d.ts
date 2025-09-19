@@ -98,7 +98,7 @@ export interface ComponentsOption extends Struct.ComponentSchema {
 export interface ComponentsSlider extends Struct.ComponentSchema {
   collectionName: 'components_components_sliders';
   info: {
-    displayName: 'Slider';
+    displayName: 'Slide';
     icon: 'landscape';
   };
   attributes: {
@@ -283,6 +283,18 @@ export interface SectionsServicesGrid extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsSlider extends Struct.ComponentSchema {
+  collectionName: 'components_sections_sliders';
+  info: {
+    displayName: 'Slider';
+    icon: 'landscape';
+  };
+  attributes: {
+    slides: Schema.Attribute.Component<'components.slider', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsSliderTestimonials extends Struct.ComponentSchema {
   collectionName: 'components_sections_slider_testimonials';
   info: {
@@ -334,6 +346,7 @@ declare module '@strapi/strapi' {
       'sections.news-grid': SectionsNewsGrid;
       'sections.seo': SectionsSeo;
       'sections.services-grid': SectionsServicesGrid;
+      'sections.slider': SectionsSlider;
       'sections.slider-testimonials': SectionsSliderTestimonials;
       'sections.two-colums-section': SectionsTwoColumsSection;
     }
