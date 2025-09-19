@@ -15,4 +15,12 @@ export default ({ env }) => ({
     level: env('LOG_LEVEL', env('NODE_ENV') === 'production' ? 'error' : 'info'),
     requests: env.bool('LOG_REQUESTS', false),
   },
+  // Configuración de timeouts para uploads - aumentados para archivos grandes
+  http: {
+    serverOptions: {
+      requestTimeout: 600000, // 10 minutos para requests
+      keepAliveTimeout: 650000, // 10 minutos y 50 segundos para keep-alive
+      headersTimeout: 610000, // 10 minutos y 10 segundos para headers
+    },
+  },
 });
