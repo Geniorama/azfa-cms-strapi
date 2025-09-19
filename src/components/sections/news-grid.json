@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_news_grids",
+  "info": {
+    "displayName": "News Grid",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "config": {}
+}

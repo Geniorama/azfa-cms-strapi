@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_counters",
+  "info": {
+    "displayName": "Counters",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "counter": {
+      "type": "component",
+      "component": "components.counter",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

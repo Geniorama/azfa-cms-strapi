@@ -65,7 +65,24 @@
         "sections.heading",
         "sections.download",
         "sections.call-to-action",
-        "components.gallery"
+        "components.gallery",
+        "components.slider",
+        "sections.two-colums-section",
+        "sections.intro",
+        "components.video",
+        "sections.contact",
+        "components.table-list",
+        "components.option",
+        "components.item-list",
+        "components.heading-list",
+        "components.gm-location",
+        "components.counter",
+        "components.button",
+        "sections.slider-testimonials",
+        "sections.services-grid",
+        "sections.news-grid",
+        "sections.events-grid",
+        "sections.counters"
       ]
     }
   }

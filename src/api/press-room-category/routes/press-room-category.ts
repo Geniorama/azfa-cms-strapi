@@ -1,0 +1,7 @@
+/**
+ * press-room-category router
+ */
+
+import { factories } from '@strapi/strapi';
+
+export default factories.createCoreRouter('api::press-room-category.press-room-category');

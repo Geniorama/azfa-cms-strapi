@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_slider_testimonials",
+  "info": {
+    "displayName": "sliderTestimonials",
+    "icon": "quote"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "config": {}
+}

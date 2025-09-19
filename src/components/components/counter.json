@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_components_counters",
+  "info": {
+    "displayName": "Counter",
+    "icon": "arrowUp"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "number": {
+      "type": "integer"
+    },
+    "label": {
+      "type": "string"
+    },
+    "prefix": {
+      "type": "string"
+    },
+    "sufix": {
+      "type": "string"
+    },
+    "timeRemaining": {
+      "type": "integer",
+      "min": 0
+    }
+  },
+  "config": {}
+}

@@ -448,6 +448,23 @@ export interface ApiContentContent extends Struct.CollectionTypeSchema {
         'sections.download',
         'sections.call-to-action',
         'components.gallery',
+        'components.slider',
+        'sections.two-colums-section',
+        'sections.intro',
+        'components.video',
+        'sections.contact',
+        'components.table-list',
+        'components.option',
+        'components.item-list',
+        'components.heading-list',
+        'components.gm-location',
+        'components.counter',
+        'components.button',
+        'sections.slider-testimonials',
+        'sections.services-grid',
+        'sections.news-grid',
+        'sections.events-grid',
+        'sections.counters',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
@@ -554,6 +571,80 @@ export interface ApiMapCountryMapCountry extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPressRoomCategoryPressRoomCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'press_room_categories';
+  info: {
+    displayName: 'Press Room Categories';
+    pluralName: 'press-room-categories';
+    singularName: 'press-room-category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#000000'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::press-room-category.press-room-category'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    pressRooms: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::press-room.press-room'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
+  collectionName: 'press_rooms';
+  info: {
+    displayName: 'Press Room';
+    pluralName: 'press-rooms';
+    singularName: 'press-room';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    category: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::press-room-category.press-room-category'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    extract: Schema.Attribute.RichText;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::press-room.press-room'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'>;
+    thumbnail: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<
+      ['news', 'podcast', 'newsletter', 'blog']
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRealStateOfferRealStateOffer
   extends Struct.CollectionTypeSchema {
   collectionName: 'real_state_offers';
@@ -607,6 +698,40 @@ export interface ApiRealStateOfferRealStateOffer
     region: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'title'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
+  collectionName: 'testimonials';
+  info: {
+    displayName: 'Testimonials';
+    pluralName: 'testimonials';
+    singularName: 'testimonial';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    company: Schema.Attribute.String;
+    coverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::testimonial.testimonial'
+    > &
+      Schema.Attribute.Private;
+    media: Schema.Attribute.Component<'components.video', false>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    position: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    testimonial: Schema.Attribute.RichText & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1068,6 +1193,7 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
+    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -1081,9 +1207,6 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    firstName: Schema.Attribute.String;
-    isEditor: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1128,7 +1251,10 @@ declare module '@strapi/strapi' {
       'api::content.content': ApiContentContent;
       'api::incentive.incentive': ApiIncentiveIncentive;
       'api::map-country.map-country': ApiMapCountryMapCountry;
+      'api::press-room-category.press-room-category': ApiPressRoomCategoryPressRoomCategory;
+      'api::press-room.press-room': ApiPressRoomPressRoom;
       'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
+      'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

@@ -1,0 +1,59 @@
+{
+  "collectionName": "components_components_videos",
+  "info": {
+    "displayName": "Video",
+    "icon": "play"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "videoType": {
+      "type": "enumeration",
+      "enum": [
+        "upload",
+        "youtube",
+        "vimeo"
+      ],
+      "default": "upload",
+      "required": true
+    },
+    "uploadedVideo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "videos"
+      ],
+      "required": false
+    },
+    "youtubeUrl": {
+      "type": "string",
+      "required": false
+    },
+    "vimeoUrl": {
+      "type": "string",
+      "required": false
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": false
+    },
+    "muted": {
+      "type": "boolean",
+      "default": false
+    },
+    "loop": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}

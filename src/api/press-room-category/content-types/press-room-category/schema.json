@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "press_room_categories",
+  "info": {
+    "singularName": "press-room-category",
+    "pluralName": "press-room-categories",
+    "displayName": "Press Room Categories"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "color": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "pressRooms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::press-room.press-room",
+      "mappedBy": "category"
+    }
+  }
+}

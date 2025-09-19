@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "press_rooms",
+  "info": {
+    "singularName": "press-room",
+    "pluralName": "press-rooms",
+    "displayName": "Press Room"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "extract": {
+      "type": "richtext"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "news",
+        "podcast",
+        "newsletter",
+        "blog"
+      ]
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::press-room-category.press-room-category",
+      "inversedBy": "pressRooms"
+    }
+  }
+}
