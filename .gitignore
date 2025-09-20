@@ -132,3 +132,10 @@ build
 .strapi-updater.json
 .strapi-cloud.json
 .ebextensions
+
+############################
+# Git
+############################
+
+.git_changelog.sh
+misc_commits.md
