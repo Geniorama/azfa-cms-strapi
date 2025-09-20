@@ -556,6 +556,169 @@ export interface ApiContentContent extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiEventEvent extends Struct.CollectionTypeSchema {
+  collectionName: 'events';
+  info: {
+    description: 'Eventos y actividades';
+    displayName: 'Event';
+    pluralName: 'events';
+    singularName: 'event';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    address: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    addressIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'fa-map-pin'>;
+    buttonIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'fa-arrow-right'>;
+    buttonText: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Ver m\u00E1s'>;
+    buttonUrl: Schema.Attribute.String;
+    buttonVariant: Schema.Attribute.Enumeration<
+      ['primary', 'secondary', 'outline', 'ghost', 'danger', 'success']
+    > &
+      Schema.Attribute.DefaultTo<'primary'>;
+    calendarIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'fa-calendar-alt'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    endDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    featuredImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    location: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locationIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'fa-map-marker-alt'>;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    startDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    tag: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEventsPageEventsPage extends Struct.SingleTypeSchema {
+  collectionName: 'events_pages';
+  info: {
+    description: 'P\u00E1gina principal de eventos';
+    displayName: 'Events Page';
+    pluralName: 'events-pages';
+    singularName: 'events-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    eventsPerPage: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<12>;
+    featuredEvents: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    featuredSectionTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Eventos Destacados'>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::events-page.events-page'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    showFeaturedSection: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Eventos'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
   collectionName: 'global_settings';
   info: {
@@ -1673,6 +1836,8 @@ declare module '@strapi/strapi' {
       'api::affiliate-portal.affiliate-portal': ApiAffiliatePortalAffiliatePortal;
       'api::affiliate.affiliate': ApiAffiliateAffiliate;
       'api::content.content': ApiContentContent;
+      'api::event.event': ApiEventEvent;
+      'api::events-page.events-page': ApiEventsPageEventsPage;
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::incentive.incentive': ApiIncentiveIncentive;
       'api::management-portal.management-portal': ApiManagementPortalManagementPortal;

@@ -1,0 +1,76 @@
+{
+  "kind": "singleType",
+  "collectionName": "events_pages",
+  "info": {
+    "singularName": "events-page",
+    "pluralName": "events-pages",
+    "displayName": "Events Page",
+    "description": "Página principal de eventos"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Eventos",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "description": {
+      "type": "richtext",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "events": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event"
+    },
+    "featuredEvents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event",
+      "targetAttribute": "featured"
+    },
+    "eventsPerPage": {
+      "type": "integer",
+      "default": 12
+    },
+    "showFeaturedSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "featuredSectionTitle": {
+      "type": "string",
+      "default": "Eventos Destacados",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "SEO": {
+      "type": "component",
+      "component": "sections.seo",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
