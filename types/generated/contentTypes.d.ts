@@ -588,6 +588,13 @@ export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    footer: Schema.Attribute.Component<'sections.footer', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     header: Schema.Attribute.Component<'sections.header', false> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{

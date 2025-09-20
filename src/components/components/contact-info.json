@@ -1,0 +1,45 @@
+{
+  "collectionName": "components_components_contact_infos",
+  "info": {
+    "displayName": "Contact Info",
+    "description": "Información de contacto con logo y datos"
+  },
+  "options": {},
+  "attributes": {
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "ctaText": {
+      "type": "text",
+      "required": true,
+      "default": "Contáctanos para más información sobre nuestros servicios"
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "required": true
+    },
+    "phoneIcon": {
+      "type": "string",
+      "default": "fa-phone"
+    },
+    "emailIcon": {
+      "type": "string",
+      "default": "fa-envelope"
+    },
+    "address": {
+      "type": "text"
+    },
+    "addressIcon": {
+      "type": "string",
+      "default": "fa-map-marker-alt"
+    }
+  }
+}

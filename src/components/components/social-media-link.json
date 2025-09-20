@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_components_social_media_links",
+  "info": {
+    "displayName": "Social Media Link",
+    "description": "Enlace a redes sociales con icono"
+  },
+  "options": {},
+  "attributes": {
+    "platform": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "required": true,
+      "description": "Nombre del icono (ej: 'fa-facebook', 'fa-twitter', 'fa-instagram')"
+    },
+    "color": {
+      "type": "string",
+      "default": "#1877f2"
+    },
+    "openInNewTab": {
+      "type": "boolean",
+      "default": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

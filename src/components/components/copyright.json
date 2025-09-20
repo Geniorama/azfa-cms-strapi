@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_components_copyrights",
+  "info": {
+    "displayName": "Copyright",
+    "description": "Información de copyright y enlaces legales"
+  },
+  "options": {},
+  "attributes": {
+    "copyrightText": {
+      "type": "string",
+      "required": true,
+      "default": "© 2024 AZFA. Todos los derechos reservados."
+    },
+    "developedByText": {
+      "type": "string",
+      "default": "Realizado por"
+    },
+    "developedByLink": {
+      "type": "component",
+      "component": "components.button-link"
+    },
+    "legalLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.button-link"
+    }
+  }
+}

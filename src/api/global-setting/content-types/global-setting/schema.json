@@ -63,6 +63,16 @@
         }
       }
     },
+    "footer": {
+      "type": "component",
+      "component": "sections.footer",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "contactInfo": {
       "type": "component",
       "component": "sections.contact",

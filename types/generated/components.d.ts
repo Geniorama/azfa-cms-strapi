@@ -33,6 +33,48 @@ export interface ComponentsButtonLink extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsContactInfo extends Struct.ComponentSchema {
+  collectionName: 'components_components_contact_infos';
+  info: {
+    description: 'Informaci\u00F3n de contacto con logo y datos';
+    displayName: 'Contact Info';
+  };
+  attributes: {
+    address: Schema.Attribute.Text;
+    addressIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'fa-map-marker-alt'>;
+    ctaText: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Cont\u00E1ctanos para m\u00E1s informaci\u00F3n sobre nuestros servicios'>;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    emailIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'fa-envelope'>;
+    logo: Schema.Attribute.Media<'images'>;
+    phone: Schema.Attribute.String & Schema.Attribute.Required;
+    phoneIcon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'fa-phone'>;
+  };
+}
+
+export interface ComponentsCopyright extends Struct.ComponentSchema {
+  collectionName: 'components_components_copyrights';
+  info: {
+    description: 'Informaci\u00F3n de copyright y enlaces legales';
+    displayName: 'Copyright';
+  };
+  attributes: {
+    copyrightText: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'\u00A9 2024 AZFA. Todos los derechos reservados.'>;
+    developedByLink: Schema.Attribute.Component<
+      'components.button-link',
+      false
+    >;
+    developedByText: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Realizado por'>;
+    legalLinks: Schema.Attribute.Component<'components.button-link', true>;
+  };
+}
+
 export interface ComponentsCounter extends Struct.ComponentSchema {
   collectionName: 'components_components_counters';
   info: {
@@ -52,6 +94,19 @@ export interface ComponentsCounter extends Struct.ComponentSchema {
         },
         number
       >;
+  };
+}
+
+export interface ComponentsFooterLinks extends Struct.ComponentSchema {
+  collectionName: 'components_components_footer_links';
+  info: {
+    description: 'Secci\u00F3n de enlaces del footer con t\u00EDtulo';
+    displayName: 'Footer Links';
+  };
+  attributes: {
+    links: Schema.Attribute.Component<'components.button-link', true>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -166,6 +221,39 @@ export interface ComponentsSlider extends Struct.ComponentSchema {
     content: Schema.Attribute.Component<'sections.heading', false>;
     icon: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface ComponentsSocialMediaLink extends Struct.ComponentSchema {
+  collectionName: 'components_components_social_media_links';
+  info: {
+    description: 'Enlace a redes sociales con icono';
+    displayName: 'Social Media Link';
+  };
+  attributes: {
+    color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#1877f2'>;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    platform: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ComponentsSocialMediaSection extends Struct.ComponentSchema {
+  collectionName: 'components_components_social_media_sections';
+  info: {
+    description: 'Secci\u00F3n de redes sociales con t\u00EDtulo y enlaces';
+    displayName: 'Social Media Section';
+  };
+  attributes: {
+    socialLinks: Schema.Attribute.Component<
+      'components.social-media-link',
+      true
+    >;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'S\u00EDganos en nuestras redes sociales'>;
   };
 }
 
@@ -292,6 +380,34 @@ export interface SectionsEventsGrid extends Struct.ComponentSchema {
   attributes: {
     active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsFooter extends Struct.ComponentSchema {
+  collectionName: 'components_sections_footers';
+  info: {
+    description: 'Footer global del sitio web';
+    displayName: 'Footer';
+  };
+  attributes: {
+    backgroundColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#1a1a1a'>;
+    contactInfo: Schema.Attribute.Component<'components.contact-info', false> &
+      Schema.Attribute.Required;
+    copyright: Schema.Attribute.Component<'components.copyright', false> &
+      Schema.Attribute.Required;
+    dividerColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#333333'>;
+    footerLinksColumns: Schema.Attribute.Component<
+      'components.footer-links',
+      true
+    >;
+    socialMediaSection: Schema.Attribute.Component<
+      'components.social-media-section',
+      false
+    > &
+      Schema.Attribute.Required;
+    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#ffffff'>;
   };
 }
 
@@ -442,7 +558,10 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'components.button': ComponentsButton;
       'components.button-link': ComponentsButtonLink;
+      'components.contact-info': ComponentsContactInfo;
+      'components.copyright': ComponentsCopyright;
       'components.counter': ComponentsCounter;
+      'components.footer-links': ComponentsFooterLinks;
       'components.gallery': ComponentsGallery;
       'components.gm-location': ComponentsGmLocation;
       'components.heading-list': ComponentsHeadingList;
@@ -451,6 +570,8 @@ declare module '@strapi/strapi' {
       'components.menu-item': ComponentsMenuItem;
       'components.option': ComponentsOption;
       'components.slider': ComponentsSlider;
+      'components.social-media-link': ComponentsSocialMediaLink;
+      'components.social-media-section': ComponentsSocialMediaSection;
       'components.submenu-item': ComponentsSubmenuItem;
       'components.table-list': ComponentsTableList;
       'components.tag': ComponentsTag;
@@ -460,6 +581,7 @@ declare module '@strapi/strapi' {
       'sections.counters': SectionsCounters;
       'sections.download': SectionsDownload;
       'sections.events-grid': SectionsEventsGrid;
+      'sections.footer': SectionsFooter;
       'sections.header': SectionsHeader;
       'sections.heading': SectionsHeading;
       'sections.intro': SectionsIntro;

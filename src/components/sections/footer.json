@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_sections_footers",
+  "info": {
+    "displayName": "Footer",
+    "description": "Footer global del sitio web"
+  },
+  "options": {},
+  "attributes": {
+    "socialMediaSection": {
+      "type": "component",
+      "component": "components.social-media-section",
+      "required": true
+    },
+    "contactInfo": {
+      "type": "component",
+      "component": "components.contact-info",
+      "required": true
+    },
+    "footerLinksColumns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.footer-links"
+    },
+    "copyright": {
+      "type": "component",
+      "component": "components.copyright",
+      "required": true
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#1a1a1a"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "dividerColor": {
+      "type": "string",
+      "default": "#333333"
+    }
+  }
+}
