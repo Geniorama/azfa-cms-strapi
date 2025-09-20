@@ -7,23 +7,17 @@
   "options": {},
   "attributes": {
     "label": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "url": {
       "type": "string"
     },
     "icon": {
-      "type": "string",
-      "description": "Nombre del icono o clase CSS para el icono (ej: 'home', 'fa-home', etc.)"
-    },
-    "isHome": {
-      "type": "boolean",
-      "default": false
-    },
-    "hasDropdown": {
-      "type": "boolean",
-      "default": false
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
     },
     "submenu": {
       "type": "component",
@@ -37,10 +31,6 @@
     "isActive": {
       "type": "boolean",
       "default": false
-    },
-    "order": {
-      "type": "integer",
-      "default": 0
     }
   }
 }

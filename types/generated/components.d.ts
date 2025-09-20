@@ -203,13 +203,10 @@ export interface ComponentsMenuItem extends Struct.ComponentSchema {
     displayName: 'Menu Item';
   };
   attributes: {
-    hasDropdown: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    icon: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images'>;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    isHome: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    label: Schema.Attribute.String & Schema.Attribute.Required;
+    label: Schema.Attribute.String;
     openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     submenu: Schema.Attribute.Component<'components.submenu-item', true>;
     url: Schema.Attribute.String;
   };
@@ -280,12 +277,9 @@ export interface ComponentsSubmenuItem extends Struct.ComponentSchema {
     displayName: 'Submenu Item';
   };
   attributes: {
-    description: Schema.Attribute.Text;
-    icon: Schema.Attribute.String;
     label: Schema.Attribute.String & Schema.Attribute.Required;
     openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    url: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String;
   };
 }
 
