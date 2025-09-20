@@ -810,7 +810,10 @@ export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'AZFA'>;
-    socialMedia: Schema.Attribute.Component<'components.button-link', true> &
+    socialMedia: Schema.Attribute.Component<
+      'components.social-media-link',
+      true
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

@@ -15,21 +15,13 @@
       "required": true
     },
     "icon": {
-      "type": "string",
-      "required": true,
-      "description": "Nombre del icono (ej: 'fa-facebook', 'fa-twitter', 'fa-instagram')"
-    },
-    "color": {
-      "type": "string",
-      "default": "#1877f2"
+      "type": "component",
+      "component": "components.icon",
+      "required": true
     },
     "openInNewTab": {
       "type": "boolean",
       "default": true
-    },
-    "order": {
-      "type": "integer",
-      "default": 0
     }
   }
 }

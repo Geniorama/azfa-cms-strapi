@@ -6,17 +6,29 @@
   },
   "options": {},
   "attributes": {
-    "fullName": {
-      "type": "string"
-    },
     "email": {
-      "type": "string"
-    },
-    "position": {
       "type": "string"
     },
     "website": {
       "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "phoneIcon": {
+      "type": "string",
+      "default": "fa-phone"
+    },
+    "emailIcon": {
+      "type": "string",
+      "default": "fa-envelope"
+    },
+    "address": {
+      "type": "text"
+    },
+    "addressIcon": {
+      "type": "string",
+      "default": "fa-map-marker-alt"
     }
   },
   "config": {}

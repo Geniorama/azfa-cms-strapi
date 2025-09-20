@@ -56,7 +56,7 @@
     "socialMedia": {
       "type": "component",
       "repeatable": true,
-      "component": "components.button-link",
+      "component": "components.social-media-link",
       "pluginOptions": {
         "i18n": {
           "localized": true

@@ -12,24 +12,6 @@ export interface ComponentsButton extends Struct.ComponentSchema {
   };
 }
 
-export interface ComponentsButtonLink extends Struct.ComponentSchema {
-  collectionName: 'components_components_button_links';
-  info: {
-    description: 'Bot\u00F3n/enlace para navegaci\u00F3n con variantes de estilo';
-    displayName: 'Button Link';
-  };
-  attributes: {
-    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    label: Schema.Attribute.String & Schema.Attribute.Required;
-    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    url: Schema.Attribute.String & Schema.Attribute.Required;
-    variant: Schema.Attribute.Enumeration<
-      ['primary', 'secondary', 'outline', 'ghost']
-    > &
-      Schema.Attribute.DefaultTo<'primary'>;
-  };
-}
-
 export interface ComponentsContactInfo extends Struct.ComponentSchema {
   collectionName: 'components_components_contact_infos';
   info: {
@@ -37,18 +19,12 @@ export interface ComponentsContactInfo extends Struct.ComponentSchema {
     displayName: 'Contact Info';
   };
   attributes: {
-    address: Schema.Attribute.Text;
-    addressIcon: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'fa-map-marker-alt'>;
     ctaText: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Cont\u00E1ctanos para m\u00E1s informaci\u00F3n sobre nuestros servicios'>;
-    email: Schema.Attribute.Email & Schema.Attribute.Required;
-    emailIcon: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'fa-envelope'>;
     logo: Schema.Attribute.Media<'images'>;
-    phone: Schema.Attribute.String & Schema.Attribute.Required;
-    phoneIcon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'fa-phone'>;
+    showContactInfo: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
   };
 }
 
@@ -62,13 +38,10 @@ export interface ComponentsCopyright extends Struct.ComponentSchema {
     copyrightText: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'\u00A9 2024 AZFA. Todos los derechos reservados.'>;
-    developedByLink: Schema.Attribute.Component<
-      'components.button-link',
-      false
-    >;
+    developedByLink: Schema.Attribute.Component<'components.link', false>;
     developedByText: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Realizado por'>;
-    legalLinks: Schema.Attribute.Component<'components.button-link', true>;
+    legalLinks: Schema.Attribute.Component<'components.link', true>;
   };
 }
 
@@ -101,9 +74,7 @@ export interface ComponentsFooterLinks extends Struct.ComponentSchema {
     displayName: 'Footer Links';
   };
   attributes: {
-    links: Schema.Attribute.Component<'components.button-link', true>;
-    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+    links: Schema.Attribute.Component<'components.link', true>;
   };
 }
 
@@ -184,6 +155,20 @@ export interface ComponentsItemList extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsLink extends Struct.ComponentSchema {
+  collectionName: 'components_components_links';
+  info: {
+    description: 'Enlace simple para navegaci\u00F3n';
+    displayName: 'Link';
+  };
+  attributes: {
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ComponentsLoginSection extends Struct.ComponentSchema {
   collectionName: 'components_components_login_sections';
   info: {
@@ -259,10 +244,9 @@ export interface ComponentsSocialMediaLink extends Struct.ComponentSchema {
     displayName: 'Social Media Link';
   };
   attributes: {
-    color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#1877f2'>;
-    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.Component<'components.icon', false> &
+      Schema.Attribute.Required;
     openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     platform: Schema.Attribute.String & Schema.Attribute.Required;
     url: Schema.Attribute.String & Schema.Attribute.Required;
   };
@@ -362,9 +346,14 @@ export interface SectionsContact extends Struct.ComponentSchema {
     icon: 'earth';
   };
   attributes: {
+    address: Schema.Attribute.Text;
+    addressIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'fa-map-marker-alt'>;
     email: Schema.Attribute.String;
-    fullName: Schema.Attribute.String;
-    position: Schema.Attribute.String;
+    emailIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'fa-envelope'>;
+    phone: Schema.Attribute.String;
+    phoneIcon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'fa-phone'>;
     website: Schema.Attribute.String;
   };
 }
@@ -415,24 +404,16 @@ export interface SectionsFooter extends Struct.ComponentSchema {
     displayName: 'Footer';
   };
   attributes: {
-    backgroundColor: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'#1a1a1a'>;
     contactInfo: Schema.Attribute.Component<'components.contact-info', false> &
       Schema.Attribute.Required;
     copyright: Schema.Attribute.Component<'components.copyright', false> &
       Schema.Attribute.Required;
-    dividerColor: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'#333333'>;
     footerLinksColumns: Schema.Attribute.Component<
       'components.footer-links',
       true
     >;
-    socialMediaSection: Schema.Attribute.Component<
-      'components.social-media-section',
-      false
-    > &
-      Schema.Attribute.Required;
-    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#ffffff'>;
+    showSocialLinks: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
   };
 }
 
@@ -449,7 +430,7 @@ export interface SectionsHeader extends Struct.ComponentSchema {
     logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     logoUrl: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/'>;
     mainMenu: Schema.Attribute.Component<'components.menu-item', true>;
-    topButtons: Schema.Attribute.Component<'components.button-link', true>;
+    topButtons: Schema.Attribute.Component<'components.link', true>;
   };
 }
 
@@ -574,7 +555,6 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'components.button': ComponentsButton;
-      'components.button-link': ComponentsButtonLink;
       'components.contact-info': ComponentsContactInfo;
       'components.copyright': ComponentsCopyright;
       'components.counter': ComponentsCounter;
@@ -585,6 +565,7 @@ declare module '@strapi/strapi' {
       'components.icon': ComponentsIcon;
       'components.iframe': ComponentsIframe;
       'components.item-list': ComponentsItemList;
+      'components.link': ComponentsLink;
       'components.login-section': ComponentsLoginSection;
       'components.menu-item': ComponentsMenuItem;
       'components.option': ComponentsOption;

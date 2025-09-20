@@ -18,28 +18,9 @@
       "required": true,
       "default": "Contáctanos para más información sobre nuestros servicios"
     },
-    "email": {
-      "type": "email",
-      "required": true
-    },
-    "phone": {
-      "type": "string",
-      "required": true
-    },
-    "phoneIcon": {
-      "type": "string",
-      "default": "fa-phone"
-    },
-    "emailIcon": {
-      "type": "string",
-      "default": "fa-envelope"
-    },
-    "address": {
-      "type": "text"
-    },
-    "addressIcon": {
-      "type": "string",
-      "default": "fa-map-marker-alt"
+    "showContactInfo": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

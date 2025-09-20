@@ -9,7 +9,7 @@
     "topButtons": {
       "type": "component",
       "repeatable": true,
-      "component": "components.button-link"
+      "component": "components.link"
     },
     "logo": {
       "type": "media",

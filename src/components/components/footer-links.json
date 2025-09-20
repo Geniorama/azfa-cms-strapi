@@ -6,18 +6,10 @@
   },
   "options": {},
   "attributes": {
-    "title": {
-      "type": "string",
-      "required": true
-    },
     "links": {
       "type": "component",
       "repeatable": true,
-      "component": "components.button-link"
-    },
-    "order": {
-      "type": "integer",
-      "default": 0
+      "component": "components.link"
     }
   }
 }

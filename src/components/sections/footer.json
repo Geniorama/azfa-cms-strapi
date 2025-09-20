@@ -6,10 +6,9 @@
   },
   "options": {},
   "attributes": {
-    "socialMediaSection": {
-      "type": "component",
-      "component": "components.social-media-section",
-      "required": true
+    "showSocialLinks": {
+      "type": "boolean",
+      "default": true
     },
     "contactInfo": {
       "type": "component",
@@ -25,18 +24,6 @@
       "type": "component",
       "component": "components.copyright",
       "required": true
-    },
-    "backgroundColor": {
-      "type": "string",
-      "default": "#1a1a1a"
-    },
-    "textColor": {
-      "type": "string",
-      "default": "#ffffff"
-    },
-    "dividerColor": {
-      "type": "string",
-      "default": "#333333"
     }
   }
 }
