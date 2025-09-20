@@ -1,0 +1,80 @@
+{
+  "kind": "singleType",
+  "collectionName": "management_portals",
+  "info": {
+    "singularName": "management-portal",
+    "pluralName": "management-portals",
+    "displayName": "Management Portal",
+    "description": "Portal de gestión y recursos para afiliados"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Portal Afiliados",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Información premium solo para afiliados",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "publicationsTitle": {
+      "type": "string",
+      "default": "Publicaciones",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "managements": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::management.management"
+    },
+    "featuredTags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.tag",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "SEO": {
+      "type": "component",
+      "component": "sections.seo",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

@@ -597,6 +597,152 @@ export interface ApiIncentiveIncentive extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiManagementPortalManagementPortal
+  extends Struct.SingleTypeSchema {
+  collectionName: 'management_portals';
+  info: {
+    description: 'Portal de gesti\u00F3n y recursos para afiliados';
+    displayName: 'Management Portal';
+    pluralName: 'management-portals';
+    singularName: 'management-portal';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    featuredTags: Schema.Attribute.Component<'components.tag', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::management-portal.management-portal'
+    >;
+    managements: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::management.management'
+    >;
+    publicationsTitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Publicaciones'>;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Informaci\u00F3n premium solo para afiliados'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Portal Afiliados'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiManagementManagement extends Struct.CollectionTypeSchema {
+  collectionName: 'managements';
+  info: {
+    description: 'Publicaciones y recursos de gesti\u00F3n descargables';
+    displayName: 'Management';
+    pluralName: 'managements';
+    singularName: 'management';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    downloadableFile: Schema.Attribute.Media<'files'> &
+      Schema.Attribute.Required;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    featuredImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::management.management'
+    >;
+    publishDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    tags: Schema.Attribute.Component<'components.tag', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiMapCountryMapCountry extends Struct.CollectionTypeSchema {
   collectionName: 'map_countries';
   info: {
@@ -1450,6 +1596,8 @@ declare module '@strapi/strapi' {
       'api::affiliate.affiliate': ApiAffiliateAffiliate;
       'api::content.content': ApiContentContent;
       'api::incentive.incentive': ApiIncentiveIncentive;
+      'api::management-portal.management-portal': ApiManagementPortalManagementPortal;
+      'api::management.management': ApiManagementManagement;
       'api::map-country.map-country': ApiMapCountryMapCountry;
       'api::press-room-category.press-room-category': ApiPressRoomCategoryPressRoomCategory;
       'api::press-room.press-room': ApiPressRoomPressRoom;
