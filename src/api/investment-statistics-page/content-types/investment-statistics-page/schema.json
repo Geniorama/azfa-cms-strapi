@@ -47,9 +47,9 @@
         }
       }
     },
-    "loginSection": {
+    "ctaSection": {
       "type": "component",
-      "component": "components.login-section",
+      "component": "components.cta-section",
       "required": true,
       "pluginOptions": {
         "i18n": {

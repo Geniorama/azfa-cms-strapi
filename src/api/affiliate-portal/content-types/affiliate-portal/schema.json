@@ -74,6 +74,15 @@
         }
       }
     },
+    "ctaSection": {
+      "type": "component",
+      "component": "components.cta-section",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "SEO": {
       "type": "component",
       "component": "sections.seo",

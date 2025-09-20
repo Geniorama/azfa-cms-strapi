@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_components_cta_sections",
+  "info": {
+    "displayName": "CTA Section",
+    "description": "Sección simple con título, descripción y botón"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "button": {
+      "type": "component",
+      "component": "components.simple-button",
+      "required": true
+    }
+  }
+}
