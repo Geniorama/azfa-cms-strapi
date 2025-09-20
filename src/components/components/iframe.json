@@ -11,7 +11,7 @@
       "required": true
     },
     "src": {
-      "type": "string",
+      "type": "text",
       "required": true
     },
     "width": {
