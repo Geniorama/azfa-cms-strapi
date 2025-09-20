@@ -20,7 +20,7 @@ export default ({ env }) => ({
     serverOptions: {
       requestTimeout: 600000, // 10 minutos para requests
       keepAliveTimeout: 650000, // 10 minutos y 50 segundos para keep-alive
-      headersTimeout: 610000, // 10 minutos y 10 segundos para headers
+      headersTimeout: 600000, // 10 minutos para headers (debe ser <= requestTimeout)
     },
   },
 });

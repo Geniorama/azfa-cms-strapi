@@ -307,6 +307,21 @@ export interface SectionsSliderTestimonials extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsTwoColumnsSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_two_columns_sections';
+  info: {
+    displayName: 'Two columns section';
+    icon: 'dashboard';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    cover: Schema.Attribute.Media<'images'>;
+    positionContent: Schema.Attribute.Enumeration<['left', 'right']>;
+    title: Schema.Attribute.String;
+    video: Schema.Attribute.Component<'components.video', false>;
+  };
+}
+
 export interface SectionsTwoColumsSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_two_colums_sections';
   info: {
@@ -348,7 +363,7 @@ declare module '@strapi/strapi' {
       'sections.services-grid': SectionsServicesGrid;
       'sections.slider': SectionsSlider;
       'sections.slider-testimonials': SectionsSliderTestimonials;
-      'sections.two-colums-section': SectionsTwoColumsSection;
+      'sections.two-columns-section': SectionsTwoColumnsSection;
     }
   }
 }

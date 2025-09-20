@@ -449,7 +449,7 @@ export interface ApiContentContent extends Struct.CollectionTypeSchema {
         'sections.call-to-action',
         'components.gallery',
         'components.slider',
-        'sections.two-colums-section',
+        'sections.two-columns-section',
         'sections.intro',
         'components.video',
         'sections.contact',
