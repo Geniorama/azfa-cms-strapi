@@ -952,7 +952,7 @@ export interface ApiManagementPortalManagementPortal
   collectionName: 'management_portals';
   info: {
     description: 'Portal de gesti\u00F3n y recursos para afiliados';
-    displayName: 'Management Portal';
+    displayName: 'Affiliate Portal / Management';
     pluralName: 'management-portals';
     singularName: 'management-portal';
   };
@@ -991,10 +991,6 @@ export interface ApiManagementPortalManagementPortal
       'oneToMany',
       'api::management-portal.management-portal'
     >;
-    managements: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::management.management'
-    >;
     publicationsTitle: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -1004,6 +1000,13 @@ export interface ApiManagementPortalManagementPortal
       Schema.Attribute.DefaultTo<'Publicaciones'>;
     publishedAt: Schema.Attribute.DateTime;
     SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    showGrid: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    slug: Schema.Attribute.UID<'title'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

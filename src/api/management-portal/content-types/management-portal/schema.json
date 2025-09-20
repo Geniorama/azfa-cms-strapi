@@ -4,7 +4,7 @@
   "info": {
     "singularName": "management-portal",
     "pluralName": "management-portals",
-    "displayName": "Management Portal",
+    "displayName": "Affiliate Portal / Management",
     "description": "Portal de gestión y recursos para afiliados"
   },
   "options": {
@@ -20,6 +20,15 @@
       "type": "string",
       "required": true,
       "default": "Portal Afiliados",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -64,10 +73,9 @@
         }
       }
     },
-    "managements": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::management.management"
+    "showGrid": {
+      "type": "boolean",
+      "default": true
     },
     "featuredTags": {
       "type": "component",
