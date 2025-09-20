@@ -144,6 +144,21 @@ export interface ComponentsHeadingList extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsIcon extends Struct.ComponentSchema {
+  collectionName: 'components_components_icons';
+  info: {
+    description: 'Icono con opci\u00F3n de react-icons o imagen personalizada';
+    displayName: 'Icon';
+  };
+  attributes: {
+    customImage: Schema.Attribute.Media<'images'>;
+    reactIconName: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['react-icon', 'custom-image']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'react-icon'>;
+  };
+}
+
 export interface ComponentsIframe extends Struct.ComponentSchema {
   collectionName: 'components_components_iframes';
   info: {
@@ -203,7 +218,7 @@ export interface ComponentsMenuItem extends Struct.ComponentSchema {
     displayName: 'Menu Item';
   };
   attributes: {
-    icon: Schema.Attribute.Media<'images'>;
+    icon: Schema.Attribute.Component<'components.icon', false>;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     label: Schema.Attribute.String;
     openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -574,6 +589,7 @@ declare module '@strapi/strapi' {
       'components.gallery': ComponentsGallery;
       'components.gm-location': ComponentsGmLocation;
       'components.heading-list': ComponentsHeadingList;
+      'components.icon': ComponentsIcon;
       'components.iframe': ComponentsIframe;
       'components.item-list': ComponentsItemList;
       'components.login-section': ComponentsLoginSection;

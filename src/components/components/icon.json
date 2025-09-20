@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_components_icons",
+  "info": {
+    "displayName": "Icon",
+    "description": "Icono con opción de react-icons o imagen personalizada"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "react-icon",
+        "custom-image"
+      ],
+      "default": "react-icon",
+      "required": true
+    },
+    "reactIconName": {
+      "type": "string",
+      "description": "Nombre del icono de react-icons (ej: FaHome, MdEmail, IoMdPerson)"
+    },
+    "customImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

@@ -13,11 +13,8 @@
       "type": "string"
     },
     "icon": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ]
+      "type": "component",
+      "component": "components.icon"
     },
     "submenu": {
       "type": "component",
