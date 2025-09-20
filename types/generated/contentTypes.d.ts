@@ -400,6 +400,12 @@ export interface ApiAffiliatePortalAffiliatePortal
           localized: true;
         };
       }>;
+    heroBackground: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -691,6 +697,12 @@ export interface ApiEventsPageEventsPage extends Struct.SingleTypeSchema {
         };
       }> &
       Schema.Attribute.DefaultTo<'Eventos Destacados'>;
+    heroBackground: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -866,6 +878,12 @@ export interface ApiManagementPortalManagementPortal
         };
       }>;
     featuredTags: Schema.Attribute.Component<'components.tag', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroBackground: Schema.Attribute.Media<'images'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1178,6 +1196,12 @@ export interface ApiStudiesPortalStudiesPortal extends Struct.SingleTypeSchema {
         };
       }>;
     featuredTags: Schema.Attribute.Component<'components.tag', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroBackground: Schema.Attribute.Media<'images'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

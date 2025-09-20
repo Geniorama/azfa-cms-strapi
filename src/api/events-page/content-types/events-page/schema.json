@@ -35,6 +35,18 @@
         }
       }
     },
+    "heroBackground": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "events": {
       "type": "relation",
       "relation": "oneToMany",

@@ -43,6 +43,18 @@
         }
       }
     },
+    "heroBackground": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "publicationsTitle": {
       "type": "string",
       "default": "Publicaciones",
