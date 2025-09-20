@@ -394,6 +394,12 @@ export interface ApiAffiliatePortalAffiliatePortal
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    ctaSection: Schema.Attribute.Component<'components.cta-section', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     description: Schema.Attribute.Text &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -887,6 +893,20 @@ export interface ApiInvestmentStatisticsPageInvestmentStatisticsPage
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    ctaSection: Schema.Attribute.Component<'components.cta-section', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    desktopIframe: Schema.Attribute.Component<'components.iframe', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     disclaimerText: Schema.Attribute.RichText &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -905,10 +925,7 @@ export interface ApiInvestmentStatisticsPageInvestmentStatisticsPage
       'oneToMany',
       'api::investment-statistics-page.investment-statistics-page'
     >;
-    loginSection: Schema.Attribute.Component<
-      'components.login-section',
-      false
-    > &
+    mobileIframe: Schema.Attribute.Component<'components.iframe', false> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -917,13 +934,6 @@ export interface ApiInvestmentStatisticsPageInvestmentStatisticsPage
       }>;
     publishedAt: Schema.Attribute.DateTime;
     SEO: Schema.Attribute.Component<'sections.seo', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    statisticsIframe: Schema.Attribute.Component<'components.iframe', false> &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

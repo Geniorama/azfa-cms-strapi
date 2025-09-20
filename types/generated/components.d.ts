@@ -67,6 +67,20 @@ export interface ComponentsCounter extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsCtaSection extends Struct.ComponentSchema {
+  collectionName: 'components_components_cta_sections';
+  info: {
+    description: 'Secci\u00F3n simple con t\u00EDtulo, descripci\u00F3n y bot\u00F3n';
+    displayName: 'CTA Section';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'components.simple-button', false> &
+      Schema.Attribute.Required;
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ComponentsFooterLinks extends Struct.ComponentSchema {
   collectionName: 'components_components_footer_links';
   info: {
@@ -169,33 +183,6 @@ export interface ComponentsLink extends Struct.ComponentSchema {
   };
 }
 
-export interface ComponentsLoginSection extends Struct.ComponentSchema {
-  collectionName: 'components_components_login_sections';
-  info: {
-    description: 'Secci\u00F3n con texto informativo y bot\u00F3n de login/acceso';
-    displayName: 'Login Section';
-  };
-  attributes: {
-    backgroundColor: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'#f8f9fa'>;
-    borderColor: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'#e9ecef'>;
-    buttonIcon: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'fa-arrow-right'>;
-    buttonText: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'Iniciar sesi\u00F3n'>;
-    buttonUrl: Schema.Attribute.String & Schema.Attribute.Required;
-    buttonVariant: Schema.Attribute.Enumeration<
-      ['primary', 'secondary', 'outline', 'ghost', 'danger', 'success']
-    > &
-      Schema.Attribute.DefaultTo<'primary'>;
-    description: Schema.Attribute.RichText & Schema.Attribute.Required;
-    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#333333'>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
 export interface ComponentsMenuItem extends Struct.ComponentSchema {
   collectionName: 'components_components_menu_items';
   info: {
@@ -221,6 +208,18 @@ export interface ComponentsOption extends Struct.ComponentSchema {
   attributes: {
     label: Schema.Attribute.String;
     value: Schema.Attribute.String;
+  };
+}
+
+export interface ComponentsSimpleButton extends Struct.ComponentSchema {
+  collectionName: 'components_components_simple_buttons';
+  info: {
+    description: 'Bot\u00F3n simple con solo label y URL';
+    displayName: 'Simple Button';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -558,6 +557,7 @@ declare module '@strapi/strapi' {
       'components.contact-info': ComponentsContactInfo;
       'components.copyright': ComponentsCopyright;
       'components.counter': ComponentsCounter;
+      'components.cta-section': ComponentsCtaSection;
       'components.footer-links': ComponentsFooterLinks;
       'components.gallery': ComponentsGallery;
       'components.gm-location': ComponentsGmLocation;
@@ -566,9 +566,9 @@ declare module '@strapi/strapi' {
       'components.iframe': ComponentsIframe;
       'components.item-list': ComponentsItemList;
       'components.link': ComponentsLink;
-      'components.login-section': ComponentsLoginSection;
       'components.menu-item': ComponentsMenuItem;
       'components.option': ComponentsOption;
+      'components.simple-button': ComponentsSimpleButton;
       'components.slider': ComponentsSlider;
       'components.social-media-link': ComponentsSocialMediaLink;
       'components.social-media-section': ComponentsSocialMediaSection;
