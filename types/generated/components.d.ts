@@ -346,13 +346,11 @@ export interface SectionsContact extends Struct.ComponentSchema {
   };
   attributes: {
     address: Schema.Attribute.Text;
-    addressIcon: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'fa-map-marker-alt'>;
+    addressIcon: Schema.Attribute.Component<'components.icon', false>;
     email: Schema.Attribute.String;
-    emailIcon: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'fa-envelope'>;
+    emailIcon: Schema.Attribute.Component<'components.icon', false>;
     phone: Schema.Attribute.String;
-    phoneIcon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'fa-phone'>;
+    phoneIcon: Schema.Attribute.Component<'components.icon', false>;
     website: Schema.Attribute.String;
   };
 }

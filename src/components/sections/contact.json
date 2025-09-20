@@ -16,19 +16,19 @@
       "type": "string"
     },
     "phoneIcon": {
-      "type": "string",
-      "default": "fa-phone"
+      "type": "component",
+      "component": "components.icon"
     },
     "emailIcon": {
-      "type": "string",
-      "default": "fa-envelope"
+      "type": "component",
+      "component": "components.icon"
     },
     "address": {
       "type": "text"
     },
     "addressIcon": {
-      "type": "string",
-      "default": "fa-map-marker-alt"
+      "type": "component",
+      "component": "components.icon"
     }
   },
   "config": {}
