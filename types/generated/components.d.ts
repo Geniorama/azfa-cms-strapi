@@ -443,19 +443,12 @@ export interface SectionsHeader extends Struct.ComponentSchema {
     displayName: 'Header';
   };
   attributes: {
-    availableLanguages: Schema.Attribute.Component<
-      'components.button-link',
-      true
-    >;
-    backgroundColor: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'#ffffff'>;
+    availableLanguages: Schema.Attribute.Component<'components.option', true>;
     languageSelector: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
     logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     logoUrl: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/'>;
     mainMenu: Schema.Attribute.Component<'components.menu-item', true>;
-    stickyHeader: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#000000'>;
     topButtons: Schema.Attribute.Component<'components.button-link', true>;
   };
 }

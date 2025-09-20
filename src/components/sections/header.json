@@ -35,19 +35,7 @@
     "availableLanguages": {
       "type": "component",
       "repeatable": true,
-      "component": "components.button-link"
+      "component": "components.option"
     },
-    "stickyHeader": {
-      "type": "boolean",
-      "default": true
-    },
-    "backgroundColor": {
-      "type": "string",
-      "default": "#ffffff"
-    },
-    "textColor": {
-      "type": "string",
-      "default": "#000000"
-    }
   }
 }
