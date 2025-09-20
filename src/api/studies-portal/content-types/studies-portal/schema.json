@@ -1,0 +1,80 @@
+{
+  "kind": "singleType",
+  "collectionName": "studies_portals",
+  "info": {
+    "singularName": "studies-portal",
+    "pluralName": "studies-portals",
+    "displayName": "Studies Portal",
+    "description": "Portal de estudios y publicaciones para afiliados"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Portal Afiliados",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Información premium solo para afiliados",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "publicationsTitle": {
+      "type": "string",
+      "default": "Publicaciones",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "studies": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::study.study"
+    },
+    "featuredTags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.tag",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "SEO": {
+      "type": "component",
+      "component": "sections.seo",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

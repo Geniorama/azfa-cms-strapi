@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_components_tags",
+  "info": {
+    "displayName": "Tag",
+    "description": "Etiqueta o tag para categorizar contenido"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "string",
+      "default": "#6366f1"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    }
+  }
+}

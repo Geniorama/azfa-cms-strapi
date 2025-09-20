@@ -141,6 +141,19 @@ export interface ComponentsTableList extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsTag extends Struct.ComponentSchema {
+  collectionName: 'components_components_tags';
+  info: {
+    description: 'Etiqueta o tag para categorizar contenido';
+    displayName: 'Tag';
+  };
+  attributes: {
+    color: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#6366f1'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    slug: Schema.Attribute.UID<'name'>;
+  };
+}
+
 export interface ComponentsVideo extends Struct.ComponentSchema {
   collectionName: 'components_components_videos';
   info: {
@@ -356,6 +369,7 @@ declare module '@strapi/strapi' {
       'components.option': ComponentsOption;
       'components.slider': ComponentsSlider;
       'components.table-list': ComponentsTableList;
+      'components.tag': ComponentsTag;
       'components.video': ComponentsVideo;
       'sections.call-to-action': SectionsCallToAction;
       'sections.contact': SectionsContact;
