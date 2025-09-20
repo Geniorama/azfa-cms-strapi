@@ -604,10 +604,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    addressIcon: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'fa-map-pin'>;
-    buttonIcon: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'fa-arrow-right'>;
+    addressIcon: Schema.Attribute.Component<'components.icon', false>;
     buttonText: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -616,17 +613,11 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
       }> &
       Schema.Attribute.DefaultTo<'Ver m\u00E1s'>;
     buttonUrl: Schema.Attribute.String;
-    buttonVariant: Schema.Attribute.Enumeration<
-      ['primary', 'secondary', 'outline', 'ghost', 'danger', 'success']
-    > &
-      Schema.Attribute.DefaultTo<'primary'>;
-    calendarIcon: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'fa-calendar-alt'>;
+    calendarIcon: Schema.Attribute.Component<'components.icon', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.RichText &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -644,8 +635,7 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    locationIcon: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'fa-map-marker-alt'>;
+    locationIcon: Schema.Attribute.Component<'components.icon', false>;
     publishedAt: Schema.Attribute.DateTime;
     SEO: Schema.Attribute.Component<'sections.seo', false> &
       Schema.Attribute.SetPluginOptions<{
@@ -696,6 +686,24 @@ export interface ApiEventsPageEventsPage extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
+    columnsDesktop: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<3>;
+    columnsMobile: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 2;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<1>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -706,16 +714,31 @@ export interface ApiEventsPageEventsPage extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
-    eventsPerPage: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<12>;
-    featuredEvents: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
-    featuredSectionTitle: Schema.Attribute.String &
+    eventsPerPageDesktop: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<12>;
+    eventsPerPageMobile: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<6>;
+    eventsTabs: Schema.Attribute.Component<
+      'components.events-tab-config',
+      true
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }> &
-      Schema.Attribute.DefaultTo<'Eventos Destacados'>;
+      }>;
     heroBackground: Schema.Attribute.Media<'images'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -734,8 +757,6 @@ export interface ApiEventsPageEventsPage extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    showFeaturedSection: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<true>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{

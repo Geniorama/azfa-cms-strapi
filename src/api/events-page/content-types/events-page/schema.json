@@ -47,33 +47,37 @@
         }
       }
     },
-    "events": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::event.event"
-    },
-    "featuredEvents": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::event.event",
-      "targetAttribute": "featured"
-    },
-    "eventsPerPage": {
-      "type": "integer",
-      "default": 12
-    },
-    "showFeaturedSection": {
-      "type": "boolean",
-      "default": true
-    },
-    "featuredSectionTitle": {
-      "type": "string",
-      "default": "Eventos Destacados",
+    "eventsTabs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.events-tab-config",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       }
+    },
+    "eventsPerPageDesktop": {
+      "type": "integer",
+      "default": 12,
+      "min": 1
+    },
+    "eventsPerPageMobile": {
+      "type": "integer",
+      "default": 6,
+      "min": 1
+    },
+    "columnsDesktop": {
+      "type": "integer",
+      "default": 3,
+      "min": 1,
+      "max": 4
+    },
+    "columnsMobile": {
+      "type": "integer",
+      "default": 1,
+      "min": 1,
+      "max": 2
     },
     "SEO": {
       "type": "component",

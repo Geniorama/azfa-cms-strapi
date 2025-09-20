@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_components_events_tab_configs",
+  "info": {
+    "displayName": "Events Tab Config",
+    "description": "Configuración para pestañas de eventos (todos, próximos, pasados)"
+  },
+  "options": {},
+  "attributes": {
+    "tabLabel": {
+      "type": "string",
+      "required": true
+    },
+    "tabSlug": {
+      "type": "string",
+      "required": true,
+      "description": "Slug único para la pestaña (ej: all, upcoming, past, special)"
+    },
+    "showFeaturedSection": {
+      "type": "boolean",
+      "default": true
+    },
+    "featuredSectionTitle": {
+      "type": "string",
+      "default": "Eventos Destacados"
+    },
+    "featuredEvents": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::event.event"
+    }
+  }
+}

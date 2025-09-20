@@ -81,6 +81,23 @@ export interface ComponentsCtaSection extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsEventsTabConfig extends Struct.ComponentSchema {
+  collectionName: 'components_components_events_tab_configs';
+  info: {
+    description: 'Configuraci\u00F3n para pesta\u00F1as de eventos (todos, pr\u00F3ximos, pasados)';
+    displayName: 'Events Tab Config';
+  };
+  attributes: {
+    featuredEvents: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    featuredSectionTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Eventos Destacados'>;
+    showFeaturedSection: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    tabLabel: Schema.Attribute.String & Schema.Attribute.Required;
+    tabSlug: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ComponentsFooterLinks extends Struct.ComponentSchema {
   collectionName: 'components_components_footer_links';
   info: {
@@ -556,6 +573,7 @@ declare module '@strapi/strapi' {
       'components.copyright': ComponentsCopyright;
       'components.counter': ComponentsCounter;
       'components.cta-section': ComponentsCtaSection;
+      'components.events-tab-config': ComponentsEventsTabConfig;
       'components.footer-links': ComponentsFooterLinks;
       'components.gallery': ComponentsGallery;
       'components.gm-location': ComponentsGmLocation;

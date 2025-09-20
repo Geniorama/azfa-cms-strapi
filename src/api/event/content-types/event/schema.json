@@ -36,7 +36,6 @@
     },
     "description": {
       "type": "richtext",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -72,8 +71,8 @@
       "required": true
     },
     "calendarIcon": {
-      "type": "string",
-      "default": "fa-calendar-alt"
+      "type": "component",
+      "component": "components.icon"
     },
     "location": {
       "type": "string",
@@ -85,8 +84,8 @@
       }
     },
     "locationIcon": {
-      "type": "string",
-      "default": "fa-map-marker-alt"
+      "type": "component",
+      "component": "components.icon"
     },
     "address": {
       "type": "string",
@@ -97,8 +96,8 @@
       }
     },
     "addressIcon": {
-      "type": "string",
-      "default": "fa-map-pin"
+      "type": "component",
+      "component": "components.icon"
     },
     "buttonText": {
       "type": "string",
@@ -108,22 +107,6 @@
           "localized": true
         }
       }
-    },
-    "buttonIcon": {
-      "type": "string",
-      "default": "fa-arrow-right"
-    },
-    "buttonVariant": {
-      "type": "enumeration",
-      "enum": [
-        "primary",
-        "secondary",
-        "outline",
-        "ghost",
-        "danger",
-        "success"
-      ],
-      "default": "primary"
     },
     "buttonUrl": {
       "type": "string"
