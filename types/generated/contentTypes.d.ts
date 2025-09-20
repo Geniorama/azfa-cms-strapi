@@ -1270,7 +1270,7 @@ export interface ApiStudiesPortalStudiesPortal extends Struct.SingleTypeSchema {
   collectionName: 'studies_portals';
   info: {
     description: 'Portal de estudios y publicaciones para afiliados';
-    displayName: 'Studies Portal';
+    displayName: 'Affiliate Portal / Studies';
     pluralName: 'studies-portals';
     singularName: 'studies-portal';
   };
@@ -1323,7 +1323,13 @@ export interface ApiStudiesPortalStudiesPortal extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    studies: Schema.Attribute.Relation<'oneToMany', 'api::study.study'>;
+    showGrid: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     subtitle: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

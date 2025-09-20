@@ -4,7 +4,7 @@
   "info": {
     "singularName": "studies-portal",
     "pluralName": "studies-portals",
-    "displayName": "Studies Portal",
+    "displayName": "Affiliate Portal / Studies",
     "description": "Portal de estudios y publicaciones para afiliados"
   },
   "options": {
@@ -20,6 +20,15 @@
       "type": "string",
       "required": true,
       "default": "Portal Afiliados",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -64,10 +73,9 @@
         }
       }
     },
-    "studies": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::study.study"
+    "showGrid": {
+      "type": "boolean",
+      "default": true
     },
     "featuredTags": {
       "type": "component",
