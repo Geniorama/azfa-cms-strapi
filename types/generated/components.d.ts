@@ -19,9 +19,6 @@ export interface ComponentsButtonLink extends Struct.ComponentSchema {
     displayName: 'Button Link';
   };
   attributes: {
-    color: Schema.Attribute.Enumeration<['blue', 'white', 'gray', 'custom']> &
-      Schema.Attribute.DefaultTo<'blue'>;
-    customColor: Schema.Attribute.String;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     label: Schema.Attribute.String & Schema.Attribute.Required;
     openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -449,7 +446,6 @@ export interface SectionsHeader extends Struct.ComponentSchema {
     logoUrl: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/'>;
     mainMenu: Schema.Attribute.Component<'components.menu-item', true>;
     stickyHeader: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    tagline: Schema.Attribute.String;
     textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#000000'>;
     topButtons: Schema.Attribute.Component<'components.button-link', true>;
   };

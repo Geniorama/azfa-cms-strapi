@@ -23,9 +23,6 @@
       "type": "string",
       "default": "/"
     },
-    "tagline": {
-      "type": "string"
-    },
     "mainMenu": {
       "type": "component",
       "repeatable": true,

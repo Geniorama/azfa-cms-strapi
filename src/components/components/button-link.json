@@ -24,19 +24,6 @@
       ],
       "default": "primary"
     },
-    "color": {
-      "type": "enumeration",
-      "enum": [
-        "blue",
-        "white",
-        "gray",
-        "custom"
-      ],
-      "default": "blue"
-    },
-    "customColor": {
-      "type": "string"
-    },
     "openInNewTab": {
       "type": "boolean",
       "default": false
