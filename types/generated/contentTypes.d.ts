@@ -378,7 +378,7 @@ export interface ApiAffiliatePortalAffiliatePortal
   collectionName: 'affiliate_portals';
   info: {
     description: 'Portal de estad\u00EDsticas para afiliados';
-    displayName: 'Affiliate Portal';
+    displayName: 'Affiliate Portal / Statistics';
     pluralName: 'affiliate-portals';
     singularName: 'affiliate-portal';
   };
@@ -400,6 +400,13 @@ export interface ApiAffiliatePortalAffiliatePortal
           localized: true;
         };
       }>;
+    desktopIframe: Schema.Attribute.Component<'components.iframe', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     heroBackground: Schema.Attribute.Media<'images'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -411,6 +418,13 @@ export interface ApiAffiliatePortalAffiliatePortal
       'oneToMany',
       'api::affiliate-portal.affiliate-portal'
     >;
+    mobileIframe: Schema.Attribute.Component<'components.iframe', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     publishedAt: Schema.Attribute.DateTime;
     SEO: Schema.Attribute.Component<'sections.seo', false> &
       Schema.Attribute.SetPluginOptions<{
@@ -418,8 +432,7 @@ export interface ApiAffiliatePortalAffiliatePortal
           localized: true;
         };
       }>;
-    statisticsIframe: Schema.Attribute.Component<'components.iframe', false> &
-      Schema.Attribute.Required &
+    slug: Schema.Attribute.UID<'title'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

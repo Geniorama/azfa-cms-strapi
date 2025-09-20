@@ -150,21 +150,13 @@ export interface ComponentsHeadingList extends Struct.ComponentSchema {
 export interface ComponentsIframe extends Struct.ComponentSchema {
   collectionName: 'components_components_iframes';
   info: {
-    description: 'Componente para embeber contenido externo mediante iframe';
+    description: 'Componente simplificado para embeber contenido externo';
     displayName: 'Iframe';
   };
   attributes: {
-    allowFullscreen: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<true>;
-    description: Schema.Attribute.Text;
-    height: Schema.Attribute.String & Schema.Attribute.DefaultTo<'600px'>;
-    loading: Schema.Attribute.Enumeration<['lazy', 'eager']> &
-      Schema.Attribute.DefaultTo<'lazy'>;
-    sandbox: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'allow-scripts allow-same-origin'>;
+    bottomText: Schema.Attribute.RichText;
     src: Schema.Attribute.Text & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
-    width: Schema.Attribute.String & Schema.Attribute.DefaultTo<'100%'>;
   };
 }
 

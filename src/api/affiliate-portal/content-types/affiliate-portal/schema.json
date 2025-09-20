@@ -4,7 +4,7 @@
   "info": {
     "singularName": "affiliate-portal",
     "pluralName": "affiliate-portals",
-    "displayName": "Affiliate Portal",
+    "displayName": "Affiliate Portal / Statistics",
     "description": "Portal de estadísticas para afiliados"
   },
   "options": {
@@ -19,6 +19,15 @@
     "title": {
       "type": "string",
       "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -45,7 +54,17 @@
         }
       }
     },
-    "statisticsIframe": {
+    "desktopIframe": {
+      "type": "component",
+      "component": "components.iframe",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "mobileIframe": {
       "type": "component",
       "component": "components.iframe",
       "required": true,
