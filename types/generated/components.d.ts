@@ -322,21 +322,6 @@ export interface SectionsTwoColumnsSection extends Struct.ComponentSchema {
   };
 }
 
-export interface SectionsTwoColumsSection extends Struct.ComponentSchema {
-  collectionName: 'components_sections_two_colums_sections';
-  info: {
-    displayName: 'Two colums section';
-    icon: 'dashboard';
-  };
-  attributes: {
-    content: Schema.Attribute.RichText;
-    cover: Schema.Attribute.Media<'images'>;
-    positionContent: Schema.Attribute.Enumeration<['left', 'right']>;
-    title: Schema.Attribute.String;
-    video: Schema.Attribute.Component<'components.video', false>;
-  };
-}
-
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
