@@ -1,0 +1,89 @@
+{
+  "kind": "singleType",
+  "collectionName": "investment_statistics_pages",
+  "info": {
+    "singularName": "investment-statistics-page",
+    "pluralName": "investment-statistics-pages",
+    "displayName": "Investment Statistics Page",
+    "description": "Página de estadísticas para inversión en zonas francas"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Invierta en Zonas Francas",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Estadísticas",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "heroBackground": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "loginSection": {
+      "type": "component",
+      "component": "components.login-section",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "statisticsIframe": {
+      "type": "component",
+      "component": "components.iframe",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "disclaimerText": {
+      "type": "richtext",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "SEO": {
+      "type": "component",
+      "component": "sections.seo",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

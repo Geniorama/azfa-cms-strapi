@@ -1,0 +1,55 @@
+{
+  "collectionName": "components_components_login_sections",
+  "info": {
+    "displayName": "Login Section",
+    "description": "Sección con texto informativo y botón de login/acceso"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "buttonText": {
+      "type": "string",
+      "required": true,
+      "default": "Iniciar sesión"
+    },
+    "buttonUrl": {
+      "type": "string",
+      "required": true
+    },
+    "buttonIcon": {
+      "type": "string",
+      "default": "fa-arrow-right"
+    },
+    "buttonVariant": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "outline",
+        "ghost",
+        "danger",
+        "success"
+      ],
+      "default": "primary"
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#f8f9fa"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#333333"
+    },
+    "borderColor": {
+      "type": "string",
+      "default": "#e9ecef"
+    }
+  }
+}

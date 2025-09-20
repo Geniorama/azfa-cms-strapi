@@ -850,6 +850,90 @@ export interface ApiIncentiveIncentive extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiInvestmentStatisticsPageInvestmentStatisticsPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'investment_statistics_pages';
+  info: {
+    description: 'P\u00E1gina de estad\u00EDsticas para inversi\u00F3n en zonas francas';
+    displayName: 'Investment Statistics Page';
+    pluralName: 'investment-statistics-pages';
+    singularName: 'investment-statistics-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    disclaimerText: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroBackground: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::investment-statistics-page.investment-statistics-page'
+    >;
+    loginSection: Schema.Attribute.Component<
+      'components.login-section',
+      false
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    statisticsIframe: Schema.Attribute.Component<'components.iframe', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Estad\u00EDsticas'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Invierta en Zonas Francas'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiManagementPortalManagementPortal
   extends Struct.SingleTypeSchema {
   collectionName: 'management_portals';
@@ -1864,6 +1948,7 @@ declare module '@strapi/strapi' {
       'api::events-page.events-page': ApiEventsPageEventsPage;
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::incentive.incentive': ApiIncentiveIncentive;
+      'api::investment-statistics-page.investment-statistics-page': ApiInvestmentStatisticsPageInvestmentStatisticsPage;
       'api::management-portal.management-portal': ApiManagementPortalManagementPortal;
       'api::management.management': ApiManagementManagement;
       'api::map-country.map-country': ApiMapCountryMapCountry;

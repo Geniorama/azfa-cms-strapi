@@ -162,7 +162,7 @@ export interface ComponentsIframe extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'lazy'>;
     sandbox: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'allow-scripts allow-same-origin'>;
-    src: Schema.Attribute.String & Schema.Attribute.Required;
+    src: Schema.Attribute.Text & Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     width: Schema.Attribute.String & Schema.Attribute.DefaultTo<'100%'>;
   };
@@ -177,6 +177,33 @@ export interface ComponentsItemList extends Struct.ComponentSchema {
   attributes: {
     link: Schema.Attribute.String;
     text: Schema.Attribute.String;
+  };
+}
+
+export interface ComponentsLoginSection extends Struct.ComponentSchema {
+  collectionName: 'components_components_login_sections';
+  info: {
+    description: 'Secci\u00F3n con texto informativo y bot\u00F3n de login/acceso';
+    displayName: 'Login Section';
+  };
+  attributes: {
+    backgroundColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#f8f9fa'>;
+    borderColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#e9ecef'>;
+    buttonIcon: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'fa-arrow-right'>;
+    buttonText: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Iniciar sesi\u00F3n'>;
+    buttonUrl: Schema.Attribute.String & Schema.Attribute.Required;
+    buttonVariant: Schema.Attribute.Enumeration<
+      ['primary', 'secondary', 'outline', 'ghost', 'danger', 'success']
+    > &
+      Schema.Attribute.DefaultTo<'primary'>;
+    description: Schema.Attribute.RichText & Schema.Attribute.Required;
+    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#333333'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -567,6 +594,7 @@ declare module '@strapi/strapi' {
       'components.heading-list': ComponentsHeadingList;
       'components.iframe': ComponentsIframe;
       'components.item-list': ComponentsItemList;
+      'components.login-section': ComponentsLoginSection;
       'components.menu-item': ComponentsMenuItem;
       'components.option': ComponentsOption;
       'components.slider': ComponentsSlider;
