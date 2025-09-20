@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_components_button_links",
+  "info": {
+    "displayName": "Button Link",
+    "description": "Botón/enlace para navegación con variantes de estilo"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "variant": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "outline",
+        "ghost"
+      ],
+      "default": "primary"
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": [
+        "blue",
+        "white",
+        "gray",
+        "custom"
+      ],
+      "default": "blue"
+    },
+    "customColor": {
+      "type": "string"
+    },
+    "openInNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

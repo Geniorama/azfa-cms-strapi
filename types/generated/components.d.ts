@@ -12,6 +12,27 @@ export interface ComponentsButton extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsButtonLink extends Struct.ComponentSchema {
+  collectionName: 'components_components_button_links';
+  info: {
+    description: 'Bot\u00F3n/enlace para navegaci\u00F3n con variantes de estilo';
+    displayName: 'Button Link';
+  };
+  attributes: {
+    color: Schema.Attribute.Enumeration<['blue', 'white', 'gray', 'custom']> &
+      Schema.Attribute.DefaultTo<'blue'>;
+    customColor: Schema.Attribute.String;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
+    variant: Schema.Attribute.Enumeration<
+      ['primary', 'secondary', 'outline', 'ghost']
+    > &
+      Schema.Attribute.DefaultTo<'primary'>;
+  };
+}
+
 export interface ComponentsCounter extends Struct.ComponentSchema {
   collectionName: 'components_components_counters';
   info: {
@@ -104,6 +125,25 @@ export interface ComponentsItemList extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsMenuItem extends Struct.ComponentSchema {
+  collectionName: 'components_components_menu_items';
+  info: {
+    description: 'Elemento de men\u00FA con soporte para submen\u00FAs';
+    displayName: 'Menu Item';
+  };
+  attributes: {
+    hasDropdown: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    icon: Schema.Attribute.String;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    isHome: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    submenu: Schema.Attribute.Component<'components.submenu-item', true>;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface ComponentsOption extends Struct.ComponentSchema {
   collectionName: 'components_components_options';
   info: {
@@ -126,6 +166,22 @@ export interface ComponentsSlider extends Struct.ComponentSchema {
     content: Schema.Attribute.Component<'sections.heading', false>;
     icon: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface ComponentsSubmenuItem extends Struct.ComponentSchema {
+  collectionName: 'components_components_submenu_items';
+  info: {
+    description: 'Elemento de submen\u00FA';
+    displayName: 'Submenu Item';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.String;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    openInNewTab: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -236,6 +292,31 @@ export interface SectionsEventsGrid extends Struct.ComponentSchema {
   attributes: {
     active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsHeader extends Struct.ComponentSchema {
+  collectionName: 'components_sections_headers';
+  info: {
+    description: 'Header global del sitio web';
+    displayName: 'Header';
+  };
+  attributes: {
+    availableLanguages: Schema.Attribute.Component<
+      'components.button-link',
+      true
+    >;
+    backgroundColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#ffffff'>;
+    languageSelector: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
+    logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    logoUrl: Schema.Attribute.String & Schema.Attribute.DefaultTo<'/'>;
+    mainMenu: Schema.Attribute.Component<'components.menu-item', true>;
+    stickyHeader: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    tagline: Schema.Attribute.String;
+    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#000000'>;
+    topButtons: Schema.Attribute.Component<'components.button-link', true>;
   };
 }
 
@@ -360,14 +441,17 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'components.button': ComponentsButton;
+      'components.button-link': ComponentsButtonLink;
       'components.counter': ComponentsCounter;
       'components.gallery': ComponentsGallery;
       'components.gm-location': ComponentsGmLocation;
       'components.heading-list': ComponentsHeadingList;
       'components.iframe': ComponentsIframe;
       'components.item-list': ComponentsItemList;
+      'components.menu-item': ComponentsMenuItem;
       'components.option': ComponentsOption;
       'components.slider': ComponentsSlider;
+      'components.submenu-item': ComponentsSubmenuItem;
       'components.table-list': ComponentsTableList;
       'components.tag': ComponentsTag;
       'components.video': ComponentsVideo;
@@ -376,6 +460,7 @@ declare module '@strapi/strapi' {
       'sections.counters': SectionsCounters;
       'sections.download': SectionsDownload;
       'sections.events-grid': SectionsEventsGrid;
+      'sections.header': SectionsHeader;
       'sections.heading': SectionsHeading;
       'sections.intro': SectionsIntro;
       'sections.list': SectionsList;

@@ -556,6 +556,77 @@ export interface ApiContentContent extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiGlobalSettingGlobalSetting extends Struct.SingleTypeSchema {
+  collectionName: 'global_settings';
+  info: {
+    description: 'Configuraci\u00F3n global del sitio web (header, footer, etc.)';
+    displayName: 'Global Settings';
+    pluralName: 'global-settings';
+    singularName: 'global-setting';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    contactInfo: Schema.Attribute.Component<'sections.contact', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    defaultSEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    header: Schema.Attribute.Component<'sections.header', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::global-setting.global-setting'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    siteDescription: Schema.Attribute.Text &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    siteName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'AZFA'>;
+    socialMedia: Schema.Attribute.Component<'components.button-link', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiIncentiveIncentive extends Struct.CollectionTypeSchema {
   collectionName: 'incentives';
   info: {
@@ -1595,6 +1666,7 @@ declare module '@strapi/strapi' {
       'api::affiliate-portal.affiliate-portal': ApiAffiliatePortalAffiliatePortal;
       'api::affiliate.affiliate': ApiAffiliateAffiliate;
       'api::content.content': ApiContentContent;
+      'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
       'api::incentive.incentive': ApiIncentiveIncentive;
       'api::management-portal.management-portal': ApiManagementPortalManagementPortal;
       'api::management.management': ApiManagementManagement;

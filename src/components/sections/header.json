@@ -1,0 +1,56 @@
+{
+  "collectionName": "components_sections_headers",
+  "info": {
+    "displayName": "Header",
+    "description": "Header global del sitio web"
+  },
+  "options": {},
+  "attributes": {
+    "topButtons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.button-link"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "logoUrl": {
+      "type": "string",
+      "default": "/"
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "mainMenu": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.menu-item"
+    },
+    "languageSelector": {
+      "type": "boolean",
+      "default": true
+    },
+    "availableLanguages": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.button-link"
+    },
+    "stickyHeader": {
+      "type": "boolean",
+      "default": true
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#000000"
+    }
+  }
+}

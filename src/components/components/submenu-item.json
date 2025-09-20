@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_components_submenu_items",
+  "info": {
+    "displayName": "Submenu Item",
+    "description": "Elemento de submenú"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Nombre del icono o clase CSS para el icono"
+    },
+    "openInNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

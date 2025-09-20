@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_components_menu_items",
+  "info": {
+    "displayName": "Menu Item",
+    "description": "Elemento de menú con soporte para submenús"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Nombre del icono o clase CSS para el icono (ej: 'home', 'fa-home', etc.)"
+    },
+    "isHome": {
+      "type": "boolean",
+      "default": false
+    },
+    "hasDropdown": {
+      "type": "boolean",
+      "default": false
+    },
+    "submenu": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.submenu-item"
+    },
+    "openInNewTab": {
+      "type": "boolean",
+      "default": false
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}
