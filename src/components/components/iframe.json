@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_components_iframes",
+  "info": {
+    "displayName": "Iframe",
+    "description": "Componente para embeber contenido externo mediante iframe"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "src": {
+      "type": "string",
+      "required": true
+    },
+    "width": {
+      "type": "string",
+      "default": "100%"
+    },
+    "height": {
+      "type": "string",
+      "default": "600px"
+    },
+    "allowFullscreen": {
+      "type": "boolean",
+      "default": true
+    },
+    "sandbox": {
+      "type": "string",
+      "default": "allow-scripts allow-same-origin"
+    },
+    "loading": {
+      "type": "enumeration",
+      "enum": ["lazy", "eager"],
+      "default": "lazy"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}
