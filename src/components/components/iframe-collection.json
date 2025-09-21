@@ -2,7 +2,7 @@
   "collectionName": "components_components_iframe_collections",
   "info": {
     "displayName": "Iframe Collection",
-    "description": "Collection of iframes with desktop and mobile versions"
+    "description": "Collection of iframes with desktop and mobile versions. Slug should be unique (e.g., statistics-dashboard)"
   },
   "options": {},
   "attributes": {
@@ -11,8 +11,7 @@
       "required": true
     },
     "slug": {
-      "type": "uid",
-      "targetField": "label",
+      "type": "string",
       "required": true
     },
     "desktopIframe": {

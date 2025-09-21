@@ -177,7 +177,7 @@ export interface ComponentsIframe extends Struct.ComponentSchema {
 export interface ComponentsIframeCollection extends Struct.ComponentSchema {
   collectionName: 'components_components_iframe_collections';
   info: {
-    description: 'Collection of iframes with desktop and mobile versions';
+    description: 'Collection of iframes with desktop and mobile versions. Slug should be unique (e.g., statistics-dashboard)';
     displayName: 'Iframe Collection';
   };
   attributes: {
@@ -185,7 +185,7 @@ export interface ComponentsIframeCollection extends Struct.ComponentSchema {
       Schema.Attribute.Required;
     label: Schema.Attribute.String & Schema.Attribute.Required;
     mobileIframe: Schema.Attribute.Component<'components.iframe', false>;
-    slug: Schema.Attribute.UID<'label'> & Schema.Attribute.Required;
+    slug: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
