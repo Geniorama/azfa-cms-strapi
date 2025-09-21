@@ -1454,6 +1454,142 @@ export interface ApiStudyStudy extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
+  collectionName: 'team_members';
+  info: {
+    description: 'AZFA team members, board of directors and committees';
+    displayName: 'Team Member';
+    pluralName: 'team-members';
+    singularName: 'team-member';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    association: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    country: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.CustomField<'plugin::country-select.country'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    fullName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::team-member.team-member'
+    >;
+    memberType: Schema.Attribute.Enumeration<
+      ['board-of-directors', 'committees', 'azfa-team']
+    > &
+      Schema.Attribute.Required;
+    photo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    position: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    subCategory: Schema.Attribute.Enumeration<
+      [
+        'board-members',
+        'honorary-presidents',
+        'vocal-members',
+        'committee-leader',
+        'committee-member',
+        'azfa-team',
+      ]
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTeamSectionTeamSection extends Struct.CollectionTypeSchema {
+  collectionName: 'team_sections';
+  info: {
+    description: 'Team sections: Board of Directors, Committees and AZFA Team';
+    displayName: 'Team Section';
+    pluralName: 'team-sections';
+    singularName: 'team-section';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    featuredImage: Schema.Attribute.Media<'images'>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    leader: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::team-member.team-member'
+    >;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::team-section.team-section'
+    >;
+    members: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::team-member.team-member'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    sectionType: Schema.Attribute.Enumeration<
+      ['board-of-directors', 'committees', 'azfa-team']
+    > &
+      Schema.Attribute.Required;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
   collectionName: 'testimonials';
   info: {
@@ -2013,6 +2149,8 @@ declare module '@strapi/strapi' {
       'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
       'api::studies-portal.studies-portal': ApiStudiesPortalStudiesPortal;
       'api::study.study': ApiStudyStudy;
+      'api::team-member.team-member': ApiTeamMemberTeamMember;
+      'api::team-section.team-section': ApiTeamSectionTeamSection;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

@@ -1,0 +1,82 @@
+{
+  "kind": "collectionType",
+  "collectionName": "team_members",
+  "info": {
+    "singularName": "team-member",
+    "pluralName": "team-members",
+    "displayName": "Team Member",
+    "description": "AZFA team members, board of directors and committees"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "fullName": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "position": {
+      "type": "string",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "association": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "country": {
+      "type": "customField",
+      "customField": "plugin::country-select.country",
+      "required": true
+    },
+    "email": {
+      "type": "email"
+    },
+    "memberType": {
+      "type": "enumeration",
+      "enum": [
+        "board-of-directors",
+        "committees", 
+        "azfa-team"
+      ],
+      "required": true
+    },
+    "subCategory": {
+      "type": "enumeration",
+      "enum": [
+        "board-members",
+        "honorary-presidents",
+        "vocal-members",
+        "committee-leader",
+        "committee-member",
+        "azfa-team"
+      ]
+    }
+  }
+}
