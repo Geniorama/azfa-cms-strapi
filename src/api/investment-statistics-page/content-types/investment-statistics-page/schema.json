@@ -57,19 +57,10 @@
         }
       }
     },
-    "desktopIframe": {
+    "iframeCollection": {
       "type": "component",
-      "component": "components.iframe",
-      "required": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "mobileIframe": {
-      "type": "component",
-      "component": "components.iframe",
+      "component": "components.iframe-collection",
+      "repeatable": true,
       "pluginOptions": {
         "i18n": {
           "localized": true

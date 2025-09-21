@@ -916,13 +916,6 @@ export interface ApiInvestmentStatisticsPageInvestmentStatisticsPage
           localized: true;
         };
       }>;
-    desktopIframe: Schema.Attribute.Component<'components.iframe', false> &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     disclaimerText: Schema.Attribute.RichText &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -936,17 +929,20 @@ export interface ApiInvestmentStatisticsPageInvestmentStatisticsPage
           localized: true;
         };
       }>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::investment-statistics-page.investment-statistics-page'
-    >;
-    mobileIframe: Schema.Attribute.Component<'components.iframe', false> &
+    iframeCollection: Schema.Attribute.Component<
+      'components.iframe-collection',
+      true
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::investment-statistics-page.investment-statistics-page'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     SEO: Schema.Attribute.Component<'sections.seo', false> &
       Schema.Attribute.SetPluginOptions<{
