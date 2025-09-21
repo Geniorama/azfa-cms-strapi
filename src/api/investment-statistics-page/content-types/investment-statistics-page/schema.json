@@ -70,7 +70,6 @@
     "mobileIframe": {
       "type": "component",
       "component": "components.iframe",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true

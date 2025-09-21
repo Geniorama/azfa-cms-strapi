@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_components_iframe_collections",
+  "info": {
+    "displayName": "Iframe Collection",
+    "description": "Collection of iframes with desktop and mobile versions"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "label",
+      "required": true
+    },
+    "desktopIframe": {
+      "type": "component",
+      "component": "components.iframe",
+      "required": true
+    },
+    "mobileIframe": {
+      "type": "component",
+      "component": "components.iframe"
+    }
+  }
+}

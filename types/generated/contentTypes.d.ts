@@ -406,14 +406,16 @@ export interface ApiAffiliatePortalAffiliatePortal
           localized: true;
         };
       }>;
-    desktopIframe: Schema.Attribute.Component<'components.iframe', false> &
-      Schema.Attribute.Required &
+    heroBackground: Schema.Attribute.Media<'images'> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    heroBackground: Schema.Attribute.Media<'images'> &
+    iframeCollection: Schema.Attribute.Component<
+      'components.iframe-collection',
+      true
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -424,13 +426,6 @@ export interface ApiAffiliatePortalAffiliatePortal
       'oneToMany',
       'api::affiliate-portal.affiliate-portal'
     >;
-    mobileIframe: Schema.Attribute.Component<'components.iframe', false> &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     publishedAt: Schema.Attribute.DateTime;
     SEO: Schema.Attribute.Component<'sections.seo', false> &
       Schema.Attribute.SetPluginOptions<{
@@ -947,7 +942,6 @@ export interface ApiInvestmentStatisticsPageInvestmentStatisticsPage
       'api::investment-statistics-page.investment-statistics-page'
     >;
     mobileIframe: Schema.Attribute.Component<'components.iframe', false> &
-      Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

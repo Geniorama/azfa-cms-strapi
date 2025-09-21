@@ -174,6 +174,21 @@ export interface ComponentsIframe extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsIframeCollection extends Struct.ComponentSchema {
+  collectionName: 'components_components_iframe_collections';
+  info: {
+    description: 'Collection of iframes with desktop and mobile versions';
+    displayName: 'Iframe Collection';
+  };
+  attributes: {
+    desktopIframe: Schema.Attribute.Component<'components.iframe', false> &
+      Schema.Attribute.Required;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    mobileIframe: Schema.Attribute.Component<'components.iframe', false>;
+    slug: Schema.Attribute.UID<'label'> & Schema.Attribute.Required;
+  };
+}
+
 export interface ComponentsItemList extends Struct.ComponentSchema {
   collectionName: 'components_components_item_lists';
   info: {
@@ -580,6 +595,7 @@ declare module '@strapi/strapi' {
       'components.heading-list': ComponentsHeadingList;
       'components.icon': ComponentsIcon;
       'components.iframe': ComponentsIframe;
+      'components.iframe-collection': ComponentsIframeCollection;
       'components.item-list': ComponentsItemList;
       'components.link': ComponentsLink;
       'components.menu-item': ComponentsMenuItem;
