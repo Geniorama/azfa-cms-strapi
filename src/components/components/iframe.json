@@ -7,12 +7,10 @@
   "options": {},
   "attributes": {
     "title": {
-      "type": "string",
-      "required": true
+      "type": "string"
     },
     "src": {
-      "type": "text",
-      "required": true
+      "type": "text"
     },
     "bottomText": {
       "type": "richtext"

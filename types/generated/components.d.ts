@@ -169,8 +169,8 @@ export interface ComponentsIframe extends Struct.ComponentSchema {
   };
   attributes: {
     bottomText: Schema.Attribute.RichText;
-    src: Schema.Attribute.Text & Schema.Attribute.Required;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+    src: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
   };
 }
 
