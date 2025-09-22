@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_icon_content_sections",
+  "info": {
+    "displayName": "Icon Content Section",
+    "description": "Section with icon and rich text content"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "component",
+      "component": "components.icon"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_team_tabs_sections",
+  "info": {
+    "displayName": "Team Tabs Section",
+    "description": "Fixed tabs section for Board of Directors, Committees, and AZFA Team"
+  },
+  "options": {},
+  "attributes": {
+    "boardOfDirectorsTab": {
+      "type": "component",
+      "component": "components.tab-item"
+    },
+    "committeesTab": {
+      "type": "component",
+      "component": "components.tab-item"
+    },
+    "azfaTeamTab": {
+      "type": "component",
+      "component": "components.tab-item"
+    }
+  }
+}

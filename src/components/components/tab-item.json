@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_components_tab_items",
+  "info": {
+    "displayName": "Tab Item",
+    "description": "Individual tab with icon and label"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "component",
+      "component": "components.icon"
+    },
+    "label": {
+      "type": "string"
+    }
+  }
+}

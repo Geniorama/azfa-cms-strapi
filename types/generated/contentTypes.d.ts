@@ -373,6 +373,75 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAboutUsPageAboutUsPage extends Struct.SingleTypeSchema {
+  collectionName: 'about_us_pages';
+  info: {
+    description: 'About us page with hero, content section and team tabs';
+    displayName: 'About Us Page';
+    pluralName: 'about-us-pages';
+    singularName: 'about-us-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    contentSection: Schema.Attribute.Component<
+      'sections.icon-content-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Component<'sections.heading', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::about-us-page.about-us-page'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Schema.Attribute.UID &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'about-us'>;
+    teamTabsSection: Schema.Attribute.Component<
+      'sections.team-tabs-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAffiliatePortalAffiliatePortal
   extends Struct.SingleTypeSchema {
   collectionName: 'affiliate_portals';
@@ -2386,6 +2455,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::about-us-page.about-us-page': ApiAboutUsPageAboutUsPage;
       'api::affiliate-portal.affiliate-portal': ApiAffiliatePortalAffiliatePortal;
       'api::affiliate.affiliate': ApiAffiliateAffiliate;
       'api::contact-page.contact-page': ApiContactPageContactPage;

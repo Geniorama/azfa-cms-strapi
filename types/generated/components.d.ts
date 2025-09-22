@@ -368,6 +368,18 @@ export interface ComponentsSubmenuItem extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsTabItem extends Struct.ComponentSchema {
+  collectionName: 'components_components_tab_items';
+  info: {
+    description: 'Individual tab with icon and label';
+    displayName: 'Tab Item';
+  };
+  attributes: {
+    icon: Schema.Attribute.Component<'components.icon', false>;
+    label: Schema.Attribute.String;
+  };
+}
+
 export interface ComponentsTableList extends Struct.ComponentSchema {
   collectionName: 'components_components_table_lists';
   info: {
@@ -576,6 +588,18 @@ export interface SectionsHeroSlide extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsIconContentSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_icon_content_sections';
+  info: {
+    description: 'Section with icon and rich text content';
+    displayName: 'Icon Content Section';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    icon: Schema.Attribute.Component<'components.icon', false>;
+  };
+}
+
 export interface SectionsIntro extends Struct.ComponentSchema {
   collectionName: 'components_sections_intros';
   info: {
@@ -715,6 +739,22 @@ export interface SectionsStatisticsSection extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsTeamTabsSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_team_tabs_sections';
+  info: {
+    description: 'Fixed tabs section for Board of Directors, Committees, and AZFA Team';
+    displayName: 'Team Tabs Section';
+  };
+  attributes: {
+    azfaTeamTab: Schema.Attribute.Component<'components.tab-item', false>;
+    boardOfDirectorsTab: Schema.Attribute.Component<
+      'components.tab-item',
+      false
+    >;
+    committeesTab: Schema.Attribute.Component<'components.tab-item', false>;
+  };
+}
+
 export interface SectionsTestimonialsSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_testimonials_sections';
   info: {
@@ -795,6 +835,7 @@ declare module '@strapi/strapi' {
       'components.social-media-section': ComponentsSocialMediaSection;
       'components.social-widget': ComponentsSocialWidget;
       'components.submenu-item': ComponentsSubmenuItem;
+      'components.tab-item': ComponentsTabItem;
       'components.table-list': ComponentsTableList;
       'components.tag': ComponentsTag;
       'components.video': ComponentsVideo;
@@ -809,6 +850,7 @@ declare module '@strapi/strapi' {
       'sections.header': SectionsHeader;
       'sections.heading': SectionsHeading;
       'sections.hero-slide': SectionsHeroSlide;
+      'sections.icon-content-section': SectionsIconContentSection;
       'sections.intro': SectionsIntro;
       'sections.list': SectionsList;
       'sections.logos-section': SectionsLogosSection;
@@ -820,6 +862,7 @@ declare module '@strapi/strapi' {
       'sections.slider': SectionsSlider;
       'sections.slider-testimonials': SectionsSliderTestimonials;
       'sections.statistics-section': SectionsStatisticsSection;
+      'sections.team-tabs-section': SectionsTeamTabsSection;
       'sections.testimonials-section': SectionsTestimonialsSection;
       'sections.two-columns-section': SectionsTwoColumnsSection;
       'sections.upcoming-events-section': SectionsUpcomingEventsSection;
