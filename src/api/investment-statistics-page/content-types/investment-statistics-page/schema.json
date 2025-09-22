@@ -16,6 +16,15 @@
     }
   },
   "attributes": {
+    "slug": {
+      "type": "uid",
+      "default": "investment-statistics",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "title": {
       "type": "string",
       "required": true,

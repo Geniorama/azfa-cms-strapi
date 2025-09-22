@@ -16,6 +16,15 @@
     }
   },
   "attributes": {
+    "slug": {
+      "type": "uid",
+      "default": "events",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "title": {
       "type": "string",
       "required": true,

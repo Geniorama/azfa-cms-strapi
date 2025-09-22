@@ -16,6 +16,15 @@
     }
   },
   "attributes": {
+    "slug": {
+      "type": "uid",
+      "default": "contact",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "SEO": {
       "type": "component",
       "component": "sections.seo",
