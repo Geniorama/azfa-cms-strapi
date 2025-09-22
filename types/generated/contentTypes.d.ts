@@ -1424,6 +1424,59 @@ export interface ApiRealStateOfferRealStateOffer
   };
 }
 
+export interface ApiStatisticStatistic extends Struct.CollectionTypeSchema {
+  collectionName: 'statistics';
+  info: {
+    description: 'Individual statistics with icon, value and label for reuse across pages';
+    displayName: 'Statistic';
+    pluralName: 'statistics';
+    singularName: 'statistic';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    icon: Schema.Attribute.Component<'components.icon', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::statistic.statistic'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    value: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+  };
+}
+
 export interface ApiStudiesPortalStudiesPortal extends Struct.SingleTypeSchema {
   collectionName: 'studies_portals';
   info: {
@@ -2269,6 +2322,7 @@ declare module '@strapi/strapi' {
       'api::press-room-category.press-room-category': ApiPressRoomCategoryPressRoomCategory;
       'api::press-room.press-room': ApiPressRoomPressRoom;
       'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
+      'api::statistic.statistic': ApiStatisticStatistic;
       'api::studies-portal.studies-portal': ApiStudiesPortalStudiesPortal;
       'api::study.study': ApiStudyStudy;
       'api::team-member.team-member': ApiTeamMemberTeamMember;

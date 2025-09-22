@@ -2,7 +2,7 @@
   "collectionName": "components_sections_statistics_sections",
   "info": {
     "displayName": "Statistics Section",
-    "description": "Section with title and repeatable statistic items with icons, values and labels"
+    "description": "Section with title and relation to statistics content type"
   },
   "options": {},
   "attributes": {
@@ -10,9 +10,9 @@
       "type": "string"
     },
     "statistics": {
-      "type": "component",
-      "component": "components.statistic-item",
-      "repeatable": true
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::statistic.statistic"
     }
   }
 }

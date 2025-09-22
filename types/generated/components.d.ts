@@ -355,19 +355,6 @@ export interface ComponentsSocialWidget extends Struct.ComponentSchema {
   };
 }
 
-export interface ComponentsStatisticItem extends Struct.ComponentSchema {
-  collectionName: 'components_components_statistic_items';
-  info: {
-    description: 'Individual statistic with icon, value and label';
-    displayName: 'Statistic Item';
-  };
-  attributes: {
-    icon: Schema.Attribute.Component<'components.icon', false>;
-    label: Schema.Attribute.String;
-    value: Schema.Attribute.String;
-  };
-}
-
 export interface ComponentsSubmenuItem extends Struct.ComponentSchema {
   collectionName: 'components_components_submenu_items';
   info: {
@@ -716,11 +703,14 @@ export interface SectionsSliderTestimonials extends Struct.ComponentSchema {
 export interface SectionsStatisticsSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_statistics_sections';
   info: {
-    description: 'Section with title and repeatable statistic items with icons, values and labels';
+    description: 'Section with title and relation to statistics content type';
     displayName: 'Statistics Section';
   };
   attributes: {
-    statistics: Schema.Attribute.Component<'components.statistic-item', true>;
+    statistics: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::statistic.statistic'
+    >;
     title: Schema.Attribute.String;
   };
 }
@@ -804,7 +794,6 @@ declare module '@strapi/strapi' {
       'components.social-media-link': ComponentsSocialMediaLink;
       'components.social-media-section': ComponentsSocialMediaSection;
       'components.social-widget': ComponentsSocialWidget;
-      'components.statistic-item': ComponentsStatisticItem;
       'components.submenu-item': ComponentsSubmenuItem;
       'components.table-list': ComponentsTableList;
       'components.tag': ComponentsTag;
