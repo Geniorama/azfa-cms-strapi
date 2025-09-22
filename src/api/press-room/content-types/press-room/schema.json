@@ -42,6 +42,9 @@
       "relation": "manyToOne",
       "target": "api::press-room-category.press-room-category",
       "inversedBy": "pressRooms"
+    },
+    "externalLink": {
+      "type": "string"
     }
   }
 }
