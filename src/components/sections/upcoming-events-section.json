@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_upcoming_events_sections",
+  "info": {
+    "displayName": "Upcoming Events Section",
+    "description": "Section to display upcoming events with title and view all link"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "viewAllLink": {
+      "type": "component",
+      "component": "components.view-all-link"
+    }
+  }
+}

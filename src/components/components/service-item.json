@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_components_service_items",
+  "info": {
+    "displayName": "Service Item",
+    "description": "Individual service with tag, title and button"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "component": "components.button"
+    }
+  }
+}

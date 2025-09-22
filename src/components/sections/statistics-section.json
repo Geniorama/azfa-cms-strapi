@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_statistics_sections",
+  "info": {
+    "displayName": "Statistics Section",
+    "description": "Section with title and repeatable statistic items with icons, values and labels"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "statistics": {
+      "type": "component",
+      "component": "components.statistic-item",
+      "repeatable": true
+    }
+  }
+}

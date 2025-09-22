@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_components_logo_items",
+  "info": {
+    "displayName": "Logo Item",
+    "description": "Individual logo with image, name and optional link"
+  },
+  "options": {},
+  "attributes": {
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

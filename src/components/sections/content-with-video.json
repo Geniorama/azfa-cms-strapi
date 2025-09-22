@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_sections_content_with_videos",
+  "info": {
+    "displayName": "Content with Video",
+    "description": "Section with icon, description, YouTube video and rich text content"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "component",
+      "component": "components.icon"
+    },
+    "description": {
+      "type": "text"
+    },
+    "video": {
+      "type": "component",
+      "component": "components.video"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_components_hero_icon_links",
+  "info": {
+    "displayName": "Hero Icon Link",
+    "description": "Icon with label and URL for hero sections"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "component",
+      "component": "components.icon"
+    },
+    "label": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_widgets_sections",
+  "info": {
+    "displayName": "Widgets Section",
+    "description": "Section with social media widgets (LinkedIn, X, Instagram, etc.)"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "widgets": {
+      "type": "component",
+      "component": "components.social-widget",
+      "repeatable": true
+    }
+  }
+}

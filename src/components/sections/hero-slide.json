@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_sections_hero_slides",
+  "info": {
+    "displayName": "Hero Slide",
+    "description": "Hero section slide with background, text, button and icon links"
+  },
+  "options": {},
+  "attributes": {
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "component": "components.button"
+    },
+    "iconLinks": {
+      "type": "component",
+      "component": "components.hero-icon-link",
+      "repeatable": true
+    }
+  }
+}

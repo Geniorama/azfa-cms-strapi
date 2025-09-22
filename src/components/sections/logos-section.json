@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_sections_logos_sections",
+  "info": {
+    "displayName": "Logos Section",
+    "description": "Reusable section for displaying logos (affiliates, partners, sponsors, etc.)"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "displayType": {
+      "type": "enumeration",
+      "enum": [
+        "slider",
+        "grid"
+      ],
+      "default": "slider"
+    },
+    "logos": {
+      "type": "component",
+      "component": "components.logo-item",
+      "repeatable": true
+    }
+  }
+}

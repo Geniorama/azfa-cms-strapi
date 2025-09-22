@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_components_social_widgets",
+  "info": {
+    "displayName": "Social Widget",
+    "description": "Widget for social media embeds (LinkedIn, X, Instagram, etc.)"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "linkedin",
+        "x-twitter",
+        "instagram",
+        "facebook",
+        "youtube",
+        "custom"
+      ]
+    },
+    "embedCode": {
+      "type": "text"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

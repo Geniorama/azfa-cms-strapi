@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_components_view_all_links",
+  "info": {
+    "displayName": "View All Link",
+    "description": "Link component with label and URL for 'View All' type links"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

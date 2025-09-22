@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_news_sections",
+  "info": {
+    "displayName": "News Section",
+    "description": "Section to display news with title and view all link"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "viewAllLink": {
+      "type": "component",
+      "component": "components.view-all-link"
+    }
+  }
+}

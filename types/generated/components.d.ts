@@ -146,6 +146,19 @@ export interface ComponentsHeadingList extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsHeroIconLink extends Struct.ComponentSchema {
+  collectionName: 'components_components_hero_icon_links';
+  info: {
+    description: 'Icon with label and URL for hero sections';
+    displayName: 'Hero Icon Link';
+  };
+  attributes: {
+    icon: Schema.Attribute.Component<'components.icon', false>;
+    label: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface ComponentsIcon extends Struct.ComponentSchema {
   collectionName: 'components_components_icons';
   info: {
@@ -215,6 +228,19 @@ export interface ComponentsLink extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsLogoItem extends Struct.ComponentSchema {
+  collectionName: 'components_components_logo_items';
+  info: {
+    description: 'Individual logo with image, name and optional link';
+    displayName: 'Logo Item';
+  };
+  attributes: {
+    logo: Schema.Attribute.Media<'images'>;
+    name: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface ComponentsMenuItem extends Struct.ComponentSchema {
   collectionName: 'components_components_menu_items';
   info: {
@@ -240,6 +266,19 @@ export interface ComponentsOption extends Struct.ComponentSchema {
   attributes: {
     label: Schema.Attribute.String;
     value: Schema.Attribute.String;
+  };
+}
+
+export interface ComponentsServiceItem extends Struct.ComponentSchema {
+  collectionName: 'components_components_service_items';
+  info: {
+    description: 'Individual service with tag, title and button';
+    displayName: 'Service Item';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'components.button', false>;
+    tag: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -297,6 +336,35 @@ export interface ComponentsSocialMediaSection extends Struct.ComponentSchema {
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'S\u00EDganos en nuestras redes sociales'>;
+  };
+}
+
+export interface ComponentsSocialWidget extends Struct.ComponentSchema {
+  collectionName: 'components_components_social_widgets';
+  info: {
+    description: 'Widget for social media embeds (LinkedIn, X, Instagram, etc.)';
+    displayName: 'Social Widget';
+  };
+  attributes: {
+    embedCode: Schema.Attribute.Text;
+    platform: Schema.Attribute.Enumeration<
+      ['linkedin', 'x-twitter', 'instagram', 'facebook', 'youtube', 'custom']
+    >;
+    title: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface ComponentsStatisticItem extends Struct.ComponentSchema {
+  collectionName: 'components_components_statistic_items';
+  info: {
+    description: 'Individual statistic with icon, value and label';
+    displayName: 'Statistic Item';
+  };
+  attributes: {
+    icon: Schema.Attribute.Component<'components.icon', false>;
+    label: Schema.Attribute.String;
+    value: Schema.Attribute.String;
   };
 }
 
@@ -359,6 +427,18 @@ export interface ComponentsVideo extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsViewAllLink extends Struct.ComponentSchema {
+  collectionName: 'components_components_view_all_links';
+  info: {
+    description: "Link component with label and URL for 'View All' type links";
+    displayName: 'View All Link';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsCallToAction extends Struct.ComponentSchema {
   collectionName: 'components_sections_call_to_actions';
   info: {
@@ -384,6 +464,20 @@ export interface SectionsContact extends Struct.ComponentSchema {
     phone: Schema.Attribute.String;
     phoneIcon: Schema.Attribute.Component<'components.icon', false>;
     website: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsContentWithVideo extends Struct.ComponentSchema {
+  collectionName: 'components_sections_content_with_videos';
+  info: {
+    description: 'Section with icon, description, YouTube video and rich text content';
+    displayName: 'Content with Video';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.Component<'components.icon', false>;
+    video: Schema.Attribute.Component<'components.video', false>;
   };
 }
 
@@ -479,6 +573,22 @@ export interface SectionsHeading extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsHeroSlide extends Struct.ComponentSchema {
+  collectionName: 'components_sections_hero_slides';
+  info: {
+    description: 'Hero section slide with background, text, button and icon links';
+    displayName: 'Hero Slide';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    button: Schema.Attribute.Component<'components.button', false>;
+    iconLinks: Schema.Attribute.Component<'components.hero-icon-link', true>;
+    label: Schema.Attribute.String;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsIntro extends Struct.ComponentSchema {
   collectionName: 'components_sections_intros';
   info: {
@@ -503,6 +613,20 @@ export interface SectionsList extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsLogosSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_logos_sections';
+  info: {
+    description: 'Reusable section for displaying logos (affiliates, partners, sponsors, etc.)';
+    displayName: 'Logos Section';
+  };
+  attributes: {
+    displayType: Schema.Attribute.Enumeration<['slider', 'grid']> &
+      Schema.Attribute.DefaultTo<'slider'>;
+    logos: Schema.Attribute.Component<'components.logo-item', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsNewsGrid extends Struct.ComponentSchema {
   collectionName: 'components_sections_news_grids';
   info: {
@@ -512,6 +636,18 @@ export interface SectionsNewsGrid extends Struct.ComponentSchema {
   attributes: {
     active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsNewsSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_news_sections';
+  info: {
+    description: 'Section to display news with title and view all link';
+    displayName: 'News Section';
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    viewAllLink: Schema.Attribute.Component<'components.view-all-link', false>;
   };
 }
 
@@ -541,6 +677,18 @@ export interface SectionsServicesGrid extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsServicesSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_services_sections';
+  info: {
+    description: 'Section with title and repeatable service items';
+    displayName: 'Services Section';
+  };
+  attributes: {
+    services: Schema.Attribute.Component<'components.service-item', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsSlider extends Struct.ComponentSchema {
   collectionName: 'components_sections_sliders';
   info: {
@@ -565,6 +713,30 @@ export interface SectionsSliderTestimonials extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsStatisticsSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_statistics_sections';
+  info: {
+    description: 'Section with title and repeatable statistic items with icons, values and labels';
+    displayName: 'Statistics Section';
+  };
+  attributes: {
+    statistics: Schema.Attribute.Component<'components.statistic-item', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsTestimonialsSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_testimonials_sections';
+  info: {
+    description: 'Section with label and title for testimonials display';
+    displayName: 'Testimonials Section';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsTwoColumnsSection extends Struct.ComponentSchema {
   collectionName: 'components_sections_two_columns_sections';
   info: {
@@ -577,6 +749,30 @@ export interface SectionsTwoColumnsSection extends Struct.ComponentSchema {
     positionContent: Schema.Attribute.Enumeration<['left', 'right']>;
     title: Schema.Attribute.String;
     video: Schema.Attribute.Component<'components.video', false>;
+  };
+}
+
+export interface SectionsUpcomingEventsSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_upcoming_events_sections';
+  info: {
+    description: 'Section to display upcoming events with title and view all link';
+    displayName: 'Upcoming Events Section';
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    viewAllLink: Schema.Attribute.Component<'components.view-all-link', false>;
+  };
+}
+
+export interface SectionsWidgetsSection extends Struct.ComponentSchema {
+  collectionName: 'components_sections_widgets_sections';
+  info: {
+    description: 'Section with social media widgets (LinkedIn, X, Instagram, etc.)';
+    displayName: 'Widgets Section';
+  };
+  attributes: {
+    title: Schema.Attribute.String;
+    widgets: Schema.Attribute.Component<'components.social-widget', true>;
   };
 }
 
@@ -593,37 +789,52 @@ declare module '@strapi/strapi' {
       'components.gallery': ComponentsGallery;
       'components.gm-location': ComponentsGmLocation;
       'components.heading-list': ComponentsHeadingList;
+      'components.hero-icon-link': ComponentsHeroIconLink;
       'components.icon': ComponentsIcon;
       'components.iframe': ComponentsIframe;
       'components.iframe-collection': ComponentsIframeCollection;
       'components.item-list': ComponentsItemList;
       'components.link': ComponentsLink;
+      'components.logo-item': ComponentsLogoItem;
       'components.menu-item': ComponentsMenuItem;
       'components.option': ComponentsOption;
+      'components.service-item': ComponentsServiceItem;
       'components.simple-button': ComponentsSimpleButton;
       'components.slider': ComponentsSlider;
       'components.social-media-link': ComponentsSocialMediaLink;
       'components.social-media-section': ComponentsSocialMediaSection;
+      'components.social-widget': ComponentsSocialWidget;
+      'components.statistic-item': ComponentsStatisticItem;
       'components.submenu-item': ComponentsSubmenuItem;
       'components.table-list': ComponentsTableList;
       'components.tag': ComponentsTag;
       'components.video': ComponentsVideo;
+      'components.view-all-link': ComponentsViewAllLink;
       'sections.call-to-action': SectionsCallToAction;
       'sections.contact': SectionsContact;
+      'sections.content-with-video': SectionsContentWithVideo;
       'sections.counters': SectionsCounters;
       'sections.download': SectionsDownload;
       'sections.events-grid': SectionsEventsGrid;
       'sections.footer': SectionsFooter;
       'sections.header': SectionsHeader;
       'sections.heading': SectionsHeading;
+      'sections.hero-slide': SectionsHeroSlide;
       'sections.intro': SectionsIntro;
       'sections.list': SectionsList;
+      'sections.logos-section': SectionsLogosSection;
       'sections.news-grid': SectionsNewsGrid;
+      'sections.news-section': SectionsNewsSection;
       'sections.seo': SectionsSeo;
       'sections.services-grid': SectionsServicesGrid;
+      'sections.services-section': SectionsServicesSection;
       'sections.slider': SectionsSlider;
       'sections.slider-testimonials': SectionsSliderTestimonials;
+      'sections.statistics-section': SectionsStatisticsSection;
+      'sections.testimonials-section': SectionsTestimonialsSection;
       'sections.two-columns-section': SectionsTwoColumnsSection;
+      'sections.upcoming-events-section': SectionsUpcomingEventsSection;
+      'sections.widgets-section': SectionsWidgetsSection;
     }
   }
 }
