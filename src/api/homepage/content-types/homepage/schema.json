@@ -18,121 +18,131 @@
   "attributes": {
     "slug": {
       "type": "uid",
-      "default": "home",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "default": "home"
     },
     "SEO": {
       "type": "component",
-      "component": "sections.seo",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.seo"
     },
     "heroSlides": {
       "type": "component",
-      "component": "sections.hero-slide",
-      "repeatable": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.hero-slide",
+      "repeatable": true
+    },
+    "introContent": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.intro",
+      "repeatable": false
     },
     "contentWithVideo": {
       "type": "component",
-      "component": "sections.content-with-video",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.content-with-video"
     },
     "servicesSection": {
       "type": "component",
-      "component": "sections.services-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.services-section"
     },
     "statisticsSection": {
       "type": "component",
-      "component": "sections.statistics-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.statistics-section"
     },
     "newsSection": {
       "type": "component",
-      "component": "sections.news-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.news-section"
     },
     "upcomingEventsSection": {
       "type": "component",
-      "component": "sections.upcoming-events-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.upcoming-events-section"
     },
     "testimonialsSection": {
       "type": "component",
-      "component": "sections.testimonials-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.testimonials-section"
     },
     "widgetsSection": {
       "type": "component",
-      "component": "sections.widgets-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.widgets-section"
     },
     "affiliatesSection": {
       "type": "component",
-      "component": "sections.logos-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.logos-section"
     },
     "partnersSection": {
       "type": "component",
-      "component": "sections.logos-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.logos-section"
     },
     "sponsorsSection": {
       "type": "component",
-      "component": "sections.logos-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.logos-section"
     }
   }
 }

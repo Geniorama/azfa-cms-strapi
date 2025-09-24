@@ -474,8 +474,6 @@ export interface SectionsContentWithVideo extends Struct.ComponentSchema {
   };
   attributes: {
     content: Schema.Attribute.RichText;
-    description: Schema.Attribute.Text;
-    icon: Schema.Attribute.Component<'components.icon', false>;
     video: Schema.Attribute.Component<'components.video', false>;
   };
 }

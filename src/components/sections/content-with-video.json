@@ -6,13 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "icon": {
-      "type": "component",
-      "component": "components.icon"
-    },
-    "description": {
-      "type": "text"
-    },
     "video": {
       "type": "component",
       "component": "components.video"
