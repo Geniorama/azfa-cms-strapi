@@ -693,6 +693,7 @@ export interface SectionsServicesSection extends Struct.ComponentSchema {
     displayName: 'Services Section';
   };
   attributes: {
+    coverImage: Schema.Attribute.Media<'images'>;
     services: Schema.Attribute.Component<'components.service-item', true>;
     title: Schema.Attribute.String;
   };

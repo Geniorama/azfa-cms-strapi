@@ -9,6 +9,13 @@
     "title": {
       "type": "string"
     },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "services": {
       "type": "component",
       "component": "components.service-item",
