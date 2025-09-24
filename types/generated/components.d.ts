@@ -277,6 +277,7 @@ export interface ComponentsServiceItem extends Struct.ComponentSchema {
   };
   attributes: {
     button: Schema.Attribute.Component<'components.button', false>;
+    coverImage: Schema.Attribute.Media<'images'>;
     tag: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
@@ -693,7 +694,6 @@ export interface SectionsServicesSection extends Struct.ComponentSchema {
     displayName: 'Services Section';
   };
   attributes: {
-    coverImage: Schema.Attribute.Media<'images'>;
     services: Schema.Attribute.Component<'components.service-item', true>;
     title: Schema.Attribute.String;
   };

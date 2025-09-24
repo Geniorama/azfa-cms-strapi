@@ -9,6 +9,13 @@
     "tag": {
       "type": "string"
     },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
     "title": {
       "type": "string"
     },
