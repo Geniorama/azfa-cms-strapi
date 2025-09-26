@@ -1498,6 +1498,7 @@ export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    downloadDocument: Schema.Attribute.Media<'files'>;
     externalLink: Schema.Attribute.String;
     extract: Schema.Attribute.RichText;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
