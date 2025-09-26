@@ -1483,12 +1483,21 @@ export interface ApiPressRoomCategoryPressRoomCategory
 export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
   collectionName: 'press_rooms';
   info: {
+    description: 'Press room content with publication controls';
     displayName: 'Press Room';
     pluralName: 'press-rooms';
     singularName: 'press-room';
   };
   options: {
     draftAndPublish: true;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
   };
   attributes: {
     category: Schema.Attribute.Relation<
@@ -1501,6 +1510,7 @@ export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
     downloadDocument: Schema.Attribute.Media<'files'>;
     externalLink: Schema.Attribute.String;
     extract: Schema.Attribute.RichText;
+    isPublished: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1508,6 +1518,7 @@ export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    scheduledPublishDate: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'>;
     thumbnail: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String;

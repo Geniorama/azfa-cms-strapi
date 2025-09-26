@@ -4,12 +4,20 @@
   "info": {
     "singularName": "press-room",
     "pluralName": "press-rooms",
-    "displayName": "Press Room"
+    "displayName": "Press Room",
+    "description": "Press room content with publication controls"
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    },
+    "content-type-builder": {
+      "visible": true
+    }
+  },
   "attributes": {
     "title": {
       "type": "string"
@@ -17,6 +25,15 @@
     "slug": {
       "type": "uid",
       "targetField": "title"
+    },
+    "isPublished": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "scheduledPublishDate": {
+      "type": "datetime",
+      "required": false
     },
     "extract": {
       "type": "richtext"
