@@ -24,22 +24,22 @@
   "attributes": {
     "newsSection": {
       "type": "component",
-      "component": "sections.hero-slide",
+      "component": "sections.heading",
       "required": false
     },
     "podcastSection": {
       "type": "component",
-      "component": "sections.hero-slide",
+      "component": "sections.heading",
       "required": false
     },
     "newsletterSection": {
       "type": "component",
-      "component": "sections.hero-slide",
+      "component": "sections.heading",
       "required": false
     },
     "blogSection": {
       "type": "component",
-      "component": "sections.hero-slide",
+      "component": "sections.heading",
       "required": false
     }
   }
