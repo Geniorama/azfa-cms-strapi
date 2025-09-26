@@ -1512,7 +1512,7 @@ export interface ApiPressRoomPagePressRoomPage extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
-    blogSection: Schema.Attribute.Component<'sections.hero-slide', false>;
+    blogSection: Schema.Attribute.Component<'sections.heading', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1521,9 +1521,9 @@ export interface ApiPressRoomPagePressRoomPage extends Struct.SingleTypeSchema {
       'oneToMany',
       'api::press-room-page.press-room-page'
     >;
-    newsletterSection: Schema.Attribute.Component<'sections.hero-slide', false>;
-    newsSection: Schema.Attribute.Component<'sections.hero-slide', false>;
-    podcastSection: Schema.Attribute.Component<'sections.hero-slide', false>;
+    newsletterSection: Schema.Attribute.Component<'sections.heading', false>;
+    newsSection: Schema.Attribute.Component<'sections.heading', false>;
+    podcastSection: Schema.Attribute.Component<'sections.heading', false>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
