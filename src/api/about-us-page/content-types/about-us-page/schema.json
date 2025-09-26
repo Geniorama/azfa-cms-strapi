@@ -18,48 +18,58 @@
   "attributes": {
     "slug": {
       "type": "uid",
-      "default": "about-us",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "default": "about-us"
     },
     "SEO": {
       "type": "component",
-      "component": "sections.seo",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.seo"
     },
     "hero": {
       "type": "component",
-      "component": "sections.heading",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.heading"
     },
     "contentSection": {
       "type": "component",
-      "component": "sections.icon-content-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.icon-content-section"
     },
     "teamTabsSection": {
       "type": "component",
-      "component": "sections.team-tabs-section",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.team-tabs-section"
+    },
+    "comissionSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.comission-section-item",
+      "repeatable": true
     }
   }
 }

@@ -390,6 +390,15 @@ export interface ApiAboutUsPageAboutUsPage extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
+    comissionSection: Schema.Attribute.Component<
+      'sections.comission-section-item',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     contentSection: Schema.Attribute.Component<
       'sections.icon-content-section',
       false

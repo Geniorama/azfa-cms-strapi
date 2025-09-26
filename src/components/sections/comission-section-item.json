@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_sections_comission_section_items",
+  "info": {
+    "displayName": "Comission section item",
+    "icon": "user"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "leadersLabel": {
+      "type": "string"
+    },
+    "leadersText": {
+      "type": "string"
+    },
+    "leaderProfiles": {
+      "type": "component",
+      "component": "components.leader-profile",
+      "repeatable": true
+    },
+    "teamLabel": {
+      "type": "string"
+    },
+    "teamText": {
+      "type": "string"
+    },
+    "teamProfiles": {
+      "type": "component",
+      "component": "components.leader-profile",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

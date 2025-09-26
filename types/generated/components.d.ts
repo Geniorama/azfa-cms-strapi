@@ -214,6 +214,18 @@ export interface ComponentsItemList extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsLeaderProfile extends Struct.ComponentSchema {
+  collectionName: 'components_components_leader_profiles';
+  info: {
+    displayName: 'profile';
+    icon: 'crown';
+  };
+  attributes: {
+    fullName: Schema.Attribute.String;
+    photo: Schema.Attribute.Media<'images'>;
+  };
+}
+
 export interface ComponentsLink extends Struct.ComponentSchema {
   collectionName: 'components_components_links';
   info: {
@@ -446,6 +458,28 @@ export interface SectionsCallToAction extends Struct.ComponentSchema {
     icon: 'paperPlane';
   };
   attributes: {
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SectionsComissionSectionItem extends Struct.ComponentSchema {
+  collectionName: 'components_sections_comission_section_items';
+  info: {
+    displayName: 'Comission section item';
+    icon: 'user';
+  };
+  attributes: {
+    coverImage: Schema.Attribute.Media<'images'>;
+    description: Schema.Attribute.RichText;
+    leaderProfiles: Schema.Attribute.Component<
+      'components.leader-profile',
+      true
+    >;
+    leadersLabel: Schema.Attribute.String;
+    leadersText: Schema.Attribute.String;
+    teamLabel: Schema.Attribute.String;
+    teamProfiles: Schema.Attribute.Component<'components.leader-profile', true>;
+    teamText: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -823,6 +857,7 @@ declare module '@strapi/strapi' {
       'components.iframe': ComponentsIframe;
       'components.iframe-collection': ComponentsIframeCollection;
       'components.item-list': ComponentsItemList;
+      'components.leader-profile': ComponentsLeaderProfile;
       'components.link': ComponentsLink;
       'components.logo-item': ComponentsLogoItem;
       'components.menu-item': ComponentsMenuItem;
@@ -840,6 +875,7 @@ declare module '@strapi/strapi' {
       'components.video': ComponentsVideo;
       'components.view-all-link': ComponentsViewAllLink;
       'sections.call-to-action': SectionsCallToAction;
+      'sections.comission-section-item': SectionsComissionSectionItem;
       'sections.contact': SectionsContact;
       'sections.content-with-video': SectionsContentWithVideo;
       'sections.counters': SectionsCounters;

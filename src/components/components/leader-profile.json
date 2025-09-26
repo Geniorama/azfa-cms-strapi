@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_components_leader_profiles",
+  "info": {
+    "displayName": "profile",
+    "icon": "crown"
+  },
+  "options": {},
+  "attributes": {
+    "fullName": {
+      "type": "string"
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}
