@@ -1,0 +1,46 @@
+{
+  "kind": "singleType",
+  "collectionName": "press_room_page",
+  "info": {
+    "singularName": "press-room-page",
+    "pluralName": "press-room-pages",
+    "displayName": "Press Room Page",
+    "description": "Press room page with 4 sections: News, Podcast, Newsletter, and Blog"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    },
+    "content-type-builder": {
+      "visible": true
+    },
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "newsSection": {
+      "type": "component",
+      "component": "sections.hero-slide",
+      "required": false
+    },
+    "podcastSection": {
+      "type": "component",
+      "component": "sections.hero-slide",
+      "required": false
+    },
+    "newsletterSection": {
+      "type": "component",
+      "component": "sections.hero-slide",
+      "required": false
+    },
+    "blogSection": {
+      "type": "component",
+      "component": "sections.hero-slide",
+      "required": false
+    }
+  }
+}

@@ -1480,6 +1480,48 @@ export interface ApiPressRoomCategoryPressRoomCategory
   };
 }
 
+export interface ApiPressRoomPagePressRoomPage extends Struct.SingleTypeSchema {
+  collectionName: 'press_room_page';
+  info: {
+    description: 'Press room page with 4 sections: News, Podcast, Newsletter, and Blog';
+    displayName: 'Press Room Page';
+    pluralName: 'press-room-pages';
+    singularName: 'press-room-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: true;
+    };
+    'content-type-builder': {
+      visible: true;
+    };
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    blogSection: Schema.Attribute.Component<'sections.hero-slide', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::press-room-page.press-room-page'
+    >;
+    newsletterSection: Schema.Attribute.Component<'sections.hero-slide', false>;
+    newsSection: Schema.Attribute.Component<'sections.hero-slide', false>;
+    podcastSection: Schema.Attribute.Component<'sections.hero-slide', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
   collectionName: 'press_rooms';
   info: {
@@ -2506,6 +2548,7 @@ declare module '@strapi/strapi' {
       'api::management.management': ApiManagementManagement;
       'api::map-country.map-country': ApiMapCountryMapCountry;
       'api::press-room-category.press-room-category': ApiPressRoomCategoryPressRoomCategory;
+      'api::press-room-page.press-room-page': ApiPressRoomPagePressRoomPage;
       'api::press-room.press-room': ApiPressRoomPressRoom;
       'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
       'api::statistic.statistic': ApiStatisticStatistic;
