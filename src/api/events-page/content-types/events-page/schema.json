@@ -16,86 +16,24 @@
     }
   },
   "attributes": {
-    "slug": {
-      "type": "uid",
-      "default": "events",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "title": {
-      "type": "string",
-      "required": true,
-      "default": "Eventos",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "description": {
-      "type": "richtext",
-      "required": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "heroBackground": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
-    "eventsTabs": {
+    "headingSection": {
       "type": "component",
-      "repeatable": true,
-      "component": "components.events-tab-config",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
-    },
-    "eventsPerPageDesktop": {
-      "type": "integer",
-      "default": 12,
-      "min": 1
-    },
-    "eventsPerPageMobile": {
-      "type": "integer",
-      "default": 6,
-      "min": 1
-    },
-    "columnsDesktop": {
-      "type": "integer",
-      "default": 3,
-      "min": 1,
-      "max": 4
-    },
-    "columnsMobile": {
-      "type": "integer",
-      "default": 1,
-      "min": 1,
-      "max": 2
+      },
+      "component": "sections.heading",
+      "repeatable": false
     },
     "SEO": {
       "type": "component",
-      "component": "sections.seo",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.seo"
     }
   }
 }

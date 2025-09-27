@@ -816,60 +816,10 @@ export interface ApiEventsPageEventsPage extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
-    columnsDesktop: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 4;
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<3>;
-    columnsMobile: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 2;
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<1>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.RichText &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    eventsPerPageDesktop: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<12>;
-    eventsPerPageMobile: Schema.Attribute.Integer &
-      Schema.Attribute.SetMinMax<
-        {
-          min: 1;
-        },
-        number
-      > &
-      Schema.Attribute.DefaultTo<6>;
-    eventsTabs: Schema.Attribute.Component<
-      'components.events-tab-config',
-      true
-    > &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    heroBackground: Schema.Attribute.Media<'images'> &
+    headingSection: Schema.Attribute.Component<'sections.heading', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -887,21 +837,6 @@ export interface ApiEventsPageEventsPage extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    slug: Schema.Attribute.UID &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.DefaultTo<'events'>;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }> &
-      Schema.Attribute.DefaultTo<'Eventos'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
