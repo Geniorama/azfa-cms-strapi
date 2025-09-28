@@ -1576,6 +1576,36 @@ export interface ApiRealStateOfferRealStateOffer
   };
 }
 
+export interface ApiServicesPageServicesPage extends Struct.SingleTypeSchema {
+  collectionName: 'services_pages';
+  info: {
+    displayName: 'Services Page';
+    pluralName: 'services-pages';
+    singularName: 'services-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    contentSection: Schema.Attribute.Component<'sections.content', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    headingSection: Schema.Attribute.Component<'sections.heading', false>;
+    intro: Schema.Attribute.Component<'sections.intro', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::services-page.services-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiStatisticStatistic extends Struct.CollectionTypeSchema {
   collectionName: 'statistics';
   info: {
@@ -2495,6 +2525,7 @@ declare module '@strapi/strapi' {
       'api::press-room-page.press-room-page': ApiPressRoomPagePressRoomPage;
       'api::press-room.press-room': ApiPressRoomPressRoom;
       'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
+      'api::services-page.services-page': ApiServicesPageServicesPage;
       'api::statistic.statistic': ApiStatisticStatistic;
       'api::studies-portal.studies-portal': ApiStudiesPortalStudiesPortal;
       'api::study.study': ApiStudyStudy;

@@ -501,6 +501,22 @@ export interface SectionsContact extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsContent extends Struct.ComponentSchema {
+  collectionName: 'components_sections_contents';
+  info: {
+    displayName: 'content';
+    icon: 'bulletList';
+  };
+  attributes: {
+    button: Schema.Attribute.Component<'components.button', false>;
+    coverImage: Schema.Attribute.Media<'images'>;
+    description: Schema.Attribute.RichText;
+    orderReverse: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    style: Schema.Attribute.Enumeration<['style-1', 'style-2']>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SectionsContentWithVideo extends Struct.ComponentSchema {
   collectionName: 'components_sections_content_with_videos';
   info: {
@@ -877,6 +893,7 @@ declare module '@strapi/strapi' {
       'sections.call-to-action': SectionsCallToAction;
       'sections.comission-section-item': SectionsComissionSectionItem;
       'sections.contact': SectionsContact;
+      'sections.content': SectionsContent;
       'sections.content-with-video': SectionsContentWithVideo;
       'sections.counters': SectionsCounters;
       'sections.download': SectionsDownload;

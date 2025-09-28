@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "services_pages",
+  "info": {
+    "singularName": "services-page",
+    "pluralName": "services-pages",
+    "displayName": "Services Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "headingSection": {
+      "type": "component",
+      "component": "sections.heading",
+      "repeatable": false
+    },
+    "intro": {
+      "type": "component",
+      "component": "sections.intro",
+      "repeatable": true
+    },
+    "contentSection": {
+      "type": "component",
+      "component": "sections.content",
+      "repeatable": true
+    }
+  }
+}

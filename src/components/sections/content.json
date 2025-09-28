@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_sections_contents",
+  "info": {
+    "displayName": "content",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "button": {
+      "type": "component",
+      "component": "components.button",
+      "repeatable": false
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "style": {
+      "type": "enumeration",
+      "enum": [
+        "style-1",
+        "style-2"
+      ]
+    },
+    "orderReverse": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "config": {}
+}
