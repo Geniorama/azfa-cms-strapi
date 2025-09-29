@@ -43,6 +43,11 @@
       "type": "component",
       "component": "sections.contact",
       "repeatable": false
+    },
+    "mapLocation": {
+      "type": "component",
+      "component": "components.gm-location",
+      "repeatable": false
     }
   }
 }
