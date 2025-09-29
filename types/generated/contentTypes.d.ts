@@ -1521,6 +1521,71 @@ export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
       'manyToOne',
       'api::press-room-category.press-room-category'
     >;
+    contentBlog: Schema.Attribute.DynamicZone<
+      [
+        'sections.widgets-section',
+        'sections.upcoming-events-section',
+        'sections.two-columns-section',
+        'sections.testimonials-section',
+        'sections.team-tabs-section',
+        'sections.statistics-section',
+        'sections.slider',
+        'sections.slider-testimonials',
+        'sections.services-section',
+        'sections.services-grid',
+        'sections.seo',
+        'sections.news-section',
+        'sections.news-grid',
+        'sections.logos-section',
+        'sections.list',
+        'sections.intro',
+        'sections.icon-content-section',
+        'sections.hero-slide',
+        'sections.heading',
+        'sections.header',
+        'sections.footer',
+        'sections.events-grid',
+        'sections.download',
+        'sections.counters',
+        'sections.content',
+        'sections.content-with-video',
+        'sections.contact',
+        'sections.comission-section-item',
+        'sections.call-to-action',
+        'components.view-all-link',
+        'components.video',
+        'components.tag',
+        'components.table-list',
+        'components.tab-item',
+        'components.submenu-item',
+        'components.social-widget',
+        'components.social-media-section',
+        'components.social-media-link',
+        'components.slider',
+        'components.simple-button',
+        'components.service-item',
+        'components.option',
+        'components.menu-item',
+        'components.logo-item',
+        'components.link',
+        'components.leader-profile',
+        'components.item-list',
+        'components.iframe',
+        'components.iframe-collection',
+        'components.icon',
+        'components.hero-icon-link',
+        'components.heading-list',
+        'components.gm-location',
+        'components.gallery',
+        'components.footer-links',
+        'components.events-tab-config',
+        'components.cta-section',
+        'components.counter',
+        'components.copyright',
+        'components.contact-info',
+        'components.button',
+      ]
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1874,6 +1939,12 @@ export interface ApiStudyStudy extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
+    author: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
