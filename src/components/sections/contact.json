@@ -6,6 +6,9 @@
   },
   "options": {},
   "attributes": {
+    "fullName": {
+      "type": "string"
+    },
     "email": {
       "type": "string"
     },

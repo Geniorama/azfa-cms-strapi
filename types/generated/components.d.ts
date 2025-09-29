@@ -495,6 +495,7 @@ export interface SectionsContact extends Struct.ComponentSchema {
     addressIcon: Schema.Attribute.Component<'components.icon', false>;
     email: Schema.Attribute.String;
     emailIcon: Schema.Attribute.Component<'components.icon', false>;
+    fullName: Schema.Attribute.String;
     phone: Schema.Attribute.String;
     phoneIcon: Schema.Attribute.Component<'components.icon', false>;
     website: Schema.Attribute.String;
