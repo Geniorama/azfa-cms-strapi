@@ -1,0 +1,40 @@
+{
+  "kind": "singleType",
+  "collectionName": "trade_zones_pages",
+  "info": {
+    "singularName": "trade-zones-page",
+    "pluralName": "trade-zones-pages",
+    "displayName": "Trade Zones Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "headingSection": {
+      "type": "component",
+      "component": "sections.heading",
+      "repeatable": false
+    },
+    "about": {
+      "type": "component",
+      "component": "sections.content",
+      "repeatable": false
+    },
+    "statistics": {
+      "type": "component",
+      "component": "sections.statistics-section",
+      "repeatable": false
+    },
+    "about2": {
+      "type": "component",
+      "component": "sections.content",
+      "repeatable": false
+    },
+    "benefits": {
+      "type": "component",
+      "component": "sections.content",
+      "repeatable": false
+    }
+  }
+}

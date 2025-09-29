@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "studies_pages",
+  "info": {
+    "singularName": "studies-page",
+    "pluralName": "studies-pages",
+    "displayName": "Studies Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "headingSection": {
+      "type": "component",
+      "component": "sections.heading",
+      "repeatable": false
+    }
+  }
+}

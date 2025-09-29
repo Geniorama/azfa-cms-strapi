@@ -566,6 +566,37 @@ export interface ApiAffiliateAffiliate extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiContactFormContactForm extends Struct.SingleTypeSchema {
+  collectionName: 'contact_forms';
+  info: {
+    displayName: 'Contact Form';
+    pluralName: 'contact-forms';
+    singularName: 'contact-form';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    emailSubjectOptions: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contact-form.contact-form'
+    > &
+      Schema.Attribute.Private;
+    privacyLink: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    termsLink: Schema.Attribute.String;
+    toEmail: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
   collectionName: 'contact_pages';
   info: {
@@ -1517,6 +1548,42 @@ export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiRealStateOfferPageRealStateOfferPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'real_state_offer_pages';
+  info: {
+    displayName: 'Real State Offer Page';
+    pluralName: 'real-state-offer-pages';
+    singularName: 'real-state-offer-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    consultantsLogos: Schema.Attribute.Component<'components.gallery', true>;
+    consultantsTitle: Schema.Attribute.String;
+    coverImage: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::real-state-offer-page.real-state-offer-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    smallTitle: Schema.Attribute.String;
+    suppliersLogos: Schema.Attribute.Component<'components.gallery', false>;
+    suppliersTitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRealStateOfferRealStateOffer
   extends Struct.CollectionTypeSchema {
   collectionName: 'real_state_offers';
@@ -1674,6 +1741,34 @@ export interface ApiStatisticStatistic extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+  };
+}
+
+export interface ApiStudiesPageStudiesPage extends Struct.SingleTypeSchema {
+  collectionName: 'studies_pages';
+  info: {
+    displayName: 'Studies Page';
+    pluralName: 'studies-pages';
+    singularName: 'studies-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    headingSection: Schema.Attribute.Component<'sections.heading', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::studies-page.studies-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -1899,71 +1994,6 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiTeamSectionTeamSection extends Struct.CollectionTypeSchema {
-  collectionName: 'team_sections';
-  info: {
-    description: 'Team sections: Board of Directors, Committees and AZFA Team';
-    displayName: 'Team Section';
-    pluralName: 'team-sections';
-    singularName: 'team-section';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    description: Schema.Attribute.RichText &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    featuredImage: Schema.Attribute.Media<'images'>;
-    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    leader: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::team-member.team-member'
-    >;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::team-section.team-section'
-    >;
-    members: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::team-member.team-member'
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    sectionType: Schema.Attribute.Enumeration<
-      ['board-of-directors', 'committees', 'azfa-team']
-    > &
-      Schema.Attribute.Required;
-    slug: Schema.Attribute.UID<'title'> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
   collectionName: 'testimonials';
   info: {
@@ -1992,6 +2022,42 @@ export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
     position: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     testimonial: Schema.Attribute.RichText & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTradeZonesPageTradeZonesPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'trade_zones_pages';
+  info: {
+    displayName: 'Trade Zones Page';
+    pluralName: 'trade-zones-pages';
+    singularName: 'trade-zones-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    about: Schema.Attribute.Component<'sections.content', false>;
+    about2: Schema.Attribute.Component<'sections.content', false>;
+    benefits: Schema.Attribute.Component<'sections.content', false>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    headingSection: Schema.Attribute.Component<'sections.heading', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::trade-zones-page.trade-zones-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    statistics: Schema.Attribute.Component<
+      'sections.statistics-section',
+      false
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2510,6 +2576,7 @@ declare module '@strapi/strapi' {
       'api::about-us-page.about-us-page': ApiAboutUsPageAboutUsPage;
       'api::affiliate-portal.affiliate-portal': ApiAffiliatePortalAffiliatePortal;
       'api::affiliate.affiliate': ApiAffiliateAffiliate;
+      'api::contact-form.contact-form': ApiContactFormContactForm;
       'api::contact-page.contact-page': ApiContactPageContactPage;
       'api::content.content': ApiContentContent;
       'api::event.event': ApiEventEvent;
@@ -2524,14 +2591,16 @@ declare module '@strapi/strapi' {
       'api::press-room-category.press-room-category': ApiPressRoomCategoryPressRoomCategory;
       'api::press-room-page.press-room-page': ApiPressRoomPagePressRoomPage;
       'api::press-room.press-room': ApiPressRoomPressRoom;
+      'api::real-state-offer-page.real-state-offer-page': ApiRealStateOfferPageRealStateOfferPage;
       'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
       'api::services-page.services-page': ApiServicesPageServicesPage;
       'api::statistic.statistic': ApiStatisticStatistic;
+      'api::studies-page.studies-page': ApiStudiesPageStudiesPage;
       'api::studies-portal.studies-portal': ApiStudiesPortalStudiesPortal;
       'api::study.study': ApiStudyStudy;
       'api::team-member.team-member': ApiTeamMemberTeamMember;
-      'api::team-section.team-section': ApiTeamSectionTeamSection;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
+      'api::trade-zones-page.trade-zones-page': ApiTradeZonesPageTradeZonesPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
