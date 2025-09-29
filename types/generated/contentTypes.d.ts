@@ -451,6 +451,96 @@ export interface ApiAboutUsPageAboutUsPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiAffiliatePortalInvestmentStatisticsPageAffiliatePortalInvestmentStatisticsPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'affiliate_portal_investment_statistics_pages';
+  info: {
+    description: 'P\u00E1gina de estad\u00EDsticas para inversi\u00F3n en zonas francas - Portal de Afiliados';
+    displayName: 'Affiliate Portal / Investment Statistics Page';
+    pluralName: 'affiliate-portal-investment-statistics-pages';
+    singularName: 'affiliate-portal-investment-statistics-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ctaSection: Schema.Attribute.Component<'components.cta-section', false> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    disclaimerText: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    heroBackground: Schema.Attribute.Media<'images'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    iframeCollection: Schema.Attribute.Component<
+      'components.iframe-collection',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::affiliate-portal-investment-statistics-page.affiliate-portal-investment-statistics-page'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Schema.Attribute.UID &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'affiliate-portal-investment-statistics'>;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Estad\u00EDsticas'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Schema.Attribute.DefaultTo<'Invierta en Zonas Francas'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAffiliatePortalAffiliatePortal
   extends Struct.SingleTypeSchema {
   collectionName: 'affiliate_portals';
@@ -2755,6 +2845,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about-us-page.about-us-page': ApiAboutUsPageAboutUsPage;
+      'api::affiliate-portal-investment-statistics-page.affiliate-portal-investment-statistics-page': ApiAffiliatePortalInvestmentStatisticsPageAffiliatePortalInvestmentStatisticsPage;
       'api::affiliate-portal.affiliate-portal': ApiAffiliatePortalAffiliatePortal;
       'api::affiliate.affiliate': ApiAffiliateAffiliate;
       'api::contact-form.contact-form': ApiContactFormContactForm;

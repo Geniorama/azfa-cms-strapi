@@ -1,0 +1,98 @@
+{
+  "kind": "singleType",
+  "collectionName": "affiliate_portal_investment_statistics_pages",
+  "info": {
+    "singularName": "affiliate-portal-investment-statistics-page",
+    "pluralName": "affiliate-portal-investment-statistics-pages",
+    "displayName": "Affiliate Portal / Investment Statistics Page",
+    "description": "Página de estadísticas para inversión en zonas francas - Portal de Afiliados"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "default": "affiliate-portal-investment-statistics",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Invierta en Zonas Francas",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Estadísticas",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "heroBackground": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "ctaSection": {
+      "type": "component",
+      "component": "components.cta-section",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "iframeCollection": {
+      "type": "component",
+      "component": "components.iframe-collection",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "disclaimerText": {
+      "type": "richtext",
+      "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "SEO": {
+      "type": "component",
+      "component": "sections.seo",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
