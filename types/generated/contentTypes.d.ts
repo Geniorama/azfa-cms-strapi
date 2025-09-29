@@ -645,7 +645,7 @@ export interface ApiAffiliateAffiliate extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    mapLocation: Schema.Attribute.Component<'components.gm-location', false>;
+    mapLocation: Schema.Attribute.Component<'components.gm-location', true>;
     publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<

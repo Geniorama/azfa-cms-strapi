@@ -47,7 +47,7 @@
     "mapLocation": {
       "type": "component",
       "component": "components.gm-location",
-      "repeatable": false
+      "repeatable": true
     }
   }
 }
