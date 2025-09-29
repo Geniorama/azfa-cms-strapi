@@ -12,6 +12,9 @@
     "email": {
       "type": "string"
     },
+    "position": {
+      "type": "string"
+    },
     "website": {
       "type": "string"
     },

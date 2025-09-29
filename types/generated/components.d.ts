@@ -498,6 +498,7 @@ export interface SectionsContact extends Struct.ComponentSchema {
     fullName: Schema.Attribute.String;
     phone: Schema.Attribute.String;
     phoneIcon: Schema.Attribute.Component<'components.icon', false>;
+    position: Schema.Attribute.String;
     website: Schema.Attribute.String;
   };
 }
