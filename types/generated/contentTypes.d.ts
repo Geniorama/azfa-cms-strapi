@@ -1619,6 +1619,110 @@ export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPublicationPagePublicationPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'publication_pages';
+  info: {
+    displayName: 'Publication Page';
+    pluralName: 'publication-pages';
+    singularName: 'publication-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    headingSection: Schema.Attribute.Component<'sections.heading', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publication-page.publication-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
+  collectionName: 'publications';
+  info: {
+    description: 'Publicaciones y estudios descargables';
+    displayName: 'Publication';
+    pluralName: 'publications';
+    singularName: 'publication';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    author: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    downloadableFile: Schema.Attribute.Media<'files'> &
+      Schema.Attribute.Required;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    featuredImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publication.publication'
+    >;
+    publishDate: Schema.Attribute.Date & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    slug: Schema.Attribute.UID<'title'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    tags: Schema.Attribute.Component<'components.tag', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiRealStateOfferPageRealStateOfferPage
   extends Struct.SingleTypeSchema {
   collectionName: 'real_state_offer_pages';
@@ -2668,6 +2772,8 @@ declare module '@strapi/strapi' {
       'api::press-room-category.press-room-category': ApiPressRoomCategoryPressRoomCategory;
       'api::press-room-page.press-room-page': ApiPressRoomPagePressRoomPage;
       'api::press-room.press-room': ApiPressRoomPressRoom;
+      'api::publication-page.publication-page': ApiPublicationPagePublicationPage;
+      'api::publication.publication': ApiPublicationPublication;
       'api::real-state-offer-page.real-state-offer-page': ApiRealStateOfferPageRealStateOfferPage;
       'api::real-state-offer.real-state-offer': ApiRealStateOfferRealStateOffer;
       'api::services-page.services-page': ApiServicesPageServicesPage;
