@@ -41,9 +41,10 @@
       "customField": "plugin::multi-select.multi-select",
       "default": "[]",
       "options": [
-        "Terreno:terreno",
-        "Industria:industria",
-        "Comercial:comercial"
+        "Data Center:data-center",
+        "Logística:logistica",
+        "Manufactura:manufactura",
+        "Servicio:servicio"
       ]
     },
     "propertyType": {
@@ -51,9 +52,9 @@
       "customField": "plugin::multi-select.multi-select",
       "default": "[]",
       "options": [
-        "Casa:casa",
-        "Apartamento:apartamento",
-        "Bodega:bodega"
+        "Bodega:bodega",
+        "Lote:lote",
+        "Oficina:oficina"
       ]
     },
     "area": {

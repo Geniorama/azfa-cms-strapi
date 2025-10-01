@@ -1890,13 +1890,18 @@ export interface ApiRealStateOfferRealStateOffer
     propertyType: Schema.Attribute.JSON &
       Schema.Attribute.CustomField<
         'plugin::multi-select.multi-select',
-        ['Casa:casa', 'Apartamento:apartamento', 'Bodega:bodega']
+        ['Bodega:bodega', 'Lote:lote', 'Oficina:oficina']
       > &
       Schema.Attribute.DefaultTo<'[]'>;
     propertyUse: Schema.Attribute.JSON &
       Schema.Attribute.CustomField<
         'plugin::multi-select.multi-select',
-        ['Terreno:terreno', 'Industria:industria', 'Comercial:comercial']
+        [
+          'Data Center:data-center',
+          'Log\u00EDstica:logistica',
+          'Manufactura:manufactura',
+          'Servicio:servicio',
+        ]
       > &
       Schema.Attribute.DefaultTo<'[]'>;
     publishedAt: Schema.Attribute.DateTime;
