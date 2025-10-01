@@ -1827,7 +1827,6 @@ export interface ApiRealStateOfferPageRealStateOfferPage
   };
   attributes: {
     consultantsLogos: Schema.Attribute.Component<'components.gallery', true>;
-    consultantsTitle: Schema.Attribute.String;
     coverImage: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1842,7 +1841,6 @@ export interface ApiRealStateOfferPageRealStateOfferPage
     publishedAt: Schema.Attribute.DateTime;
     smallTitle: Schema.Attribute.String;
     suppliersLogos: Schema.Attribute.Component<'components.gallery', false>;
-    suppliersTitle: Schema.Attribute.String;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

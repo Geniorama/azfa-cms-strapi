@@ -27,16 +27,10 @@
         "images"
       ]
     },
-    "suppliersTitle": {
-      "type": "string"
-    },
     "suppliersLogos": {
       "type": "component",
       "component": "components.gallery",
       "repeatable": false
-    },
-    "consultantsTitle": {
-      "type": "string"
     },
     "consultantsLogos": {
       "type": "component",
