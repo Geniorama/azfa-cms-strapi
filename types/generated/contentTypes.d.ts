@@ -451,6 +451,48 @@ export interface ApiAboutUsPageAboutUsPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiAdsManagerAdsManager extends Struct.CollectionTypeSchema {
+  collectionName: 'ads_managers';
+  info: {
+    displayName: 'Ads Manager';
+    pluralName: 'ads-managers';
+    singularName: 'ads-manager';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    desktopImages: Schema.Attribute.Media<'images', true>;
+    disclaimerText: Schema.Attribute.String;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::ads-manager.ads-manager'
+    > &
+      Schema.Attribute.Private;
+    mobileImages: Schema.Attribute.Media<'images', true>;
+    position: Schema.Attribute.JSON &
+      Schema.Attribute.CustomField<
+        'plugin::multi-select.multi-select',
+        [
+          'Inferior Noticias Archive:bottom-news-archive',
+          'Inferior Newsletter Archive:bottom-newsletter-archive',
+          'Inferior Poscast Archive:bottom-podcast-archive',
+        ]
+      > &
+      Schema.Attribute.DefaultTo<'[]'>;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiAffiliatePortalInvestmentStatisticsPageAffiliatePortalInvestmentStatisticsPage
   extends Struct.SingleTypeSchema {
   collectionName: 'affiliate_portal_investment_statistics_pages';
@@ -2849,6 +2891,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about-us-page.about-us-page': ApiAboutUsPageAboutUsPage;
+      'api::ads-manager.ads-manager': ApiAdsManagerAdsManager;
       'api::affiliate-portal-investment-statistics-page.affiliate-portal-investment-statistics-page': ApiAffiliatePortalInvestmentStatisticsPageAffiliatePortalInvestmentStatisticsPage;
       'api::affiliate-portal.affiliate-portal': ApiAffiliatePortalAffiliatePortal;
       'api::affiliate.affiliate': ApiAffiliateAffiliate;

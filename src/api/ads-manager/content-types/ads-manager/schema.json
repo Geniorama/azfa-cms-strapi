@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ads_managers",
+  "info": {
+    "singularName": "ads-manager",
+    "pluralName": "ads-managers",
+    "displayName": "Ads Manager"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "disclaimerText": {
+      "type": "string"
+    },
+    "desktopImages": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "mobileImages": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "position": {
+      "type": "customField",
+      "customField": "plugin::multi-select.multi-select",
+      "default": "[]",
+      "options": [
+        "Inferior Noticias Archive:bottom-news-archive",
+        "Inferior Newsletter Archive:bottom-newsletter-archive",
+        "Inferior Poscast Archive:bottom-podcast-archive"
+      ]
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
