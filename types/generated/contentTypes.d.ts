@@ -1257,7 +1257,7 @@ export interface ApiIncentiveIncentive extends Struct.CollectionTypeSchema {
       false
     >;
     incentivesListItem: Schema.Attribute.Component<
-      'components.table-list',
+      'components.incentive-item',
       true
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;

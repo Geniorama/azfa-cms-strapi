@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_components_incentive_items",
+  "info": {
+    "displayName": "Incentive Item",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

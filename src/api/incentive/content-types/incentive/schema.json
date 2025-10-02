@@ -33,7 +33,7 @@
     },
     "incentivesListItem": {
       "type": "component",
-      "component": "components.table-list",
+      "component": "components.incentive-item",
       "repeatable": true
     },
     "googleMapsLocation": {

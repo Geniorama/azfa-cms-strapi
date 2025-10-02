@@ -202,6 +202,18 @@ export interface ComponentsIframeCollection extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsIncentiveItem extends Struct.ComponentSchema {
+  collectionName: 'components_components_incentive_items';
+  info: {
+    displayName: 'Incentive Item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText;
+    label: Schema.Attribute.String;
+  };
+}
+
 export interface ComponentsItemList extends Struct.ComponentSchema {
   collectionName: 'components_components_item_lists';
   info: {
@@ -874,6 +886,7 @@ declare module '@strapi/strapi' {
       'components.icon': ComponentsIcon;
       'components.iframe': ComponentsIframe;
       'components.iframe-collection': ComponentsIframeCollection;
+      'components.incentive-item': ComponentsIncentiveItem;
       'components.item-list': ComponentsItemList;
       'components.leader-profile': ComponentsLeaderProfile;
       'components.link': ComponentsLink;
