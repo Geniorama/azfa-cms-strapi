@@ -221,7 +221,7 @@ export interface ComponentsItemList extends Struct.ComponentSchema {
     icon: 'check';
   };
   attributes: {
-    content: Schema.Attribute.RichText;
+    content: Schema.Attribute.Blocks;
   };
 }
 
