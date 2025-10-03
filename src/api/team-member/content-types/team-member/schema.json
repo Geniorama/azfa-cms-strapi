@@ -26,21 +26,21 @@
     },
     "fullName": {
       "type": "string",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true
     },
     "position": {
       "type": "string",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": true
     },
     "association": {
       "type": "string",
@@ -60,12 +60,12 @@
     },
     "memberType": {
       "type": "enumeration",
+      "required": true,
       "enum": [
         "board-of-directors",
-        "committees", 
+        "committees",
         "azfa-team"
-      ],
-      "required": true
+      ]
     },
     "subCategory": {
       "type": "enumeration",
@@ -77,6 +77,16 @@
         "committee-member",
         "azfa-team"
       ]
+    },
+    "displayOrder": {
+      "type": "integer",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "unique": true,
+      "min": 1
     }
   }
 }
