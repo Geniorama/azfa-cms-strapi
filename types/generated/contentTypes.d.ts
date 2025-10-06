@@ -1907,6 +1907,7 @@ export interface ApiRealStateOfferRealStateOffer
     city: Schema.Attribute.String;
     country: Schema.Attribute.String &
       Schema.Attribute.CustomField<'plugin::country-select.country'>;
+    created_by_api: Schema.Attribute.Relation<'oneToOne', 'admin::user'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

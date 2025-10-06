@@ -91,6 +91,11 @@
       "type": "component",
       "component": "components.button",
       "repeatable": false
+    },
+    "created_by_api": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "admin::user"
     }
   }
 }
