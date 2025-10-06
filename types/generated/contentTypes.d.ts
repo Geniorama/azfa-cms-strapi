@@ -688,7 +688,14 @@ export interface ApiAffiliateAffiliate extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     logo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     mapLocation: Schema.Attribute.Component<'components.gm-location', true>;
+    propertiesLimit: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<5>;
     publishedAt: Schema.Attribute.DateTime;
+    realStateOffers: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::real-state-offer.real-state-offer'
+    >;
     title: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<
       ['organizacion', 'empresa', 'zonaFranca']
@@ -696,6 +703,10 @@ export interface ApiAffiliateAffiliate extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    users: Schema.Attribute.Relation<
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1902,12 +1913,15 @@ export interface ApiRealStateOfferRealStateOffer
     draftAndPublish: true;
   };
   attributes: {
+    affiliateCompany: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::affiliate.affiliate'
+    >;
     area: Schema.Attribute.String;
     certifications: Schema.Attribute.Blocks;
     city: Schema.Attribute.String;
     country: Schema.Attribute.String &
       Schema.Attribute.CustomField<'plugin::country-select.country'>;
-    created_by_api: Schema.Attribute.Relation<'oneToOne', 'admin::user'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1952,6 +1966,10 @@ export interface ApiRealStateOfferRealStateOffer
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    users: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -2850,9 +2868,12 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
+    affiliateCompany: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::affiliate.affiliate'
+    >;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -2877,6 +2898,10 @@ export interface PluginUsersPermissionsUser
       }>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    realStateOffers: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::real-state-offer.real-state-offer'
+    >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
     role: Schema.Attribute.Relation<
       'manyToOne',

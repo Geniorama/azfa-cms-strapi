@@ -48,6 +48,23 @@
       "type": "component",
       "component": "components.gm-location",
       "repeatable": true
+    },
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "affiliateCompany"
+    },
+    "realStateOffers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::real-state-offer.real-state-offer",
+      "mappedBy": "affiliateCompany"
+    },
+    "propertiesLimit": {
+      "type": "integer",
+      "required": true,
+      "default": 5
     }
   }
 }

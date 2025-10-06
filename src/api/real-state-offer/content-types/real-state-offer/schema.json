@@ -92,10 +92,17 @@
       "component": "components.button",
       "repeatable": false
     },
-    "created_by_api": {
+    "affiliateCompany": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "admin::user"
+      "relation": "manyToOne",
+      "target": "api::affiliate.affiliate",
+      "inversedBy": "realStateOffers"
+    },
+    "users": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "realStateOffers"
     }
   }
 }
