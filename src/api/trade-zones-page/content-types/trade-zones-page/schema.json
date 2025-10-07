@@ -35,6 +35,13 @@
       "type": "component",
       "component": "sections.content",
       "repeatable": false
+    },
+    "bannerImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

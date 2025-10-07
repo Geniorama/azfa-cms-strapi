@@ -2392,6 +2392,7 @@ export interface ApiTradeZonesPageTradeZonesPage
   attributes: {
     about: Schema.Attribute.Component<'sections.content', false>;
     about2: Schema.Attribute.Component<'sections.content', false>;
+    bannerImage: Schema.Attribute.Media<'images'>;
     benefits: Schema.Attribute.Component<'sections.content', false>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
