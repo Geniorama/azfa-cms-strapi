@@ -26,6 +26,10 @@
       "type": "uid",
       "targetField": "title"
     },
+    "publishDate": {
+      "type": "date",
+      "required": false
+    },
     "isPublished": {
       "type": "boolean",
       "required": false,

@@ -1749,6 +1749,7 @@ export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
       'api::press-room.press-room'
     > &
       Schema.Attribute.Private;
+    publishDate: Schema.Attribute.Date;
     publishedAt: Schema.Attribute.DateTime;
     scheduledPublishDate: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'title'>;
