@@ -116,7 +116,7 @@ export interface ComponentsGallery extends Struct.ComponentSchema {
     icon: 'apps';
   };
   attributes: {
-    images: Schema.Attribute.Media<'images', true>;
+    logo: Schema.Attribute.Component<'components.logo-item', true>;
     title: Schema.Attribute.String;
   };
 }
@@ -521,6 +521,7 @@ export interface SectionsContent extends Struct.ComponentSchema {
     icon: 'bulletList';
   };
   attributes: {
+    anchor: Schema.Attribute.String & Schema.Attribute.Unique;
     button: Schema.Attribute.Component<'components.button', false>;
     coverImage: Schema.Attribute.Media<'images'>;
     description: Schema.Attribute.RichText;

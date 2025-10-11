@@ -9,6 +9,10 @@
     "title": {
       "type": "string"
     },
+    "anchor": {
+      "type": "string",
+      "unique": true
+    },
     "description": {
       "type": "richtext"
     },

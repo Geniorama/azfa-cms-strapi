@@ -1893,6 +1893,7 @@ export interface ApiRealStateOfferPageRealStateOfferPage
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', true>;
     smallTitle: Schema.Attribute.String;
     suppliersLogos: Schema.Attribute.Component<'components.gallery', false>;
     title: Schema.Attribute.String;

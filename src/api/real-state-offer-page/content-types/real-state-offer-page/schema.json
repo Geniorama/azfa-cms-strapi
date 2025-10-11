@@ -36,6 +36,11 @@
       "type": "component",
       "component": "components.gallery",
       "repeatable": true
+    },
+    "SEO": {
+      "type": "component",
+      "component": "sections.seo",
+      "repeatable": true
     }
   }
 }
