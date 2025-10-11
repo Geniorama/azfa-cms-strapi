@@ -87,6 +87,16 @@
       },
       "unique": true,
       "min": 1
+    },
+    "SEO": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.seo",
+      "repeatable": false
     }
   }
 }

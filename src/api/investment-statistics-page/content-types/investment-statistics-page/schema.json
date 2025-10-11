@@ -18,81 +18,81 @@
   "attributes": {
     "slug": {
       "type": "uid",
-      "default": "investment-statistics",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "default": "investment-statistics"
     },
     "title": {
       "type": "string",
-      "required": true,
-      "default": "Invierta en Zonas Francas",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "default": "Invierta en Zonas Francas",
+      "required": true
     },
     "subtitle": {
       "type": "string",
-      "default": "Estadísticas",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "default": "Estadísticas"
     },
     "heroBackground": {
       "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
       "multiple": false,
       "allowedTypes": [
         "images"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
+      ]
     },
     "ctaSection": {
       "type": "component",
-      "component": "components.cta-section",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "components.cta-section",
+      "required": true
     },
     "iframeCollection": {
       "type": "component",
-      "component": "components.iframe-collection",
-      "repeatable": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "components.iframe-collection",
+      "repeatable": true
     },
     "disclaimerText": {
       "type": "richtext",
-      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "required": false
     },
     "SEO": {
       "type": "component",
-      "component": "sections.seo",
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      }
+      },
+      "component": "sections.seo"
     }
   }
 }
