@@ -292,6 +292,17 @@ export interface ComponentsOption extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsRichText extends Struct.ComponentSchema {
+  collectionName: 'components_components_rich_texts';
+  info: {
+    displayName: 'Rich Text';
+    icon: 'layer';
+  };
+  attributes: {
+    richText: Schema.Attribute.RichText;
+  };
+}
+
 export interface ComponentsServiceItem extends Struct.ComponentSchema {
   collectionName: 'components_components_service_items';
   info: {
@@ -893,6 +904,7 @@ declare module '@strapi/strapi' {
       'components.logo-item': ComponentsLogoItem;
       'components.menu-item': ComponentsMenuItem;
       'components.option': ComponentsOption;
+      'components.rich-text': ComponentsRichText;
       'components.service-item': ComponentsServiceItem;
       'components.simple-button': ComponentsSimpleButton;
       'components.slider': ComponentsSlider;
