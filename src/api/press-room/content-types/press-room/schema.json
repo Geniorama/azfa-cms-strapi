@@ -81,8 +81,8 @@
         "components.button",
         "sections.intro",
         "components.logo-item",
-        "components.gallery",
-        "components.rich-text"
+        "components.rich-text",
+        "components.images-gallery"
       ]
     },
     "SEO": {

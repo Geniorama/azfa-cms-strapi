@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_components_grid_settings",
+  "info": {
+    "displayName": "Grid Settings",
+    "icon": "th",
+    "description": "Configuración básica para grids/cuadrículas"
+  },
+  "options": {},
+  "attributes": {
+    "columns": {
+      "type": "integer",
+      "default": 3,
+      "required": false
+    },
+    "columnsMobile": {
+      "type": "integer",
+      "default": 1,
+      "required": false
+    },
+    "gap": {
+      "type": "integer",
+      "default": 16,
+      "required": false
+    }
+  },
+  "config": {}
+}
+

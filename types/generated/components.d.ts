@@ -134,6 +134,20 @@ export interface ComponentsGmLocation extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsGridSettings extends Struct.ComponentSchema {
+  collectionName: 'components_components_grid_settings';
+  info: {
+    description: 'Configuraci\u00F3n b\u00E1sica para grids/cuadr\u00EDculas';
+    displayName: 'Grid Settings';
+    icon: 'th';
+  };
+  attributes: {
+    columns: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<3>;
+    columnsMobile: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<1>;
+    gap: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<16>;
+  };
+}
+
 export interface ComponentsHeadingList extends Struct.ComponentSchema {
   collectionName: 'components_components_heading_lists';
   info: {
@@ -199,6 +213,24 @@ export interface ComponentsIframeCollection extends Struct.ComponentSchema {
     label: Schema.Attribute.String & Schema.Attribute.Required;
     mobileIframe: Schema.Attribute.Component<'components.iframe', false>;
     slug: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ComponentsImagesGallery extends Struct.ComponentSchema {
+  collectionName: 'components_components_images_galleries';
+  info: {
+    displayName: 'Images Gallery';
+    icon: 'picture';
+  };
+  attributes: {
+    gridSettings: Schema.Attribute.Component<'components.grid-settings', false>;
+    item: Schema.Attribute.Component<'components.logo-item', true>;
+    sliderSettings: Schema.Attribute.Component<
+      'components.slider-settings',
+      false
+    >;
+    title: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['slider', 'grid']>;
   };
 }
 
@@ -339,6 +371,28 @@ export interface ComponentsSlider extends Struct.ComponentSchema {
     content: Schema.Attribute.Component<'sections.heading', false>;
     icon: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String;
+  };
+}
+
+export interface ComponentsSliderSettings extends Struct.ComponentSchema {
+  collectionName: 'components_components_slider_settings';
+  info: {
+    description: 'Configuraci\u00F3n b\u00E1sica para sliders de Swiper';
+    displayName: 'Slider Settings';
+    icon: 'cog';
+  };
+  attributes: {
+    autoplay: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    autoplayDelay: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<3000>;
+    centeredSlides: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    grabCursor: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    loop: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    navigation: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    pagination: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    slidesPerView: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<1>;
+    spaceBetween: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    speed: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<300>;
   };
 }
 
@@ -892,11 +946,13 @@ declare module '@strapi/strapi' {
       'components.footer-links': ComponentsFooterLinks;
       'components.gallery': ComponentsGallery;
       'components.gm-location': ComponentsGmLocation;
+      'components.grid-settings': ComponentsGridSettings;
       'components.heading-list': ComponentsHeadingList;
       'components.hero-icon-link': ComponentsHeroIconLink;
       'components.icon': ComponentsIcon;
       'components.iframe': ComponentsIframe;
       'components.iframe-collection': ComponentsIframeCollection;
+      'components.images-gallery': ComponentsImagesGallery;
       'components.incentive-item': ComponentsIncentiveItem;
       'components.item-list': ComponentsItemList;
       'components.leader-profile': ComponentsLeaderProfile;
@@ -908,6 +964,7 @@ declare module '@strapi/strapi' {
       'components.service-item': ComponentsServiceItem;
       'components.simple-button': ComponentsSimpleButton;
       'components.slider': ComponentsSlider;
+      'components.slider-settings': ComponentsSliderSettings;
       'components.social-media-link': ComponentsSocialMediaLink;
       'components.social-media-section': ComponentsSocialMediaSection;
       'components.social-widget': ComponentsSocialWidget;

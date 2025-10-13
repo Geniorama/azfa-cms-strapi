@@ -1,0 +1,62 @@
+{
+  "collectionName": "components_components_slider_settings",
+  "info": {
+    "displayName": "Slider Settings",
+    "icon": "cog",
+    "description": "Configuración básica para sliders de Swiper"
+  },
+  "options": {},
+  "attributes": {
+    "slidesPerView": {
+      "type": "decimal",
+      "default": 1,
+      "required": false
+    },
+    "spaceBetween": {
+      "type": "integer",
+      "default": 0,
+      "required": false
+    },
+    "loop": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "autoplay": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "autoplayDelay": {
+      "type": "integer",
+      "default": 3000,
+      "required": false
+    },
+    "speed": {
+      "type": "integer",
+      "default": 300,
+      "required": false
+    },
+    "pagination": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    },
+    "navigation": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    },
+    "centeredSlides": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "grabCursor": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    }
+  },
+  "config": {}
+}

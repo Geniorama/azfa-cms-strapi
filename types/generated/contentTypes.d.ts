@@ -1676,8 +1676,8 @@ export interface ApiPressRoomPressRoom extends Struct.CollectionTypeSchema {
         'components.button',
         'sections.intro',
         'components.logo-item',
-        'components.gallery',
         'components.rich-text',
+        'components.images-gallery',
       ]
     >;
     createdAt: Schema.Attribute.DateTime;

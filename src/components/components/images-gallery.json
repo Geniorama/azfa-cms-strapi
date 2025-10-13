@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_components_images_galleries",
+  "info": {
+    "displayName": "Images Gallery",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "slider",
+        "grid"
+      ]
+    },
+    "item": {
+      "type": "component",
+      "component": "components.logo-item",
+      "repeatable": true
+    },
+    "gridSettings": {
+      "type": "component",
+      "component": "components.grid-settings",
+      "repeatable": false
+    },
+    "sliderSettings": {
+      "type": "component",
+      "component": "components.slider-settings",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}
