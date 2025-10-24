@@ -77,6 +77,10 @@
       "relation": "oneToMany",
       "target": "api::real-state-offer.real-state-offer",
       "mappedBy": "users"
+    },
+    "isEditor": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
