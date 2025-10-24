@@ -698,7 +698,13 @@ export interface ApiAffiliateAffiliate extends Struct.CollectionTypeSchema {
     >;
     title: Schema.Attribute.String;
     type: Schema.Attribute.Enumeration<
-      ['organizacion', 'empresa', 'zonaFranca']
+      [
+        'Zonas Francas',
+        'Entidades Gubernamentales',
+        'Asociaciones',
+        'Consultores',
+        'Proveedores',
+      ]
     >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

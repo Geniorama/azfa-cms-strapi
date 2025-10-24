@@ -34,9 +34,11 @@
     "type": {
       "type": "enumeration",
       "enum": [
-        "organizacion",
-        "empresa",
-        "zonaFranca"
+        "Zonas Francas",
+        "Entidades Gubernamentales",
+        "Asociaciones",
+        "Consultores",
+        "Proveedores"
       ]
     },
     "contactInfo": {
