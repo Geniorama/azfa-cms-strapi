@@ -33,4 +33,31 @@ export default ({env}) => ({
           },
         },
     },
+
+    email: {
+      config: {
+        provider: 'nodemailer',
+        providerOptions: {
+          host: env('SMTP_HOST', 'smtp-relay.brevo.com'),
+          port: env.int('SMTP_PORT', 587),
+          secure: false, // true para 465, false para otros puertos
+          auth: {
+            user: env('BREVO_SMTP_USER'),
+            pass: env('BREVO_SMTP_PASS'),
+          },
+          tls: {
+            // Deshabilitar verificación de certificado para evitar errores SSL
+            rejectUnauthorized: false,
+          },
+          // Configuración adicional para mejorar la compatibilidad
+          connectionTimeout: 60000, // 60 segundos
+          greetingTimeout: 30000, // 30 segundos
+          socketTimeout: 60000, // 60 segundos
+        },
+        settings: {
+          defaultFrom: env('EMAIL_FROM', 'noreply@asociacionzonasfrancas.org'),
+          defaultReplyTo: env('EMAIL_REPLY_TO', 'noreply@asociacionzonasfrancas.org'),
+        },
+      },
+    },
 });
