@@ -1498,8 +1498,13 @@ export interface ApiManagementManagement extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    downloadableFile: Schema.Attribute.Media<'files'> &
-      Schema.Attribute.Required;
+    downloadableFile: Schema.Attribute.Media<'files'>;
+    externalLink: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     featuredImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     locale: Schema.Attribute.String;
