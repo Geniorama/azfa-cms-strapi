@@ -26,17 +26,22 @@
       "configurable": false,
       "required": true
     },
+
+    "password": {
+      "type": "password",
+      "minLength": 0,
+      "configurable": false,
+      "private": true,
+      "searchable": false,
+      "allowNull": true,
+      "default": ""
+    },
+
     "provider": {
       "type": "string",
       "configurable": false
     },
-    "password": {
-      "type": "password",
-      "minLength": 6,
-      "configurable": false,
-      "private": true,
-      "searchable": false
-    },
+
     "resetPasswordToken": {
       "type": "string",
       "configurable": false,

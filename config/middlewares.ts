@@ -40,4 +40,8 @@ export default [
     name: 'global::upload-error-handler',
     config: {},
   },
+  {
+    name: 'global::sanitize-null-password',
+    config: {},
+  },
 ];

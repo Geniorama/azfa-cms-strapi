@@ -2863,8 +2863,9 @@ export interface PluginUsersPermissionsUser
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
-        minLength: 6;
-      }>;
+        minLength: 0;
+      }> &
+      Schema.Attribute.DefaultTo<''>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     realStateOffers: Schema.Attribute.Relation<
