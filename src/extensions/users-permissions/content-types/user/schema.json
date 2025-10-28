@@ -81,6 +81,10 @@
     "isEditor": {
       "type": "boolean",
       "default": false
+    },
+    "isPropertiesEditor": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
