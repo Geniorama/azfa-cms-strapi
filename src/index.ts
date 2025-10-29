@@ -26,19 +26,11 @@ export default {
       async afterCreate(event: any) {
         const { result } = event;
         
-        strapi.log.info(`🔄 Lifecycle afterCreate ejecutado para usuario: ${result.email}`);
-        strapi.log.info(`📊 Datos del usuario - confirmed: ${result.confirmed}, role: ${result.role?.type || 'sin rol'}`);
-        
-        // Verificar si el usuario está confirmado (con o sin rol específico)
         if (result.confirmed === true) {
           try {
-            strapi.log.info(`Usuario confirmado detectado: ${result.email} (rol: ${result.role?.type || 'sin rol'})`);
-            
-            // Generar token de restablecimiento de contraseña
             const crypto = require('crypto');
             const resetPasswordToken = crypto.randomBytes(64).toString('hex');
 
-            // Actualizar el usuario con el token
             await strapi
               .plugin('users-permissions')
               .service('user')
@@ -46,54 +38,64 @@ export default {
                 resetPasswordToken: resetPasswordToken,
               });
 
-            // Enviar email de restablecimiento de contraseña
             await sendPasswordResetEmail(strapi, result, resetPasswordToken);
 
-            strapi.log.info(`Email de restablecimiento enviado al usuario: ${result.email}`);
+            strapi.log.info(`✅ Email de creación de contraseña enviado a: ${result.email}`);
           } catch (error) {
-            strapi.log.error('Error al enviar email de restablecimiento:', error);
+            strapi.log.error('Error al enviar email:', error);
           }
         }
       },
 
       async beforeUpdate(event: any) {
-        // Guardar el estado anterior antes de la actualización
         const { params } = event;
         if (params.where?.id) {
           const previousUser = await strapi.db.query('plugin::users-permissions.user').findOne({
             where: { id: params.where.id }
           });
-          event.params.state = { previousConfirmed: previousUser?.confirmed || false };
+          
+          // Verificar si este update es solo para resetPasswordToken
+          const isOnlyTokenUpdate = params.data?.resetPasswordToken !== undefined && 
+                                    Object.keys(params.data).length === 1;
+          
+          // Si confirmed va a cambiar a true, generar el token ahora
+          const willBeConfirmed = params.data?.confirmed === true;
+          const wasNotConfirmed = !previousUser?.confirmed;
+          
+          if (willBeConfirmed && wasNotConfirmed && !isOnlyTokenUpdate) {
+            const crypto = require('crypto');
+            const resetPasswordToken = crypto.randomBytes(64).toString('hex');
+            
+            // Agregar el token a los datos que se van a actualizar
+            params.data.resetPasswordToken = resetPasswordToken;
+          }
+          
+          event.params.state = { 
+            previousConfirmed: previousUser?.confirmed || false,
+            isInternalUpdate: isOnlyTokenUpdate
+          };
         }
       },
 
       async afterUpdate(event: any) {
-        const { result, params, state } = event;
+        const { result, state } = event;
         
-        const wasConfirmedBefore = state?.previousConfirmed === true;
+        // Salir si es una actualización interna (solo del token)
+        if (state?.isInternalUpdate) {
+          return;
+        }
+        
+        const wasNotConfirmedBefore = !state?.previousConfirmed;
         const isConfirmedNow = result.confirmed === true;
-        const confirmedWasUpdated = params.data?.confirmed !== undefined;
         
-        strapi.log.info(`🔄 afterUpdate - ${result.email}: was=${wasConfirmedBefore}, now=${isConfirmedNow}, updated=${confirmedWasUpdated}`);
-        
-        // Solo enviar email si cambió de false a true
-        if (!wasConfirmedBefore && isConfirmedNow && confirmedWasUpdated) {
+        // Solo enviar email si confirmed cambió de false/undefined a true
+        if (wasNotConfirmedBefore && isConfirmedNow) {
           try {
-            strapi.log.info(`✅ Confirmado por primera vez: ${result.email}`);
+            const tokenToUse = result.resetPasswordToken;
             
-            const crypto = require('crypto');
-            const resetPasswordToken = crypto.randomBytes(64).toString('hex');
-
-            await strapi
-              .plugin('users-permissions')
-              .service('user')
-              .edit(result.id, {
-                resetPasswordToken: resetPasswordToken,
-              });
-
-            await sendPasswordResetEmail(strapi, result, resetPasswordToken);
+            await sendPasswordResetEmail(strapi, result, tokenToUse);
             
-            strapi.log.info(`📧 Email enviado a: ${result.email}`);
+            strapi.log.info(`✅ Email de creación de contraseña enviado a: ${result.email}`);
           } catch (error) {
             strapi.log.error('Error al enviar email:', error);
           }
@@ -162,7 +164,7 @@ async function sendPasswordResetEmail(strapi: Core.Strapi, user: any, resetPassw
       html: emailTemplate,
     });
     
-    strapi.log.info(`Email de restablecimiento enviado a: ${user.email}`);
+    // Email enviado exitosamente
     return true;
   } catch (error) {
     strapi.log.error('Error al enviar email de restablecimiento:', error);
