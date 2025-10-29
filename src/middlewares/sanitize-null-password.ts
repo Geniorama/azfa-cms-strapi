@@ -1,5 +1,15 @@
 export default (config, { strapi }) => {
   return async (ctx, next) => {
+    // Excluir endpoints de autenticación y reset password
+    const isAuthOrReset = ctx.path.includes('/auth/') || 
+                          ctx.path.includes('/api/auth/') ||
+                          ctx.path.includes('reset-password') ||
+                          ctx.path.includes('forgot-password');
+    
+    if (isAuthOrReset) {
+      return await next();
+    }
+    
     // Log para todos los requests de actualización de usuarios
     if (ctx.path.includes('plugin::users-permissions.user') && (ctx.method === 'PUT' || ctx.method === 'PATCH')) {
       strapi.log.info('🔍 Middleware sanitize-null-password ejecutándose:', {
