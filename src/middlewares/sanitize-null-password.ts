@@ -1,10 +1,11 @@
 export default (config, { strapi }) => {
   return async (ctx, next) => {
-    // Excluir endpoints de autenticación y reset password
+    // Excluir endpoints de autenticación, reset password y send-password-email
     const isAuthOrReset = ctx.path.includes('/auth/') || 
                           ctx.path.includes('/api/auth/') ||
                           ctx.path.includes('reset-password') ||
-                          ctx.path.includes('forgot-password');
+                          ctx.path.includes('forgot-password') ||
+                          ctx.path.includes('send-password-email');
     
     if (isAuthOrReset) {
       return await next();
