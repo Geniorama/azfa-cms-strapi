@@ -4,7 +4,7 @@ export default ({ env }) => ({
   app: {
     keys: env.array('APP_KEYS'),
   },
-  // Configuración optimizada para Heroku
+  // Configuración optimizada para entornos desplegados detrás de proxy
   url: env('PUBLIC_URL', `http://${env('HOST', env('NODE_ENV') === 'production' ? '0.0.0.0' : 'localhost')}:${env.int('PORT', 1337)}`),
   proxy: env.bool('IS_PROXIED', env('NODE_ENV') === 'production'),
   cron: {
