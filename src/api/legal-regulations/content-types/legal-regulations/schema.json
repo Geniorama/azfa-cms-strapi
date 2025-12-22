@@ -1,0 +1,49 @@
+{
+  "kind": "singleType",
+  "collectionName": "legal_regulations",
+  "info": {
+    "singularName": "legal-regulations",
+    "pluralName": "legal-regulations-pages",
+    "displayName": "Legal Regulations",
+    "description": "Página principal de regulaciones legales"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "headingSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.heading",
+      "repeatable": false
+    },
+    "SEO": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.seo"
+    },
+    "downloadDocument": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.download",
+      "repeatable": false
+    }
+  }
+}

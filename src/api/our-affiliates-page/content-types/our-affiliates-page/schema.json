@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "our_affiliates_pages",
+  "info": {
+    "singularName": "our-affiliates-page",
+    "pluralName": "our-affiliates-pages",
+    "displayName": "Our Affiliates Page",
+    "description": "Página principal de nuestros afiliados"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "headingSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.heading",
+      "repeatable": false
+    },
+    "SEO": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.seo"
+    }
+  }
+}

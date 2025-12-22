@@ -1379,6 +1379,57 @@ export interface ApiInvestmentStatisticsPageInvestmentStatisticsPage
   };
 }
 
+export interface ApiLegalRegulationsLegalRegulations
+  extends Struct.SingleTypeSchema {
+  collectionName: 'legal_regulations';
+  info: {
+    description: 'P\u00E1gina principal de regulaciones legales';
+    displayName: 'Legal Regulations';
+    pluralName: 'legal-regulations-pages';
+    singularName: 'legal-regulations';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    downloadDocument: Schema.Attribute.Component<'sections.download', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    headingSection: Schema.Attribute.Component<'sections.heading', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::legal-regulations.legal-regulations'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiManagementPortalManagementPortal
   extends Struct.SingleTypeSchema {
   collectionName: 'management_portals';
@@ -1573,6 +1624,51 @@ export interface ApiMapCountryMapCountry extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiOurAffiliatesPageOurAffiliatesPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'our_affiliates_pages';
+  info: {
+    description: 'P\u00E1gina principal de nuestros afiliados';
+    displayName: 'Our Affiliates Page';
+    pluralName: 'our-affiliates-pages';
+    singularName: 'our-affiliates-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    headingSection: Schema.Attribute.Component<'sections.heading', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::our-affiliates-page.our-affiliates-page'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    SEO: Schema.Attribute.Component<'sections.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -2913,9 +3009,11 @@ declare module '@strapi/strapi' {
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::incentive.incentive': ApiIncentiveIncentive;
       'api::investment-statistics-page.investment-statistics-page': ApiInvestmentStatisticsPageInvestmentStatisticsPage;
+      'api::legal-regulations.legal-regulations': ApiLegalRegulationsLegalRegulations;
       'api::management-portal.management-portal': ApiManagementPortalManagementPortal;
       'api::management.management': ApiManagementManagement;
       'api::map-country.map-country': ApiMapCountryMapCountry;
+      'api::our-affiliates-page.our-affiliates-page': ApiOurAffiliatesPageOurAffiliatesPage;
       'api::press-room-category.press-room-category': ApiPressRoomCategoryPressRoomCategory;
       'api::press-room-page.press-room-page': ApiPressRoomPagePressRoomPage;
       'api::press-room.press-room': ApiPressRoomPressRoom;
