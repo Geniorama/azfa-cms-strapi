@@ -804,94 +804,6 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiContentContent extends Struct.CollectionTypeSchema {
-  collectionName: 'contents';
-  info: {
-    displayName: 'Content';
-    pluralName: 'contents';
-    singularName: 'content';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    heading: Schema.Attribute.Component<'sections.heading', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::content.content'
-    >;
-    publishedAt: Schema.Attribute.DateTime;
-    sections: Schema.Attribute.DynamicZone<
-      [
-        'sections.seo',
-        'sections.list',
-        'sections.heading',
-        'sections.download',
-        'sections.call-to-action',
-        'components.gallery',
-        'components.slider',
-        'sections.two-columns-section',
-        'sections.intro',
-        'components.video',
-        'sections.contact',
-        'components.table-list',
-        'components.option',
-        'components.item-list',
-        'components.heading-list',
-        'components.gm-location',
-        'components.counter',
-        'components.button',
-        'sections.slider-testimonials',
-        'sections.services-grid',
-        'sections.news-grid',
-        'sections.events-grid',
-        'sections.counters',
-        'sections.slider',
-      ]
-    > &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    SEO: Schema.Attribute.Component<'sections.seo', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    slug: Schema.Attribute.UID<'title'> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    title: Schema.Attribute.String &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   collectionName: 'events';
   info: {
@@ -3002,7 +2914,6 @@ declare module '@strapi/strapi' {
       'api::affiliate.affiliate': ApiAffiliateAffiliate;
       'api::contact-form.contact-form': ApiContactFormContactForm;
       'api::contact-page.contact-page': ApiContactPageContactPage;
-      'api::content.content': ApiContentContent;
       'api::event.event': ApiEventEvent;
       'api::events-page.events-page': ApiEventsPageEventsPage;
       'api::global-setting.global-setting': ApiGlobalSettingGlobalSetting;
