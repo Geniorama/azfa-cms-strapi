@@ -18,9 +18,11 @@ export default ({ env }) => ({
   // Configuración de timeouts para uploads - aumentados para archivos grandes
   http: {
     serverOptions: {
-      requestTimeout: 600000, // 10 minutos para requests
-      keepAliveTimeout: 650000, // 10 minutos y 50 segundos para keep-alive
-      headersTimeout: 600000, // 10 minutos para headers (debe ser <= requestTimeout)
+      requestTimeout: 600000, // 10 min: necesario para uploads grandes (hasta 500MB)
+      keepAliveTimeout: 65000, // 65s para keep-alive
+      // 60s para recibir las cabeceras completas: mitiga slowloris sin afectar
+      // a la transferencia del cuerpo del archivo (cubierta por requestTimeout).
+      headersTimeout: 60000,
     },
   },
 });

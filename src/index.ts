@@ -27,12 +27,20 @@ export default {
         path: '/api/users/:id/send-password-email',
         handler: async (ctx: any) => {
           try {
+            // --- Autorización: solo administradores autenticados ---
+            // La ruta usa `auth: false` (la estrategia de Content API no entiende
+            // el JWT de admin), por lo que validamos el token de admin manualmente.
+            const adminUser = await verifyAdminRequest(strapi, ctx);
+            if (!adminUser) {
+              return ctx.unauthorized('Se requiere autenticación de administrador');
+            }
+
             const { id } = ctx.params;
-            
+
             if (!id) {
               return ctx.badRequest('ID de usuario requerido');
             }
-            
+
             // Detectar si el ID es un string (documentId) o número (id)
             const isStringId = typeof id === 'string' && !/^\d+$/.test(id);
             
@@ -95,6 +103,54 @@ export default {
     // Los lifecycle hooks han sido desactivados - el envío de email ahora es solo manual mediante el botón
   },
 };
+
+// Helper de autorización: valida el JWT de administrador presente en la cabecera
+// Authorization. Devuelve el usuario admin si es válido y está activo, o null.
+async function verifyAdminRequest(strapi: Core.Strapi, ctx: any) {
+  try {
+    const authHeader: string | undefined = ctx.request?.header?.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return null;
+    }
+
+    const token = authHeader.substring('Bearer '.length).trim();
+    if (!token) {
+      return null;
+    }
+
+    const adminSecret = strapi.config.get('admin.auth.secret') as string;
+    if (!adminSecret) {
+      strapi.log.error('admin.auth.secret no configurado; no se puede validar el token de admin');
+      return null;
+    }
+
+    const jwt = require('jsonwebtoken');
+    let payload: any;
+    try {
+      payload = jwt.verify(token, adminSecret);
+    } catch {
+      return null; // token inválido o expirado
+    }
+
+    if (!payload?.id) {
+      return null;
+    }
+
+    // Confirmar que el admin existe y sigue activo / no bloqueado.
+    const adminUser = await strapi.db.query('admin::user').findOne({
+      where: { id: payload.id },
+    });
+
+    if (!adminUser || adminUser.isActive === false || adminUser.blocked === true) {
+      return null;
+    }
+
+    return adminUser;
+  } catch (error) {
+    strapi.log.error('Error verificando el token de administrador:', error);
+    return null;
+  }
+}
 
 // Función helper para enviar email de restablecimiento de contraseña
 async function sendPasswordResetEmail(strapi: Core.Strapi, user: any, resetPasswordToken: string) {

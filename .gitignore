@@ -139,3 +139,9 @@ build
 
 .git_changelog.sh
 misc_commits.md
+
+############################
+# Security (confidencial)
+############################
+
+INFORME-SEGURIDAD.md

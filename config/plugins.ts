@@ -46,8 +46,9 @@ export default ({env}) => ({
             pass: env('BREVO_SMTP_PASS'),
           },
           tls: {
-            // Deshabilitar verificación de certificado para evitar errores SSL
-            rejectUnauthorized: false,
+            // Verificar el certificado del servidor SMTP (evita MITM sobre las
+            // credenciales). Configurable por si un entorno usa un cert interno.
+            rejectUnauthorized: env.bool('SMTP_TLS_REJECT_UNAUTHORIZED', true),
           },
           // Configuración adicional para mejorar la compatibilidad
           connectionTimeout: 60000, // 60 segundos

@@ -21,9 +21,11 @@ export default [
   {
     name: 'strapi::body',
     config: {
-      formLimit: "500mb", // Límite para formularios - aumentado a 500MB
-      jsonLimit: "500mb", // Límite para JSON - aumentado a 500MB
-      textLimit: "500mb", // Límite para texto - aumentado a 500MB
+      // Límites bajos para payloads no-archivo (mitiga DoS por agotamiento de
+      // memoria). Las cargas de archivos usan formidable.maxFileSize (500MB).
+      formLimit: "2mb",  // Formularios urlencoded
+      jsonLimit: "2mb",  // Cuerpos JSON
+      textLimit: "2mb",  // Cuerpos de texto
       formidable: {
         maxFileSize: 500 * 1024 * 1024, // 500MB límite de archivo - aumentado
         maxFields: 1000, // Máximo número de campos
