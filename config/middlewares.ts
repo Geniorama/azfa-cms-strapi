@@ -8,8 +8,11 @@ export default [
         useDefaults: true,
         directives: {
           'connect-src': ["'self'", 'https:'],
-          'img-src': ["'self'", 'data:', 'blob:', 'https://market-assets.strapi.io', 'https://testazfabucket.s3.us-east-2.amazonaws.com'],
-          'media-src': ["'self'", 'data:', 'blob:', 'https://testazfabucket.s3.us-east-2.amazonaws.com'],
+          // Buckets S3 permitidos: testazfabucket (dev/local, us-east-2) y
+          // amzn-s3-azfa-strapi (producción, us-east-1). Ambos para que dev y
+          // prod carguen media con el mismo middlewares.ts.
+          'img-src': ["'self'", 'data:', 'blob:', 'https://market-assets.strapi.io', 'https://testazfabucket.s3.us-east-2.amazonaws.com', 'https://amzn-s3-azfa-strapi.s3.us-east-1.amazonaws.com'],
+          'media-src': ["'self'", 'data:', 'blob:', 'https://testazfabucket.s3.us-east-2.amazonaws.com', 'https://amzn-s3-azfa-strapi.s3.us-east-1.amazonaws.com'],
           'frame-src': ["'self'"],
         },
       },
