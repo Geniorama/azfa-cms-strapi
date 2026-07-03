@@ -71,6 +71,11 @@ $RECYCLE.BIN/
 *.sqlite
 *.sqlite3
 
+# Database backups (dumps, archives)
+backups/
+*.dump
+*.zip
+
 
 ############################
 # Misc.
@@ -145,3 +150,10 @@ misc_commits.md
 ############################
 
 INFORME-SEGURIDAD.md
+
+############################
+# Informes locales
+############################
+
+reports/
+scripts/
