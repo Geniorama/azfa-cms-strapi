@@ -104,44 +104,63 @@ export default {
   },
 };
 
-// Helper de autorización: valida el JWT de administrador presente en la cabecera
-// Authorization. Devuelve el usuario admin si es válido y está activo, o null.
+// Helper de autorización: valida el access token de administrador presente en la
+// cabecera Authorization. Devuelve el usuario admin si es válido y está activo, o null.
+//
+// A partir de Strapi 5, el panel de admin usa un "session manager": el token que
+// envía getFetchClient() es un access token JWT firmado con una clave interna de
+// sesión (no con admin.auth.secret) y con una sesión asociada que debe estar activa.
+// Por eso replicamos exactamente lo que hace la estrategia oficial `admin` en vez de
+// verificar el JWT manualmente con admin.auth.secret (lo cual siempre fallaba).
 async function verifyAdminRequest(strapi: Core.Strapi, ctx: any) {
   try {
     const authHeader: string | undefined = ctx.request?.header?.authorization;
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (!authHeader) {
       return null;
     }
 
-    const token = authHeader.substring('Bearer '.length).trim();
+    const parts = authHeader.split(/\s+/);
+    if (parts.length !== 2 || parts[0].toLowerCase() !== 'bearer') {
+      return null;
+    }
+
+    const token = parts[1].trim();
     if (!token) {
       return null;
     }
 
-    const adminSecret = strapi.config.get('admin.auth.secret') as string;
-    if (!adminSecret) {
-      strapi.log.error('admin.auth.secret no configurado; no se puede validar el token de admin');
+    // El session manager valida la firma del access token y expone el payload.
+    const manager = (strapi as any).sessionManager;
+    if (!manager) {
+      strapi.log.error('sessionManager no disponible; no se puede validar el token de admin');
       return null;
     }
 
-    const jwt = require('jsonwebtoken');
-    let payload: any;
-    try {
-      payload = jwt.verify(token, adminSecret);
-    } catch {
-      return null; // token inválido o expirado
+    const result = manager('admin').validateAccessToken(token);
+    if (!result?.isValid) {
+      return null; // token inválido, expirado o no es de tipo access
     }
 
-    if (!payload?.id) {
+    // La sesión que respalda al token debe seguir activa (no revocada).
+    const isActive = await manager('admin').isSessionActive(result.payload.sessionId);
+    if (!isActive) {
       return null;
     }
 
-    // Confirmar que el admin existe y sigue activo / no bloqueado.
+    // Normalizar userId igual que la estrategia oficial (puede venir como string).
+    const rawUserId = result.payload.userId;
+    const numericUserId = Number(rawUserId);
+    const userId =
+      Number.isFinite(numericUserId) && String(numericUserId) === String(rawUserId)
+        ? numericUserId
+        : rawUserId;
+
+    // Confirmar que el admin existe y sigue activo.
     const adminUser = await strapi.db.query('admin::user').findOne({
-      where: { id: payload.id },
+      where: { id: userId },
     });
 
-    if (!adminUser || adminUser.isActive === false || adminUser.blocked === true) {
+    if (!adminUser || adminUser.isActive !== true || adminUser.blocked === true) {
       return null;
     }
 
