@@ -19,7 +19,12 @@ set -uo pipefail
 
 RCLONE_CONF="/home/ubuntu/.config/rclone/rclone.conf"
 REMOTO="backup"                       # remoto crypt definido en rclone.conf
-REMOTO_S3="s3-azfa"                   # remoto de solo lectura al bucket
+# Remoto de solo lectura al bucket. El nombre del bucket es OBLIGATORIO aquí:
+# apuntar a `s3-azfa:` a secas hace que rclone intente listar todos los buckets
+# de la cuenta, lo que exige `s3:ListAllMyBuckets`. El usuario `strapi-uploads`
+# no lo tiene —y hace bien: está limitado al mínimo privilegio— así que sin el
+# bucket la sincronización falla con AccessDenied.
+REMOTO_S3="s3-azfa:amzn-s3-azfa-strapi"
 ENV_FILE="/home/ubuntu/azfa-cms-strapi/.env"
 REPO_CMS="/home/ubuntu/azfa-cms-strapi"
 REPO_WEB="${REPO_WEB:-}"              # opcional: ruta al repo del front si está en esta máquina
@@ -104,7 +109,7 @@ if [ "$SEMANAL_HOY" = "1" ]; then
   # se borra o se reemplaza en S3, su versión anterior NO desaparece de Drive,
   # se mueve a medios-historico/<fecha>. Sin esto, un borrado accidental en el
   # CMS se propagaría al respaldo y no habría nada que recuperar.
-  rc sync "$REMOTO_S3:" "$REMOTO:medios" \
+  rc sync "$REMOTO_S3" "$REMOTO:medios" \
     --backup-dir "$REMOTO:medios-historico/$FECHA" \
     --transfers 4 --checkers 8 --stats-one-line --stats 5m \
     || fallo "fallo al sincronizar los medios"

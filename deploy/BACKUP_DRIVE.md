@@ -33,10 +33,17 @@ En **Google Cloud Console**, con un proyecto cualquiera de la organización:
 En **Google Drive**:
 
 1. Crear una **unidad compartida** (no una carpeta normal), p. ej. `AZFA — Respaldos`.
-2. Añadir como miembro la dirección de la cuenta de servicio, con permiso de
-   **Administrador de contenido** o **Colaborador**.
+2. Añadir como miembro la dirección de la cuenta de servicio con el rol
+   **Administrador de contenido**.
 3. Abrirla y copiar el **ID** de la URL:
    `drive.google.com/drive/folders/`**`0AB...`** ← eso es el ID.
+
+> **Tiene que ser Administrador de contenido, no Colaborador.** Colaborador puede añadir
+> ficheros pero **no borrarlos ni moverlos**, y eso rompe dos cosas: la retención —los
+> ficheros viejos no se podrían eliminar y la unidad crecería sin límite— y el historial de
+> medios, que funciona moviendo las versiones anteriores. El síntoma es un
+> `403 insufficientFilePermissions` al borrar. Tampoco hace falta **Administrador**, que
+> además dejaría a la cuenta de servicio gestionar los miembros de la unidad.
 
 > **Por qué una unidad compartida y no una carpeta.** Los ficheros que sube una cuenta de
 > servicio quedan a su nombre, y una cuenta de servicio **no tiene cuota de almacenamiento
@@ -76,6 +83,12 @@ access_key_id = <AWS_ACCESS_KEY_ID del .env>
 secret_access_key = <AWS_SECRET_ACCESS_KEY del .env>
 region = us-east-1
 # Solo se lee de aquí; el respaldo nunca escribe en el bucket.
+#
+# OJO: el script apunta a `s3-azfa:amzn-s3-azfa-strapi`, con el bucket
+# explícito. Usar `s3-azfa:` a secas hace que rclone intente listar TODOS los
+# buckets de la cuenta, lo que exige `s3:ListAllMyBuckets`; el usuario
+# `strapi-uploads` no tiene ese permiso —y hace bien, está al mínimo
+# privilegio— así que la sincronización fallaría con AccessDenied.
 
 [backup]
 type = crypt
