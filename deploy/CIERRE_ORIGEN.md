@@ -158,14 +158,32 @@ dirección.
 **El orden importa. Primero añadir, verificar, y solo después quitar.** Si se borra la regla
 abierta antes de tener puesta la restringida, el sitio se cae en el intervalo.
 
-1. **VPC → Managed prefix lists → Create**. Crear dos listas, `cloudflare-ipv4` (familia
-   IPv4, máximo 30 entradas) y `cloudflare-ipv6` (IPv6, máximo 15), con los rangos de
-   abajo. Es opcional —se pueden meter los 22 rangos como reglas sueltas— pero entonces
-   son 44 reglas por security group y hay que repetirlas cuando Cloudflare cambie.
+1. **VPC → Managed prefix lists → Create**. Una sola lista, `cloudflare-ipv4`, familia
+   IPv4, **Max entries: 20**, con los 15 rangos de abajo.
 2. **EC2 → Security Groups → `sg-0033bcbcd008162b1`** (CMS) **→ Edit inbound rules**.
-   *Add rule*: Type `HTTP`, Source → la lista `cloudflare-ipv4`. Repetir para
-   `cloudflare-ipv6`, y las dos otra vez con Type `HTTPS`. Guardar.
+   *Add rule* dos veces: Type `HTTP` y Type `HTTPS`, en ambas Source → `Custom` → la lista
+   `cloudflare-ipv4`. Guardar.
 3. Lo mismo en **`sg-0b3d187ac9426e139`** (front).
+
+> ### ⚠️ El límite de reglas: por qué `Max entries` importa tanto
+>
+> AWS **no cuenta una prefix list como una regla: cuenta su `Max entries`**. Una lista con
+> `Max entries: 30` referenciada en dos puertos consume **60 reglas**, que es justo el tope
+> por defecto de un security group → *"The maximum number of rules per security group has
+> been reached"*.
+>
+> Con `Max entries: 20` son 20 × 2 = **40 reglas**, que caben con margen incluso mientras
+> conviven las reglas abiertas. Y quedan 5 huecos de holgura sobre los 15 rangos que
+> Cloudflare publica hoy.
+>
+> **Y no se crea lista IPv6.** Ninguna de las dos instancias tiene dirección IPv6
+> —comprobado por metadata, `/ipv6s` devuelve 404— y los dominios no publican AAAA propios,
+> así que Cloudflare solo las alcanza por IPv4. Las reglas IPv6 nunca casarían con nada y
+> gastarían la mitad del presupuesto de reglas.
+>
+> El `Max entries` **solo se puede subir**, nunca bajar. Si una lista se creó con un valor
+> demasiado alto hay que borrarla y rehacerla, y para borrarla no puede estar referenciada
+> en ningún security group.
 4. **Verificar** que todo sigue en pie antes de continuar:
    ```bash
    curl -s -o /dev/null -w '%{http_code}\n' https://asociacionzonasfrancas.org/
@@ -187,7 +205,7 @@ reconfirmarlos, Cloudflare los actualiza de vez en cuando:
 104.24.0.0/14       172.64.0.0/13       131.0.72.0/22
 ```
 
-**IPv6**
+**IPv6** — *no hacen falta, ver el aviso de arriba: las instancias no tienen IPv6*
 
 ```
 2400:cb00::/32      2606:4700::/32      2803:f800::/32      2405:b500::/32

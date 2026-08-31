@@ -38,15 +38,33 @@ if [ "$CUENTA" != "687980258625" ]; then
   exit 1
 fi
 
-# --- 1. Listas de prefijos con los rangos de Cloudflare ----------------------
-# Se usan listas gestionadas en vez de 44 reglas sueltas: cuando Cloudflare
+# --- 1. Lista de prefijos con los rangos de Cloudflare -----------------------
+# Se usa una lista gestionada en vez de 15 reglas sueltas: cuando Cloudflare
 # cambie sus rangos se actualiza la lista una vez y los dos security groups lo
 # heredan, en lugar de editar regla por regla.
+#
+# CUIDADO CON EL LÍMITE DE REGLAS. AWS no cuenta la lista como una regla: cuenta
+# su `max-entries`. Con max-entries=30 en dos puertos son 60 reglas, y el tope
+# por defecto de un security group es 60 -> "maximum number of rules reached".
+# Por eso MAX_V4 se queda en 20: 20 x 2 puertos = 40, más el 22 y las reglas
+# abiertas que aún conviven, cabe de sobra. Deja 5 huecos de margen sobre los
+# 15 rangos actuales; si Cloudflare añadiera más, se sube con
+# `aws ec2 modify-managed-prefix-list --max-entries` (solo se puede subir).
+#
+# NO se crea lista IPv6: ninguna de las dos instancias tiene dirección IPv6
+# (comprobado por metadata: /ipv6s devuelve 404), así que Cloudflare solo puede
+# alcanzarlas por IPv4 y esas reglas nunca casarían con nada.
+MAX_V4=20
+
 say "Descargando los rangos vigentes de Cloudflare"
 V4=$(curl -s --fail https://www.cloudflare.com/ips-v4) || { echo "   ERROR al descargar ips-v4"; exit 1; }
-V6=$(curl -s --fail https://www.cloudflare.com/ips-v6) || { echo "   ERROR al descargar ips-v6"; exit 1; }
-N4=$(echo "$V4" | grep -c .); N6=$(echo "$V6" | grep -c .)
-echo "   IPv4: $N4 rangos · IPv6: $N6 rangos"
+N4=$(echo "$V4" | grep -c .)
+echo "   IPv4: $N4 rangos (max-entries de la lista: $MAX_V4)"
+if [ "$N4" -gt "$MAX_V4" ]; then
+  echo "   ERROR: Cloudflare publica más rangos que el max-entries previsto."
+  echo "   Sube MAX_V4 en este script, vigilando no pasar de 60 reglas por SG."
+  exit 1
+fi
 
 crear_lista() {
   local nombre="$1" familia="$2" rangos="$3" maximo="$4"
@@ -70,11 +88,9 @@ crear_lista() {
     --query 'PrefixList.PrefixListId' --output text
 }
 
-say "Creando las listas de prefijos"
-PL4=$(crear_lista "cloudflare-ipv4" IPv4 "$V4" 30)
-PL6=$(crear_lista "cloudflare-ipv6" IPv6 "$V6" 15)
+say "Creando la lista de prefijos"
+PL4=$(crear_lista "cloudflare-ipv4" IPv4 "$V4" "$MAX_V4")
 echo "   IPv4 -> $PL4"
-echo "   IPv6 -> $PL6"
 
 # --- 2. Añadir las reglas nuevas ANTES de quitar las viejas ------------------
 # Este orden importa: durante unos minutos conviven la regla abierta y la
@@ -82,13 +98,11 @@ echo "   IPv6 -> $PL6"
 say "Añadiendo reglas que permiten solo Cloudflare"
 for SG in "$SG_CMS" "$SG_WEB"; do
   for PUERTO in 80 443; do
-    for PL in "$PL4" "$PL6"; do
-      echo "   $SG · puerto $PUERTO · $PL"
-      run aws ec2 authorize-security-group-ingress --region "$REGION" \
-        --group-id "$SG" \
-        --ip-permissions "IpProtocol=tcp,FromPort=$PUERTO,ToPort=$PUERTO,PrefixListIds=[{PrefixListId=$PL,Description=Cloudflare}]" \
-        >/dev/null 2>&1 || echo "      (ya existía o falló, revisar)"
-    done
+    echo "   $SG · puerto $PUERTO · $PL4"
+    run aws ec2 authorize-security-group-ingress --region "$REGION" \
+      --group-id "$SG" \
+      --ip-permissions "IpProtocol=tcp,FromPort=$PUERTO,ToPort=$PUERTO,PrefixListIds=[{PrefixListId=$PL4,Description=Cloudflare}]" \
+      >/dev/null 2>&1 || echo "      (ya existía o falló, revisar)"
   done
 done
 
