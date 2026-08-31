@@ -1,11 +1,20 @@
 export default ({ env }) => ({
-  host: env('HOST', env('NODE_ENV') === 'production' ? '0.0.0.0' : 'localhost'),
+  // Escuchar SOLO en loopback: en producción Strapi vive detrás del Nginx de la
+  // misma instancia, que hace proxy a 127.0.0.1:1337, así que no hay motivo
+  // para exponer el puerto en todas las interfaces. Antes el defecto era
+  // `0.0.0.0`, y aunque el security group filtra el 1337 desde Internet, eso
+  // dejaba la protección en una sola capa.
+  //
+  // OJO: el `.env` de la EC2 fija `HOST=0.0.0.0` y la variable gana sobre este
+  // defecto. Para que el cambio surta efecto hay que ponerlo también allí y
+  // reiniciar Strapi.
+  host: env('HOST', '127.0.0.1'),
   port: env.int('PORT', 1337),
   app: {
     keys: env.array('APP_KEYS'),
   },
   // Configuración optimizada para entornos desplegados detrás de proxy
-  url: env('PUBLIC_URL', `http://${env('HOST', env('NODE_ENV') === 'production' ? '0.0.0.0' : 'localhost')}:${env.int('PORT', 1337)}`),
+  url: env('PUBLIC_URL', `http://${env('HOST', '127.0.0.1')}:${env.int('PORT', 1337)}`),
   proxy: env.bool('IS_PROXIED', env('NODE_ENV') === 'production'),
   cron: {
     enabled: env.bool('CRON_ENABLED', false),
