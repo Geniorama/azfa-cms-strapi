@@ -154,6 +154,29 @@ salida por correo.
 
 ---
 
+## El documento que vive en la propia unidad
+
+En la raíz de `AZFA-Backups/` hay un **`00-LEEME-RESTAURACION.md`** con las instrucciones
+de restauración y la periodicidad, escrito para alguien que abre Drive sin más contexto.
+
+Está subido por el remoto **`drive-azfa:`**, no por `backup:`, así que **queda sin cifrar a
+propósito**: un manual de restauración cifrado sería inútil justo el día que hace falta.
+Por eso tampoco contiene la contraseña ni ningún otro secreto — solo indica que está en el
+gestor de contraseñas del equipo.
+
+El prefijo `00-` lo mantiene arriba del todo en el listado. Ni el remoto cifrado lo ve —no
+es un fichero suyo— ni la retención lo toca, porque esta solo actúa sobre las subcarpetas.
+
+Si cambia la periodicidad, la retención o el procedimiento, hay que actualizarlo también
+ahí:
+
+```bash
+rclone --config ~/.config/rclone/rclone.conf \
+  copy deploy/LEEME-RESTAURACION.md drive-azfa:AZFA-Backups/ \
+  --stats 0
+# (renombrando el fichero local a 00-LEEME-RESTAURACION.md antes de subirlo)
+```
+
 ## Restaurar
 
 ```bash
