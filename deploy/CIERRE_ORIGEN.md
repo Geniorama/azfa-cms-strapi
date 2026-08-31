@@ -14,7 +14,7 @@ cifrar incluido `/admin`.
 | 1. TLS de origen en el nginx del CMS | CMS | ✅ **Hecho** — commit `3539c85` |
 | 2. Permisos de la clave privada | CMS | ✅ **Hecho** — 644 → 600 |
 | 3. Pasar el subdominio a Full (strict) | Cloudflare | ✅ **Hecho y verificado** el 31 ago |
-| 4. Redirección 80 → 443 en el CMS | CMS | 🔶 Ya se puede aplicar |
+| 4. Redirección 80 → 443 en el CMS | CMS | ✅ **Hecho y verificado** el 31 ago |
 | 5. Restringir el security group | AWS | ⛔ Requiere la consola |
 | 6. Authenticated Origin Pulls | Cloudflare + CMS | ⛔ Requiere el panel |
 
@@ -82,20 +82,27 @@ conexiones al origen  7 establecidas, TODAS en el 443 y ninguna en el 80
 
 Esa última línea es la que confirma que el edge ya habla cifrado con el origen.
 
-## Paso 4 — Redirigir 80 → 443 en el CMS
+## Paso 4 — Redirigir 80 → 443 en el CMS ✅ hecho
 
-Ya se puede aplicar: el paso 3 está confirmado. En `deploy/nginx/cms.conf` hay una línea
-comentada dentro del bloque `:80`:
+El bloque `:80` ya no sirve la aplicación: solo redirige. Verificado tras la recarga:
 
-```nginx
-# return 301 https://$host$request_uri;
+```
+http://34.228.145.249/_health   (Host: cms…)  → 301 a https://cms…/_health
+http://34.228.145.249/admin     (Host: cms…)  → 301 a https://cms…/admin
+https://34.228.145.249/_health  (Host: cms…)  → 204
+
+CMS por Cloudflare    /_health 204 · /api/affiliates 200 · /admin 200
+sitio público         5 rutas en 200 · API del front en 200
+conexiones al origen  7, todas en 443
+error.log de nginx    vacío
 ```
 
-Descomentarla, copiar el fichero a `/etc/nginx/sites-available/azfacms`, y:
+**El panel de administración ya no es alcanzable en claro por ningún camino.**
 
-```bash
-sudo nginx -t && sudo systemctl reload nginx
-```
+Si alguna vez hubiera que volver a Flexible, hay que **comentar la redirección antes** o el
+CMS entra en bucle. Copias de seguridad en la instancia:
+`azfacms.bak-20260831` (config original, sin TLS) y `azfacms.bak-tls-20260831` (con TLS y
+el 80 aún sirviendo).
 
 ## Paso 5 — Restringir el security group
 
