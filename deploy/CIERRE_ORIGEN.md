@@ -106,14 +106,77 @@ el 80 aún sirviendo).
 
 ## Paso 5 — Restringir el security group
 
+### Antes: se comprobó que no se rompe nada
+
+Se revisaron los logs de acceso de las dos instancias buscando peticiones cuya IP de
+cliente **no** esté en los rangos de Cloudflare. Resultado:
+
+| | Peticiones totales | Ajenas a Cloudflare | Qué eran |
+|---|---|---|---|
+| CMS | 1 105 | 468 | Escaneo: 350 desde 4 IPs de Azure **sin user-agent**, buscando backdoors de WordPress; el resto pedía `/.env`, `/x.php`, `/wp-admin/…`. Todas 404 |
+| Front | 7 021 | 375 | Lo mismo: 13 peticiones a `/.env`, 2 a `/.git/config`, sondas de WordPress |
+
+Las únicas peticiones ajenas que **no** eran escaneo resultaron ser las verificaciones de
+esta misma sesión (`curl/8.2.1` desde una IP colombiana).
+
+Y el despliegue tampoco se ve afectado: el `POST /api/revalidate` del workflow de GitHub
+Actions va contra `http://127.0.0.1:3000` **desde dentro de la instancia**, por el túnel
+SSH, así que no atraviesa el security group.
+
+**Conclusión: no hay tráfico legítimo entrando por 80/443 fuera de Cloudflare.** Cerrar es
+seguro. Y esas 13 peticiones a `/.env` son buen recordatorio de por qué conviene.
+
+### Datos de las instancias
+
+| | Instancia | Security group a tocar | Otros SG | AZ |
+|---|---|---|---|---|
+| CMS | `i-04addd99c5857bc23` | `launch-wizard-1` · `sg-0033bcbcd008162b1` | `ec2-rds-1` · `sg-064756a879b28cbcf` — **no tocar**, es el de RDS | us-east-1b |
+| Front | `i-0a16361b318e8c6d8` | `launch-wizard-2` · `sg-0b3d187ac9426e139` | — | us-east-1d |
+
+Ambas en la VPC `vpc-0075c8d937161d625`.
+
+### La forma rápida: el script
+
+```bash
+AWS_PROFILE=azfa bash deploy/cerrar-security-groups.sh            # simulación
+AWS_PROFILE=azfa APLICAR=1 bash deploy/cerrar-security-groups.sh  # de verdad
+```
+
+Comprueba primero que las credenciales son de la cuenta **687980258625** y aborta si no.
+Usa **listas de prefijos gestionadas** en vez de 44 reglas sueltas: cuando Cloudflare
+cambie sus rangos se actualiza la lista una vez y los dos security groups lo heredan.
+
+El script **añade las reglas nuevas antes de quitar las abiertas**, y se detiene en medio
+para que verifiques. Ese orden es lo que evita el corte.
+
+### La forma manual, por consola
+
 Es **el cambio de mayor impacto y el más barato**: mientras el origen acepte conexiones de
 cualquier IP, el WAF y el rate limiting de Cloudflare son opcionales para quien conozca la
 dirección.
 
-En la consola de AWS, en el security group de **cada una de las dos instancias**, sustituir
-las reglas de entrada de los puertos 80 y 443 desde `0.0.0.0/0` por estos rangos
-(descargados de `cloudflare.com/ips-v4` y `ips-v6` el 31 ago 2026 — conviene reconfirmarlos,
-Cloudflare los actualiza de vez en cuando):
+**El orden importa. Primero añadir, verificar, y solo después quitar.** Si se borra la regla
+abierta antes de tener puesta la restringida, el sitio se cae en el intervalo.
+
+1. **VPC → Managed prefix lists → Create**. Crear dos listas, `cloudflare-ipv4` (familia
+   IPv4, máximo 30 entradas) y `cloudflare-ipv6` (IPv6, máximo 15), con los rangos de
+   abajo. Es opcional —se pueden meter los 22 rangos como reglas sueltas— pero entonces
+   son 44 reglas por security group y hay que repetirlas cuando Cloudflare cambie.
+2. **EC2 → Security Groups → `sg-0033bcbcd008162b1`** (CMS) **→ Edit inbound rules**.
+   *Add rule*: Type `HTTP`, Source → la lista `cloudflare-ipv4`. Repetir para
+   `cloudflare-ipv6`, y las dos otra vez con Type `HTTPS`. Guardar.
+3. Lo mismo en **`sg-0b3d187ac9426e139`** (front).
+4. **Verificar** que todo sigue en pie antes de continuar:
+   ```bash
+   curl -s -o /dev/null -w '%{http_code}\n' https://asociacionzonasfrancas.org/
+   curl -s -o /dev/null -w '%{http_code}\n' https://cms.asociacionzonasfrancas.org/_health
+   ```
+   Deben dar `200` y `204`.
+5. Solo entonces, en los dos security groups, **borrar las reglas de 80 y 443 con origen
+   `0.0.0.0/0` y `::/0`**.
+
+Los rangos, descargados el 31 ago 2026 de `cloudflare.com/ips-v4` y `ips-v6` — conviene
+reconfirmarlos, Cloudflare los actualiza de vez en cuando:
 
 **IPv4**
 
@@ -131,20 +194,40 @@ Cloudflare los actualiza de vez en cuando):
 2405:8100::/32      2a06:98c0::/29      2c0f:f248::/32
 ```
 
-Dos avisos:
+### Tres avisos
 
 - **No tocar la regla del puerto 22**, o se pierde el acceso SSH. Los runners de GitHub
-  Actions también necesitan el 22 abierto para desplegar el front.
-- Tras aplicarlo, el subdominio `origin.asociacionzonasfrancas.org` —el alias que se usó
-  para probar el front antes del corte de DNS— seguirá funcionando, porque también pasa por
-  Cloudflare.
+  Actions también lo necesitan para desplegar el front.
+- **No tocar `ec2-rds-1` (`sg-064756a879b28cbcf`)** en la instancia del CMS: es el que
+  permite la conexión a la base de datos.
+- El subdominio `origin.asociacionzonasfrancas.org` —el alias que se usó para probar el
+  front antes del corte de DNS— seguirá funcionando, porque también pasa por Cloudflare.
 
-Comprobación de que ha surtido efecto, desde una máquina cualquiera:
+### Verificación
+
+Lo que **debe seguir funcionando**:
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' https://asociacionzonasfrancas.org/          # 200
+curl -s -o /dev/null -w '%{http_code}\n' https://cms.asociacionzonasfrancas.org/_health  # 204
+curl -s -o /dev/null -w '%{http_code}\n' https://cms.asociacionzonasfrancas.org/admin    # 200
+```
+
+Lo que **debe dejar de funcionar** — esta es la prueba de que el cierre surtió efecto:
 
 ```bash
 curl -m 10 -H "Host: cms.asociacionzonasfrancas.org" http://34.228.145.249/_health
-# debe agotar el tiempo de espera, no responder 204
+curl -km 10 -H "Host: cms.asociacionzonasfrancas.org" https://34.228.145.249/_health
+curl -km 10 -H "Host: asociacionzonasfrancas.org"    https://52.22.39.33/
+# los tres deben AGOTAR EL TIEMPO DE ESPERA, no responder
 ```
+
+Ojo con el matiz: si responden «connection refused» en vez de agotar el tiempo, el
+security group no está filtrando —simplemente no hay nada escuchando—. Lo que confirma el
+filtrado es el **timeout**.
+
+Y comprobar que el despliegue sigue vivo: lanzar el workflow de GitHub Actions
+manualmente, o simplemente `ssh` a las dos instancias.
 
 ## Paso 6 — Authenticated Origin Pulls
 
