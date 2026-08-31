@@ -13,10 +13,34 @@ cifrar incluido `/admin`.
 |---|---|---|
 | 1. TLS de origen en el nginx del CMS | CMS | ✅ **Hecho** — commit `3539c85` |
 | 2. Permisos de la clave privada | CMS | ✅ **Hecho** — 644 → 600 |
-| 3. Pasar el subdominio a Full (strict) | Cloudflare | ⛔ Requiere el panel |
-| 4. Redirección 80 → 443 en el CMS | CMS | ⛔ Después del paso 3 |
+| 3. Pasar el subdominio a Full (strict) | Cloudflare | ✅ **Hecho y verificado** el 31 ago |
+| 4. Redirección 80 → 443 en el CMS | CMS | 🔶 Ya se puede aplicar |
 | 5. Restringir el security group | AWS | ⛔ Requiere la consola |
 | 6. Authenticated Origin Pulls | Cloudflare + CMS | ⛔ Requiere el panel |
+
+---
+
+## ⚠️ Lección del paso 3: había DOS certificados y uno no servía
+
+Al activar Full (strict), **el CMS devolvió 526** (Cloudflare no pudo validar el
+certificado de origen) durante unos minutos, hasta que se sustituyó el certificado.
+
+La instancia del CMS tenía un Origin CA emitido el **15 oct 2025**, y el front otro
+distinto emitido el **16 jul 2026**. Ambos son comodines válidos para el mismo dominio y
+ambos "parecían" correctos: fechas en vigor, SAN correcto, clave coincidente. Pero
+Cloudflare **solo acepta el de julio**. Lo más probable es que el de octubre quedara
+revocado al emitirse el nuevo — Cloudflare comprueba revocación en Full (strict), y una
+inspección local con `openssl` no lo detecta.
+
+**Cómo se resolvió:** copiar el par cert+clave del front —que estaba demostrando ser válido,
+porque el sitio público funcionaba bajo Full (strict)— a la EC2 del CMS, y recargar nginx.
+El par antiguo quedó como `origin.{crt,key}.bak-20260831` por si hiciera falta.
+
+**Para la próxima:** que un Origin CA se vea bien con `openssl x509` no significa que
+Cloudflare lo acepte. Si aparece un 526, la primera sospecha debe ser el certificado
+revocado, y la comprobación más rápida es **usar el mismo par que ya funciona en otro
+origen de la misma zona**. Y conviene activar Full (strict) en una ventana de baja
+actividad, con alguien mirando.
 
 El front (`52.22.39.33`) ya tenía su Origin CA y escuchaba en 443; solo le faltan los
 pasos 5 y 6.
@@ -45,21 +69,22 @@ CMS en un bucle de redirecciones.
 
 ---
 
-## Paso 3 — Cloudflare a Full (strict)
+## Paso 3 — Cloudflare a Full (strict) ✅ hecho
 
-En el panel de Cloudflare, zona `asociacionzonasfrancas.org`:
+Verificado el 31 de agosto tras sustituir el certificado:
 
-1. Buscar la **Configuration Rule** que fuerza *Flexible* para
-   `cms.asociacionzonasfrancas.org` y **eliminarla**. Se creó en julio porque el origen
-   del CMS no tenía certificado; ya lo tiene.
-2. Confirmar que **SSL/TLS → Overview** está en **Full (strict)** para toda la zona.
+```
+CMS por Cloudflare    /_health 204 · /api/affiliates 200 · /admin 200
+API que usa el front  /api/press-rooms 200 · /api/homepage 200 · /api/global-setting 200
+sitio público         5 rutas, todas 200, entre 0,29 y 0,57 s
+conexiones al origen  7 establecidas, TODAS en el 443 y ninguna en el 80
+```
 
-Verificación inmediata: `/admin` y la API deben seguir respondiendo, y en las cabeceras de
-respuesta el tramo ya va cifrado de extremo a extremo.
+Esa última línea es la que confirma que el edge ya habla cifrado con el origen.
 
 ## Paso 4 — Redirigir 80 → 443 en el CMS
 
-**Solo después de que el paso 3 esté confirmado.** En `deploy/nginx/cms.conf` hay una línea
+Ya se puede aplicar: el paso 3 está confirmado. En `deploy/nginx/cms.conf` hay una línea
 comentada dentro del bloque `:80`:
 
 ```nginx
