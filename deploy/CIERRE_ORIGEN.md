@@ -15,7 +15,7 @@ cifrar incluido `/admin`.
 | 2. Permisos de la clave privada | CMS | ✅ **Hecho** — 644 → 600 |
 | 3. Pasar el subdominio a Full (strict) | Cloudflare | ✅ **Hecho y verificado** el 31 ago |
 | 4. Redirección 80 → 443 en el CMS | CMS | ✅ **Hecho y verificado** el 31 ago |
-| 5. Restringir el security group | AWS | ⛔ Requiere la consola |
+| 5. Restringir el security group | AWS | ✅ **Hecho y verificado** el 31 ago |
 | 6. Authenticated Origin Pulls | Cloudflare + CMS | ⛔ Requiere el panel |
 
 ---
@@ -104,7 +104,36 @@ CMS entra en bucle. Copias de seguridad en la instancia:
 `azfacms.bak-20260831` (config original, sin TLS) y `azfacms.bak-tls-20260831` (con TLS y
 el 80 aún sirviendo).
 
-## Paso 5 — Restringir el security group
+## Paso 5 — Restringir el security group ✅ hecho
+
+Aplicado el 31 de agosto con una única prefix list IPv4 (`Max entries: 20`) y dos reglas
+por security group. Verificado desde fuera:
+
+```
+DEBE SEGUIR FUNCIONANDO
+  asociacionzonasfrancas.org/                        200   0,57 s
+  asociacionzonasfrancas.org/sala-de-prensa/noticias 200   0,59 s
+  asociacionzonasfrancas.org/nuestros-afiliados      200   0,28 s
+  cms…/_health                                       204   0,33 s
+  cms…/admin                                         200   0,33 s
+  cms…/api/affiliates                                200   0,27 s
+  origin.asociacionzonasfrancas.org/                 200
+
+DEBE AGOTAR EL TIEMPO  (la prueba de que filtra)
+  34.228.145.249:80    TIMEOUT
+  34.228.145.249:443   TIMEOUT
+  52.22.39.33:80       TIMEOUT
+  52.22.39.33:443      TIMEOUT
+
+LO QUE NO DEBÍA ROMPERSE
+  SSH al CMS y al front                    OK
+  Strapi                                   online, 55 días sin reiniciar
+  Conexión a RDS (sg ec2-rds-1 intacto)    OK
+  POST /api/revalidate                     401 sin token, o sea responde y valida
+```
+
+**El origen ya no es alcanzable por IP.** El WAF, el rate limiting y las reglas de acceso
+de Cloudflare dejan de ser opcionales.
 
 ### Antes: se comprobó que no se rompe nada
 
