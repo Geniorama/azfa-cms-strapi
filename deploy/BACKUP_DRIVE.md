@@ -1,5 +1,9 @@
 # Respaldo automático a Google Drive
 
+> **Estado: en funcionamiento desde el 31 de agosto de 2026.**
+> Instancia del CMS (`i-04addd99c5857bc23`) → unidad compartida `EKON7-AZFA`, carpeta
+> `AZFA-Backups/`. Cron a diario a las 03:15 UTC, con comprobación los lunes.
+
 Sube a una unidad compartida de Drive, **cifrado**, desde la instancia del CMS:
 
 | Qué | Cuándo | Retención |
@@ -114,7 +118,12 @@ crontab -e
 # Respaldo a Drive, 03:15 UTC (22:15 en Colombia): tráfico mínimo.
 # El script decide solo si toca la parte semanal (domingos).
 15 3 * * * /bin/bash /home/ubuntu/azfa-cms-strapi/deploy/backup-drive.sh >> /var/log/azfa-backup.log 2>&1
+
+# Comprobación semanal: avisa si el respaldo dejó de ejecutarse o de ser válido.
+30 8 * * 1 /bin/bash /home/ubuntu/azfa-cms-strapi/deploy/backup-verificar.sh >> /var/log/azfa-backup.log 2>&1
 ```
+
+> El servidor está en **UTC**, así que 03:15 UTC son las 22:15 en Colombia.
 
 Primera ejecución manual, forzando también la parte semanal:
 
