@@ -16,11 +16,11 @@
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.52.2",
-    "@strapi/plugin-users-permissions": "5.52.2",
-    "@strapi/provider-email-nodemailer": "^5.52.2",
-    "@strapi/provider-upload-aws-s3": "^5.52.2",
-    "@strapi/strapi": "5.52.2",
+    "@strapi/plugin-cloud": "5.57.0",
+    "@strapi/plugin-users-permissions": "5.57.0",
+    "@strapi/provider-email-nodemailer": "^5.57.0",
+    "@strapi/provider-upload-aws-s3": "^5.57.0",
+    "@strapi/strapi": "5.57.0",
     "dotenv": "^17.2.1",
     "esbuild": "^0.21.5",
     "pg": "8.8.0",
@@ -44,5 +44,9 @@
   "strapi": {
     "uuid": "547d380b-8722-4057-933a-a57917912980",
     "installId": "c5fb9ada6836bba34151c8114692513eb6d7d324c00756ded8ede60fac0ba325"
+  },
+  "overrides": {
+    "axios": "^1.20.0",
+    "sharp": "^0.35.5"
   }
 }
